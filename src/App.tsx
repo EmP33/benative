@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+// Components
+import HomePage from "./pages/HomePage";
+// Styles
+import GlobalStyle from "./App.styles";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: "#5b52d7" },
+    secondary: { main: "#26272a" },
+    success: { main: "#27ae60" },
+    info: { main: "#1d1c1e" },
+  },
+  typography: {
+    fontFamily: ["IBM Plex Sans", "lato", "Roboto"].join(","),
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <HomePage />
+    </ThemeProvider>
   );
 }
 
