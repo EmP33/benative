@@ -14,9 +14,11 @@ const BenefitSection: React.FC<Props> = ({
   subtitle,
   description,
 }) => {
+  // RTL - Right=Content | Left=Image
+  // LTR - Left=Content | Right=Image
   return (
-    <Grid container sx={{ p: 5, margin: "0 auto" }}>
-      {type === "rtl" ? (
+    <Grid container sx={{ p: { xs: 1, sm: 5 }, margin: "0 auto" }}>
+      {type === "ltr" ? (
         <Grid
           item
           xs={12}
@@ -25,6 +27,7 @@ const BenefitSection: React.FC<Props> = ({
             display: "grid",
             rowGap: 2,
             alignContent: "center",
+            mb: 5,
           }}
         >
           <Typography
@@ -47,6 +50,7 @@ const BenefitSection: React.FC<Props> = ({
         <Grid
           xs={12}
           md={6}
+          item
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -57,15 +61,16 @@ const BenefitSection: React.FC<Props> = ({
             sx={{
               width: 300,
               height: 400,
-              background: "var(--color-secondary)",
+              background: "var(--color-base-light)",
             }}
           ></Box>
         </Grid>
       )}
-      {type === "rtl" ? (
+      {type === "ltr" ? (
         <Grid
           xs={12}
           md={6}
+          item
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -76,7 +81,7 @@ const BenefitSection: React.FC<Props> = ({
             sx={{
               width: 300,
               height: 400,
-              background: "var(--color-secondary)",
+              background: "var(--color-base-light)",
             }}
           ></Box>
         </Grid>

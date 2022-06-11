@@ -8,7 +8,7 @@ const Footer = () => {
       sx={{
         width: "100%",
         height: "40vh",
-        background: "var(--color-secondary)",
+        background: "var(--color-base-light)",
         p: 5,
       }}
     ></Box>

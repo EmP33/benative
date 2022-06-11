@@ -14,9 +14,9 @@ const GlobalStyle = createGlobalStyle`
         --color-tertiary:#27ae60;
         --color-tertiary-dark:#1f8b4d;
 
-        --color-base-light:#232224;
-        --color-base:#1d1c1e;
-        --color-base-dark:#171618;
+        --color-base-light:#22222f;
+        --color-base:#1C1C27;
+        --color-base-dark:#16161f;
 
         --color-white: #fff;
     }
