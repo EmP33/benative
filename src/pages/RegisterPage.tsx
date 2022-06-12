@@ -27,24 +27,24 @@ const RegisterPage = () => {
       !passwordRef.current ||
       !passwordConfirmationRef.current
     ) {
-      return dispatch(uiActions.setError("Something went wrong"));
+      return dispatch(uiActions.setError("Coś poszło nie tak.."));
     }
     if (
       emailRef.current.value === "" ||
       passwordRef.current.value === "" ||
       passwordConfirmationRef.current.value === ""
     ) {
-      return dispatch(uiActions.setError("Any field cannot be blank"));
+      return dispatch(uiActions.setError("Żadne pole nie może być puste"));
     }
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
-      return dispatch(uiActions.setError("Passwords are not the same"));
+      return dispatch(uiActions.setError("Hasła nie są takie same"));
     }
     if (
       passwordRef.current.value.length < 8 ||
       passwordConfirmationRef.current.value.length < 8
     ) {
       return dispatch(
-        uiActions.setError("Password length must be greater or equal 8")
+        uiActions.setError("Hasło musi być dłuższe lub równe 8 liter")
       );
     }
     // Creating User
@@ -70,12 +70,12 @@ const RegisterPage = () => {
         <Typography variant="h4" sx={{ mt: 4 }}>
           Stwórz konto
         </Typography>
-        <form onSubmit={createUserHandler}>
+        <form onSubmit={createUserHandler} autoComplete="off" autoSave="off">
           <Grid container spacing={2} sx={{ mt: 4 }}>
             <Grid item xs={12}>
               <CSSTextField
-                error={!errorMessage.includes("Password") && isError}
-                helperText={!errorMessage.includes("Password") && errorMessage}
+                error={!errorMessage.includes("Hasło") && isError}
+                helperText={!errorMessage.includes("Hasło") && errorMessage}
                 onFocus={() => dispatch(uiActions.removeError())}
                 type="email"
                 inputRef={emailRef}

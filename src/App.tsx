@@ -55,7 +55,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {!user && <LoadingPage />}
+      {user === undefined && <LoadingPage />}
       <Container
         disableGutters
         maxWidth="lg"
@@ -68,8 +68,14 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/register"
+            element={user ? <Navigate to="/dashboard" /> : <RegisterPage />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/dashboard" /> : <LoginPage />}
+          />
           <Route
             path="/dashboard"
             element={!user ? <Navigate to="/" /> : <DashboardPage />}
