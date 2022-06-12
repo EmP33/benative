@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AOS from "aos";
+import "aos/dist/aos.css";
 // Components
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -8,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import { Container } from "@mui/material";
 // Styles
 import GlobalStyle from "./App.styles";
+import DashboardPage from "./pages/DashboardPage";
 
 const theme = createTheme({
   palette: {
@@ -21,7 +24,12 @@ const theme = createTheme({
   },
 });
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 500,
+    });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -38,10 +46,11 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

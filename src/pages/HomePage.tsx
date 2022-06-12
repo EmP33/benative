@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 // Images
@@ -70,13 +71,13 @@ const HomePage = () => {
         type="ltr"
         title="Miły przyjemny interface"
         subtitle="Wzorowy dobór kolorów i komponentów"
-        description="Wygląd naszej strony pozwoli Tobi w przyjemny sposób z niej korzystaj, łatwa nawigacja po stronie oraz miłe dla oka kolory."
+        description="Wygląd naszej strony pozwoli Tobie w przyjemny sposób z niej korzystać, łatwa nawigacja po stronie oraz miłe dla oka kolory."
       />
       <BenefitSection
         type={phone ? "ltr" : "rtl"}
         title="Szeroki wybór trybów nauki"
         subtitle="Wybierz tryb jaki tylko ci odpowiada"
-        description="BeNative oferuje ci dziesiątki trybów nauki: możesz słuchać opowiadać, czytać wiersze, uczyć się słówek i wiele wiele więcej."
+        description="BeNative oferuje ci dziesiątki trybów nauki: możesz słuchać opowiadań, czytać wiersze, uczyć się słówek i wiele wiele więcej."
       />
       <BenefitSection
         type="ltr"

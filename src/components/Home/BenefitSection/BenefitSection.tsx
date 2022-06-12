@@ -17,7 +17,11 @@ const BenefitSection: React.FC<Props> = ({
   // RTL - Right=Content | Left=Image
   // LTR - Left=Content | Right=Image
   return (
-    <Grid container sx={{ p: { xs: 1, sm: 5 }, margin: "0 auto" }}>
+    <Grid
+      data-aos={type === "ltr" ? "fade-left" : "fade-right"}
+      container
+      sx={{ p: { xs: 1, sm: 5 }, margin: "0 auto" }}
+    >
       {type === "ltr" ? (
         <Grid
           item

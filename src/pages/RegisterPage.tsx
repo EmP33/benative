@@ -44,6 +44,7 @@ const RegisterPage = () => {
               label="Create Password"
               variant="outlined"
               color="success"
+              type="password"
               sx={{ width: "100%", input: { color: "#86868f" } }}
             />
           </Grid>
@@ -53,6 +54,7 @@ const RegisterPage = () => {
               label="Confirm Password"
               variant="outlined"
               color="success"
+              type="password"
               sx={{ width: "100%", input: { color: "#86868f" } }}
             />
           </Grid>

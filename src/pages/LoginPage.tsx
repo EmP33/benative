@@ -40,6 +40,7 @@ const LoginPage = () => {
           </Grid>
           <Grid item xs={12}>
             <CSSTextField
+              type="password"
               id="outlined-basic"
               label="Create Password"
               variant="outlined"
