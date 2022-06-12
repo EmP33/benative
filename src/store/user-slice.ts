@@ -50,7 +50,6 @@ export const createUser = (email: string, password: string) => {
 };
 
 export const loginUser = (email: string, password: string) => {
-  console.log("working");
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {
       signInWithEmailAndPassword(auth, email, password)
