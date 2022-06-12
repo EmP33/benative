@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
         --color-white: #fff;
     }
+    
 
     body {
         margin:0;

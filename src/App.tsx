@@ -18,6 +18,7 @@ import DashboardPage from "./pages/DashboardPage";
 import { Container } from "@mui/material";
 // Styles
 import GlobalStyle from "./App.styles";
+import LoadingPage from "./pages/LoadingPage";
 
 const theme = createTheme({
   palette: {
@@ -50,12 +51,11 @@ const App = () => {
       duration: 500,
     });
   }, []);
-  if (user === null) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      {!user && <LoadingPage />}
       <Container
         disableGutters
         maxWidth="lg"
@@ -63,6 +63,7 @@ const App = () => {
           background: "var(--color-base)",
           minHeight: "100vh",
           width: "100%",
+          overflow: "hidden",
         }}
       >
         <Routes>
