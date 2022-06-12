@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+// Redux Store
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
+import { createUser } from "../store/user-slice";
+import { uiActions } from "../store/ui-slice";
 // Components
 import { Grid, Typography, Button } from "@mui/material";
 // Icons
@@ -8,6 +12,44 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { GoBackButton, CSSTextField } from "./Components.style";
 
 const RegisterPage = () => {
+  const dispatch = useAppDispatch();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+  const isError = useAppSelector((state) => state.ui.isError);
+  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
+
+  const createUserHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    // User create validation
+    if (
+      !emailRef.current ||
+      !passwordRef.current ||
+      !passwordConfirmationRef.current
+    ) {
+      return dispatch(uiActions.setError("Something went wrong"));
+    }
+    if (
+      emailRef.current.value === "" ||
+      passwordRef.current.value === "" ||
+      passwordConfirmationRef.current.value === ""
+    ) {
+      return dispatch(uiActions.setError("Any field cannot be blank"));
+    }
+    if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
+      return dispatch(uiActions.setError("Passwords are not the same"));
+    }
+    if (
+      passwordRef.current.value.length < 8 ||
+      passwordConfirmationRef.current.value.length < 8
+    ) {
+      return dispatch(
+        uiActions.setError("Password length must be greater or equal 8")
+      );
+    }
+    // Creating User
+    dispatch(createUser(emailRef.current.value, passwordRef.current.value));
+  };
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <Grid
@@ -28,46 +70,59 @@ const RegisterPage = () => {
         <Typography variant="h4" sx={{ mt: 4 }}>
           Stwórz konto
         </Typography>
-        <Grid container spacing={2} sx={{ mt: 4 }}>
-          <Grid item xs={12}>
-            <CSSTextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              color="success"
-              sx={{ width: "100%", input: { color: "#86868f" } }}
-            />
+        <form onSubmit={createUserHandler}>
+          <Grid container spacing={2} sx={{ mt: 4 }}>
+            <Grid item xs={12}>
+              <CSSTextField
+                error={!errorMessage.includes("Password") && isError}
+                helperText={!errorMessage.includes("Password") && errorMessage}
+                onFocus={() => dispatch(uiActions.removeError())}
+                type="email"
+                inputRef={emailRef}
+                label="Email"
+                variant="outlined"
+                color="success"
+                sx={{ width: "100%", input: { color: "#86868f" } }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CSSTextField
+                error={isError}
+                helperText={errorMessage}
+                onFocus={() => dispatch(uiActions.removeError())}
+                inputRef={passwordRef}
+                label="Create Password"
+                variant="outlined"
+                color="success"
+                type="password"
+                sx={{ width: "100%", input: { color: "#86868f" } }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CSSTextField
+                error={isError}
+                helperText={errorMessage}
+                onFocus={() => dispatch(uiActions.removeError())}
+                inputRef={passwordConfirmationRef}
+                label="Confirm Password"
+                variant="outlined"
+                color="success"
+                type="password"
+                sx={{ width: "100%", input: { color: "#86868f" } }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                size="large"
+                variant="contained"
+                sx={{ width: "100%", mt: 2 }}
+              >
+                Stwórz konto
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <CSSTextField
-              id="outlined-basic"
-              label="Create Password"
-              variant="outlined"
-              color="success"
-              type="password"
-              sx={{ width: "100%", input: { color: "#86868f" } }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <CSSTextField
-              id="outlined-basic"
-              label="Confirm Password"
-              variant="outlined"
-              color="success"
-              type="password"
-              sx={{ width: "100%", input: { color: "#86868f" } }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              size="large"
-              variant="contained"
-              sx={{ width: "100%", mt: 2 }}
-            >
-              Stwórz konto
-            </Button>
-          </Grid>
-        </Grid>
+        </form>
       </Grid>
       <Grid
         item

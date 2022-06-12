@@ -31,7 +31,6 @@ const LoginPage = () => {
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid item xs={12}>
             <CSSTextField
-              id="outlined-basic"
               label="Email"
               variant="outlined"
               color="success"
@@ -41,7 +40,6 @@ const LoginPage = () => {
           <Grid item xs={12}>
             <CSSTextField
               type="password"
-              id="outlined-basic"
               label="Create Password"
               variant="outlined"
               color="success"

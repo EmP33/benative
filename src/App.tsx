@@ -1,16 +1,23 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+// AOS
 import AOS from "aos";
 import "aos/dist/aos.css";
+// Firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+// Redux Store
+import { useAppDispatch, useAppSelector } from "./lib/hooks";
+import { userActions } from "./store/user-slice";
 // Components
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/DashboardPage";
 import { Container } from "@mui/material";
 // Styles
 import GlobalStyle from "./App.styles";
-import DashboardPage from "./pages/DashboardPage";
 
 const theme = createTheme({
   palette: {
@@ -25,11 +32,27 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
+  console.log(user);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(userActions.fetchUser(user));
+      } else {
+        dispatch(userActions.fetchUser(user));
+      }
+    });
+  }, [dispatch]);
   useEffect(() => {
     AOS.init({
       duration: 500,
     });
   }, []);
+  if (user === null) {
+    return <div>Loading...</div>;
+  }
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -46,7 +69,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route
+            path="/dashboard"
+            element={!user ? <Navigate to="/" /> : <DashboardPage />}
+          />
         </Routes>
       </Container>
     </ThemeProvider>
