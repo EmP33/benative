@@ -11,7 +11,14 @@ import ProfileStatistics from "./ProfileStatistics";
 import TabSection from "./TabsSection/TabsSection";
 // Icons
 import SettingsIcon from "@mui/icons-material/Settings";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {
+  AvatarOne,
+  AvatarTwo,
+  AvatarThree,
+  AvatarFour,
+  AvatarFive,
+  AvatarSix,
+} from "../../../assets/avatars";
 
 const ProfileSection = () => {
   const location = useLocation();
@@ -62,15 +69,21 @@ const ProfileSection = () => {
           gridTemplateRows: "max-content max-content 1fr",
         }}
       >
-        <AccountCircleIcon
+        <Box
           sx={{
-            fontSize: 80,
+            width: 75,
+            height: 75,
             position: "absolute",
             left: "50%",
             top: "-40px",
             transform: "translateX(-50%)",
+            borderRadius: "50%",
+            overflow: "hidden",
           }}
-        />
+        >
+          <AvatarTwo />
+        </Box>
+
         <Typography variant="h6">
           {user.displayName ? user.displayname : user.email}
         </Typography>

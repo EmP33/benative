@@ -25,7 +25,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin:0;
         padding:0;
-        background: var(--color-primary-dark);
+        background: rgb(115,66,172);
+        background: linear-gradient(0deg, rgba(115,66,172,1) 0%, rgba(73,66,172,1) 50%);
         color:var(--color-white);
         font-family: 'Lato', sans-serif;
     }

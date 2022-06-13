@@ -19,7 +19,6 @@ const BenefitSection: React.FC<Props> = ({
   return (
     <Grid
       data-aos={type === "ltr" ? "fade-left" : "fade-right"}
-      data-aos-offset="-600"
       container
       sx={{ p: { xs: 1, sm: 5 }, margin: "0 auto" }}
     >

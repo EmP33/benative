@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // Redux Store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
@@ -6,14 +7,14 @@ import { Box, Typography } from "@mui/material";
 import LessonItem from "../LessonItem/LessonItem";
 // Icons
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { AvatarTwo } from "../../../assets/avatars";
 
 const LearnSection = () => {
+  const navigate = useNavigate();
   const currentHour = new Date().getHours();
   const user = useAppSelector((state) => state.user.user);
   return (
     <>
-      {" "}
       <Box
         sx={{
           display: "grid",
@@ -61,7 +62,19 @@ const LearnSection = () => {
             {user.displayName ? user.displayName : user.email}
           </Typography>
         </Box>
-        <AccountCircleIcon sx={{ fontSize: 40, justifySelf: "flex-end" }} />
+        <Box
+          onClick={() => navigate("/dashboard/profile")}
+          sx={{
+            width: 50,
+            height: 50,
+            borderRadius: "50%",
+            overflow: "hidden",
+            justifySelf: "flex-end",
+            cursor: "pointer",
+          }}
+        >
+          <AvatarTwo />
+        </Box>
         <Typography
           variant="h5"
           sx={{ fontSize: 24, gridColumn: "1/-1", mt: 5, pb: 3 }}

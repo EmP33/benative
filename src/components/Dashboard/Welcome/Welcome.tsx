@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Box, BottomNavigation, BottomNavigationAction } from "@mui/material";
 import ProfileSection from "../ProfileSection/ProfileSection";
 import LearnSection from "../LearnSection/LearnSection";
+import CategoriesSection from "../CategoriesSection/CategoriesSection";
 // Icons
 
 import SchoolIcon from "@mui/icons-material/School";
@@ -35,6 +36,7 @@ const Welcome = () => {
       <Routes>
         <Route path="/" element={<LearnSection />} />
         <Route path="/profile" element={<ProfileSection />} />
+        <Route path="/categories" element={<CategoriesSection />} />
       </Routes>
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
         <BottomNavigation
@@ -56,11 +58,13 @@ const Welcome = () => {
             sx={{ color: "var(--color-white)" }}
             label="Powtórz"
             icon={<RepeatIcon />}
+            onClick={() => navigate("/dashboard/repeat")}
           />
           <BottomNavigationAction
             sx={{ color: "var(--color-white)" }}
             label="Kategorie"
             icon={<CategoryIcon />}
+            onClick={() => navigate("/dashboard/categories")}
           />
           <BottomNavigationAction
             sx={{ color: "var(--color-white)" }}
