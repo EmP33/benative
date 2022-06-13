@@ -73,7 +73,7 @@ const HelpSection = () => {
         <Box
           sx={{
             width: "100%",
-            height: "100%",
+            minHeight: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -84,8 +84,8 @@ const HelpSection = () => {
             aria-label="tips"
             sx={{
               position: "absolute",
-              right: 20,
-              bottom: 75,
+              right: "5vw",
+              bottom: "8vh",
               opacity: 0.9,
               display: { xs: "flex", sm: "none" },
               alignItems: "center",
@@ -118,6 +118,8 @@ const HelpSection = () => {
                 width: "auto",
                 background: "var(--color-base-light)",
                 display: "flex",
+                overflow: "auto",
+                "&::-webkit-scrollbar": { display: "none" },
               }}
               role="presentation"
               onClick={toggleDrawer("right", false)}
