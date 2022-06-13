@@ -87,11 +87,13 @@ const HelpSection = () => {
               right: 20,
               bottom: 75,
               opacity: 0.9,
-              display: { xs: "block", sm: "none" },
+              display: { xs: "flex", sm: "none" },
+              alignItems: "center",
+              justifyContent: "center",
             }}
             onClick={toggleDrawer("right", true)}
           >
-            <EmojiObjectsIcon />
+            <EmojiObjectsIcon sx={{ fontSize: 30 }} />
           </Fab>
           <Button
             sx={{

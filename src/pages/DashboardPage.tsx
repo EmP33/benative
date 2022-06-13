@@ -18,7 +18,14 @@ const DashboardPage = () => {
       >
         <ProfileSection />
       </Grid>
-      <Grid item xs={12} sm={8} md={6} lg={4} sx={{ position: "relative" }}>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={6}
+        lg={4}
+        sx={{ position: "relative", height: "100vh" }}
+      >
         <Welcome />
       </Grid>
       <Grid

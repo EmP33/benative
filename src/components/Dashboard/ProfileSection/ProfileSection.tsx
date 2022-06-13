@@ -4,7 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // Redux store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
-import { Box, IconButton, Typography, Button } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import GoBackButton from "../../UI/GoBackButton";
 import ProfileStatistics from "./ProfileStatistics";
 import TabSection from "./TabsSection/TabsSection";
