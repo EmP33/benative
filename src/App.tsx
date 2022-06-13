@@ -52,10 +52,18 @@ const App = () => {
     });
   }, []);
 
+  if (user === undefined) {
+    return (
+      <>
+        <GlobalStyle />
+        <LoadingPage />
+      </>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {user === undefined && <LoadingPage />}
       <Container
         disableGutters
         maxWidth="lg"

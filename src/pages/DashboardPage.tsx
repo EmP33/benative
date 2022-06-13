@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 // Components
 import { Typography, Grid, Button } from "@mui/material";
-import Welcome from "../components/Dashboard/Welcome";
+import Welcome from "../components/Dashboard/Welcome/Welcome";
+import HelpSection from "../components/Dashboard/HelpSection/HelpSection";
 
 const DashboardPage = () => {
   return (
@@ -25,7 +26,9 @@ const DashboardPage = () => {
         md={3}
         lg={4}
         sx={{ background: "var(--color-base-light)" }}
-      ></Grid>
+      >
+        <HelpSection />
+      </Grid>
     </Grid>
   );
 };

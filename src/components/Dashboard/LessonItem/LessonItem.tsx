@@ -5,12 +5,12 @@ import LessonProgress from "./LessonProgress";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 
-interface ILessonItem {
+interface Props {
   title: string;
   status: number;
 }
 
-const LessonItem: React.FC<ILessonItem> = ({ title, status }) => {
+const LessonItem: React.FC<Props> = ({ title, status }) => {
   return (
     <Box
       sx={{
@@ -32,10 +32,7 @@ const LessonItem: React.FC<ILessonItem> = ({ title, status }) => {
     >
       <SchoolIcon sx={{ fontSize: 40 }} />
       <Box>
-        <Typography
-          variant="h6"
-          sx={{ fontSize: 18, color: "var(--color-primary-light)" }}
-        >
+        <Typography variant="h6" sx={{ fontSize: 18 }}>
           {title}
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 14 }}>

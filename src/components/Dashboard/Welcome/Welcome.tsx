@@ -1,6 +1,6 @@
 import React from "react";
 // Redux Store
-import { useAppSelector } from "../../lib/hooks";
+import { useAppSelector } from "../../../lib/hooks";
 // Components
 import {
   Box,
@@ -8,7 +8,7 @@ import {
   BottomNavigation,
   BottomNavigationAction,
 } from "@mui/material";
-import LessonItem from "./LessonItem/LessonItem";
+import LessonItem from "../LessonItem/LessonItem";
 // Icons
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
