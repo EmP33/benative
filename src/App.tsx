@@ -85,7 +85,7 @@ const App = () => {
             element={user ? <Navigate to="/dashboard" /> : <LoginPage />}
           />
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={!user ? <Navigate to="/" /> : <DashboardPage />}
           />
         </Routes>

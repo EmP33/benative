@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 // Components
 import { Grid } from "@mui/material";
 import Welcome from "../components/Dashboard/Welcome/Welcome";
@@ -6,6 +7,7 @@ import HelpSection from "../components/Dashboard/HelpSection/HelpSection";
 import ProfileSection from "../components/Dashboard/ProfileSection/ProfileSection";
 
 const DashboardPage = () => {
+  const location = useLocation();
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <Grid
@@ -16,7 +18,7 @@ const DashboardPage = () => {
         lg={4}
         sx={{ background: "var(--color-base-light)" }}
       >
-        <ProfileSection />
+        {location.pathname.includes("/profile") ? null : <ProfileSection />}
       </Grid>
       <Grid
         item

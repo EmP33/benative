@@ -24,6 +24,7 @@ const LessonItem: React.FC<Props> = ({ title, status }) => {
         mt: 2,
         cursor: "pointer",
         userSelect: "none",
+        mb: 1,
 
         "&:hover": {
           filter: "brightness(110%)",
