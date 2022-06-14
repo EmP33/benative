@@ -11,6 +11,8 @@ import {
   updateProfile,
   updateEmail,
   signOut,
+  deleteUser,
+  updatePassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -151,6 +153,56 @@ export const logoutUser = () => {
         })
         .catch((error) => {
           // An error happened.
+        });
+    };
+    await sendRequest();
+  };
+};
+
+export const deleteAccount = () => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      if (auth.currentUser === null) throw new Error("No user found");
+      deleteUser(auth.currentUser)
+        .then(() => {
+          // User deleted.
+        })
+        .catch((error) => {
+          if (error.message.includes("requires-recent-login")) {
+            return dispatch(
+              uiActions.setError("Zaloguj się ponownie by usunąć konto")
+            );
+          }
+
+          dispatch(uiActions.setError(error.message));
+          // An error ocurred
+          // ...
+        });
+    };
+    await sendRequest();
+  };
+};
+
+export const updateUserPassword = (newPassword: string) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      if (auth.currentUser === null) throw new Error("No user found");
+      updatePassword(auth.currentUser, newPassword)
+        .then(() => {
+          // Update successful.
+          dispatch(uiActions.toggleIsLoading());
+          dispatch(userActions.changeDataStatus("update-password"));
+        })
+        .catch((error) => {
+          dispatch(uiActions.toggleIsLoading());
+          if (error.message.includes("requires-recent-login")) {
+            return dispatch(
+              uiActions.setError("Zaloguj się ponownie, aby zmienić hasło")
+            );
+          }
+          dispatch(uiActions.setError(error.message));
+          // An error ocurred
+          // ...
         });
     };
     await sendRequest();

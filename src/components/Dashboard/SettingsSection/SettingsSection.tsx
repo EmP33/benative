@@ -49,7 +49,7 @@ const SettingsSection = () => {
           <SettingsItem
             title="Hasło i zabezpieczenia"
             icon="passwordIcon"
-            link="/"
+            link="/dashboard/security"
           />
           <SettingsItem title="Plan Nauki" icon="learnIcon" link="/" />
           <SettingsItem title="Pomoc" icon="helpIcon" link="/" />

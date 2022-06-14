@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 // Redux Store
 import { useAppDispatch, useAppSelector } from "../../../../lib/hooks";
 import {
@@ -10,13 +10,15 @@ import { uiActions } from "../../../../store/ui-slice";
 // Components
 import SectionHeader from "../../../UI/SectionHeader";
 import { CSSTextField } from "../../../UI/Components.style";
-import { Typography, Grid, Button } from "@mui/material";
+import { Typography, Grid, Button, Box } from "@mui/material";
+import DeleteModal from "../../../UI/DeleteModal";
 // Icons
 import { Ring } from "@uiball/loaders";
 import CheckIcon from "@mui/icons-material/Check";
 
 const AccountSettings = () => {
   const [formType, setFormType] = useState<string>("");
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
@@ -24,7 +26,14 @@ const AccountSettings = () => {
   const errorMessage = useAppSelector((state) => state.ui.errorMessage);
   const isLoading = useAppSelector((state) => state.ui.isLoading);
   const dataStatus = useAppSelector((state) => state.user.dataStatus);
-  console.log(isLoading);
+
+  const openModalHandler = () => {
+    setOpenModal(true);
+  };
+
+  const closeModalHandler = useCallback(() => {
+    setOpenModal(false);
+  }, []);
 
   const changeUsernameHandler = (e: React.FormEvent) => {
     setFormType("username");
@@ -57,7 +66,6 @@ const AccountSettings = () => {
     }
     dispatch(uiActions.toggleIsLoading());
     dispatch(updateUserEmail(emailRef.current.value));
-    console.log("eee");
   };
   return (
     <>
@@ -146,6 +154,18 @@ const AccountSettings = () => {
           </Grid>
         </Grid>
       </form>
+      <Box sx={{ p: 2 }}>
+        <Button
+          variant="contained"
+          size="large"
+          color="error"
+          sx={{ width: "100%", mt: 15 }}
+          onClick={openModalHandler}
+        >
+          Delete Account
+        </Button>
+        <DeleteModal onCloseModal={closeModalHandler} openModal={openModal} />
+      </Box>
     </>
   );
 };

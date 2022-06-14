@@ -7,12 +7,14 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // Redux Store
 import { useAppDispatch } from "../../lib/hooks";
 import { userActions } from "../../store/user-slice";
+import { uiActions } from "../../store/ui-slice";
 
 const GoBackButton = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const navigateHandler = () => {
     dispatch(userActions.resetDataStatus());
+    dispatch(uiActions.removeError());
     navigate("/dashboard");
   };
   return (
