@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   updateEmail,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -131,6 +132,22 @@ export const updateUserEmail = (email: string) => {
           dispatch(uiActions.setError(error.message));
           // An error occurred
           // ...
+        });
+    };
+    await sendRequest();
+  };
+};
+
+export const logoutUser = () => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      if (auth.currentUser === null) throw new Error("No user found");
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+        })
+        .catch((error) => {
+          // An error happened.
         });
     };
     await sendRequest();

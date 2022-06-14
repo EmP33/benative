@@ -48,19 +48,23 @@ const SettingsSection = () => {
         }}
       >
         <List>
-          <SettingsItem title="Ustawienia Konta" icon="example" link="/" />
-          <SettingsItem title="Preferencje" icon="example" link="/" />
-          <SettingsItem title="Premium" icon="example" link="/" />
-          <SettingsItem title="Powtórz Tutorial" icon="example" link="/" />
-          <SettingsItem title="Nowości" icon="example" link="/" />
+          <SettingsItem
+            title="Ustawienia Konta"
+            icon="settingsIcon"
+            link="/dashboard/user-settings"
+          />
+          <SettingsItem title="Preferencje" icon="paletteIcon" link="/" />
+          <SettingsItem title="Premium" icon="premiumIcon" link="/" />
+          <SettingsItem title="Powtórz Tutorial" icon="tutorialIcon" link="/" />
+          <SettingsItem title="Nowości" icon="newsIcon" link="/" />
           <SettingsItem
             title="Hasło i zabezpieczenia"
-            icon="example"
+            icon="passwordIcon"
             link="/"
           />
-          <SettingsItem title="Plan Nauki" icon="example" link="/" />
-          <SettingsItem title="Pomoc" icon="example" link="/" />
-          <SettingsItem title="Wyloguj się" icon="example" link="/" />
+          <SettingsItem title="Plan Nauki" icon="learnIcon" link="/" />
+          <SettingsItem title="Pomoc" icon="helpIcon" link="/" />
+          <SettingsItem title="Wyloguj się" icon="logoutIcon" link="/" />
         </List>
       </Box>
     </Box>
