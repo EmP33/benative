@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // Redux store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
@@ -22,6 +22,7 @@ import {
 
 const ProfileSection = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const user = useAppSelector((state) => state.user.user);
 
   return (
@@ -50,6 +51,7 @@ const ProfileSection = () => {
         <IconButton
           aria-label="settings"
           sx={{ color: "var(--color-tertiary)" }}
+          onClick={() => navigate("/dashboard/settings")}
         >
           <SettingsIcon sx={{ fontSize: 30 }} />
         </IconButton>
@@ -85,7 +87,7 @@ const ProfileSection = () => {
         </Box>
 
         <Typography variant="h6">
-          {user.displayName ? user.displayname : user.email}
+          {user.displayName ? user.displayName : user.email}
         </Typography>
         <ProfileStatistics />
         <TabSection />

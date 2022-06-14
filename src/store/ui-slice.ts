@@ -32,7 +32,7 @@ const uiSlice = createSlice({
       state.errorMessage = "";
     },
     toggleIsLoading(state) {
-      state.isLoading = state.isLoading ? true : false;
+      state.isLoading = state.isLoading === false ? true : false;
     },
   },
 });

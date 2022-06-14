@@ -8,17 +8,21 @@ import { uiActions } from "./ui-slice";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
+  updateEmail,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
   user: any;
+  dataStatus: { status: boolean; type: string | null };
 }
 
 /* Defining the initial state of the user slice. */
 const initialState: IInitialState = {
   user: undefined,
+  dataStatus: { status: false, type: null },
 };
 
 const userSlice = createSlice({
@@ -27,6 +31,12 @@ const userSlice = createSlice({
   reducers: {
     fetchUser(state, action: PayloadAction<any>) {
       state.user = action.payload;
+    },
+    changeDataStatus(state, action: PayloadAction<any>) {
+      state.dataStatus = { status: true, type: action.payload };
+    },
+    resetDataStatus(state) {
+      state.dataStatus = { status: false, type: null };
     },
   },
 });
@@ -68,6 +78,59 @@ export const loginUser = (email: string, password: string) => {
           dispatch(uiActions.setError(error.message));
           // const errorCode = error.code;
           // const errorMessage = error.message;
+        });
+    };
+    await sendRequest();
+  };
+};
+
+export const updateUsername = (name: string, avatar?: string) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      if (auth.currentUser === null) throw new Error("No user found");
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: avatar,
+      })
+        .then(() => {
+          // Profile updated!
+          // ...
+          dispatch(userActions.fetchUser(auth.currentUser));
+          dispatch(uiActions.toggleIsLoading());
+          dispatch(userActions.changeDataStatus("username"));
+        })
+        .catch((error) => {
+          dispatch(uiActions.setError(error.message));
+          dispatch(uiActions.toggleIsLoading());
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+        });
+    };
+    await sendRequest();
+  };
+};
+export const updateUserEmail = (email: string) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      if (auth.currentUser === null) throw new Error("No user found");
+      updateEmail(auth.currentUser, email)
+        .then(() => {
+          // Email updated!
+          // ...
+          dispatch(userActions.fetchUser(auth.currentUser));
+          dispatch(uiActions.toggleIsLoading());
+          dispatch(userActions.changeDataStatus("email"));
+        })
+        .catch((error) => {
+          dispatch(uiActions.toggleIsLoading());
+          if (error.message.includes("requires-recent-login")) {
+            return dispatch(
+              uiActions.setError("Zaloguj się ponownie by móc zresetować email")
+            );
+          }
+          dispatch(uiActions.setError(error.message));
+          // An error occurred
+          // ...
         });
     };
     await sendRequest();

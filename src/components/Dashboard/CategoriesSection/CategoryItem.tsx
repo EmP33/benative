@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 // Components
 import { Box, Typography } from "@mui/material";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 
 const CategoryItem = () => {
+  const [onHover, setOnHover] = useState<boolean>(false);
+
   return (
     <Box
+      onMouseEnter={() => setOnHover(true)}
+      onMouseLeave={() => setOnHover(false)}
       sx={{
-        background: "var(--color-base)",
+        background: onHover ? "var(--color-primary)" : "var(--color-base)",
         width: 150,
         height: 150,
         display: "grid",
@@ -18,7 +22,9 @@ const CategoryItem = () => {
     >
       <Box
         sx={{
-          background: "var(--color-base-dark)",
+          background: onHover
+            ? "var(--color-primary-dark)"
+            : "var(--color-base-dark)",
           width: 50,
           height: 50,
           display: "flex",
@@ -31,7 +37,10 @@ const CategoryItem = () => {
       </Box>
       <Typography
         variant="body1"
-        sx={{ color: "var(--color-tertiary)", fontWeight: "bold" }}
+        sx={{
+          color: onHover ? "var(--color-white)" : "var(--color-tertiary)",
+          fontWeight: "bold",
+        }}
       >
         Słuchanie
       </Typography>

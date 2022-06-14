@@ -35,7 +35,7 @@ const theme = createTheme({
 const App = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  console.log(user);
+  const dataStatus = useAppSelector((state) => state.user.dataStatus);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -45,7 +45,7 @@ const App = () => {
         dispatch(userActions.fetchUser(user));
       }
     });
-  }, [dispatch]);
+  }, [dispatch, dataStatus]);
   useEffect(() => {
     AOS.init({
       duration: 500,

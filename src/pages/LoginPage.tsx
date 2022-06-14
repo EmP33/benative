@@ -9,7 +9,7 @@ import { Grid, Typography, Button } from "@mui/material";
 // Icons
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 // Styles
-import { GoBackButton, CSSTextField } from "./Components.style";
+import { GoBackButton, CSSTextField } from "../components/UI/Components.style";
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -78,7 +78,7 @@ const LoginPage = () => {
                 onFocus={() => dispatch(uiActions.removeError())}
                 inputRef={passwordRef}
                 type="password"
-                label="Create Password"
+                label="Utwórz hasło"
                 variant="outlined"
                 color="success"
                 sx={{ width: "100%", input: { color: "#86868f" } }}

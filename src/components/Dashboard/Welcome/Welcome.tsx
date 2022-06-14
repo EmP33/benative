@@ -6,6 +6,8 @@ import { Box, BottomNavigation, BottomNavigationAction } from "@mui/material";
 import ProfileSection from "../ProfileSection/ProfileSection";
 import LearnSection from "../LearnSection/LearnSection";
 import CategoriesSection from "../CategoriesSection/CategoriesSection";
+import SettingsSection from "../SettingsSection/SettingsSection";
+import AccountSettings from "../SettingsSection/SettingsElements/AccountSettings";
 // Icons
 
 import SchoolIcon from "@mui/icons-material/School";
@@ -37,6 +39,8 @@ const Welcome = () => {
         <Route path="/" element={<LearnSection />} />
         <Route path="/profile" element={<ProfileSection />} />
         <Route path="/categories" element={<CategoriesSection />} />
+        <Route path="/settings" element={<SettingsSection />} />
+        <Route path="/user-settings" element={<AccountSettings />} />
       </Routes>
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
         <BottomNavigation

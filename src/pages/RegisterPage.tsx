@@ -9,7 +9,7 @@ import { Grid, Typography, Button } from "@mui/material";
 // Icons
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 // Styles
-import { GoBackButton, CSSTextField } from "./Components.style";
+import { GoBackButton, CSSTextField } from "../components/UI/Components.style";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                 helperText={errorMessage}
                 onFocus={() => dispatch(uiActions.removeError())}
                 inputRef={passwordRef}
-                label="Create Password"
+                label="Utwórz Hasło"
                 variant="outlined"
                 color="success"
                 type="password"
@@ -104,7 +104,7 @@ const RegisterPage = () => {
                 helperText={errorMessage}
                 onFocus={() => dispatch(uiActions.removeError())}
                 inputRef={passwordConfirmationRef}
-                label="Confirm Password"
+                label="Potwierdź Hasło"
                 variant="outlined"
                 color="success"
                 type="password"

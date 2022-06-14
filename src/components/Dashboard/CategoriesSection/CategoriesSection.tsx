@@ -1,14 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+
 // Components
-import { Box, IconButton, Typography } from "@mui/material";
-import GoBackButton from "../../UI/GoBackButton";
+import { Box } from "@mui/material";
 import CategoryItem from "./CategoryItem";
-// Icons
-import SettingsIcon from "@mui/icons-material/Settings";
+import SectionHeader from "../../UI/SectionHeader";
 
 const CategoriesSection = () => {
-  const location = useLocation();
   return (
     <Box
       sx={{
@@ -22,27 +19,7 @@ const CategoriesSection = () => {
         "&::-webkit-scrollbar": { display: "none" },
       }}
     >
-      <Box
-        sx={{
-          p: 1,
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-          position: "relative",
-        }}
-      >
-        <GoBackButton />
-        <Typography
-          sx={{
-            position: "absolute",
-            left: "50%",
-            transform: "translate(-50%)",
-          }}
-          variant="h6"
-        >
-          Wybierz kategorię
-        </Typography>
-      </Box>
+      <SectionHeader title="Wybierz katerogię" />
       <Box
         sx={{
           width: "100%",
