@@ -7,7 +7,14 @@ import { Box, Typography } from "@mui/material";
 import LessonItem from "../LessonItem/LessonItem";
 // Icons
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { AvatarTwo } from "../../../assets/avatars";
+import {
+  AvatarTwo,
+  AvatarFive,
+  AvatarSix,
+  AvatarFour,
+  AvatarOne,
+  AvatarThree,
+} from "../../../assets/avatars";
 
 const LearnSection = () => {
   const navigate = useNavigate();
@@ -73,7 +80,21 @@ const LearnSection = () => {
             cursor: "pointer",
           }}
         >
-          <AvatarTwo />
+          {user.photoURL === "AvatarSix" ? (
+            <AvatarSix />
+          ) : user.photoURL === "AvatarFive" ? (
+            <AvatarFive />
+          ) : user.photoURL === "AvatarFour" ? (
+            <AvatarFour />
+          ) : user.photoURL === "AvatarThree" ? (
+            <AvatarThree />
+          ) : user.photoURL === "AvatarTwo" ? (
+            <AvatarTwo />
+          ) : user.photoURL === "AvatarOne" ? (
+            <AvatarOne />
+          ) : (
+            <AvatarOne />
+          )}
         </Box>
         <Typography
           variant="h5"

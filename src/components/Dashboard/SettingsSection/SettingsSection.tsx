@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 // Components
 import { Box, List } from "@mui/material";
 import SettingsItem from "./SettingsItem";
@@ -7,7 +6,6 @@ import SettingsItem from "./SettingsItem";
 import SectionHeader from "../../UI/SectionHeader";
 
 const SettingsSection = () => {
-  const location = useLocation();
   return (
     <Box
       sx={{
@@ -25,9 +23,7 @@ const SettingsSection = () => {
       <Box
         sx={{
           width: "100%",
-          background: location.pathname.includes("/profile")
-            ? "var(--color-base-dark)"
-            : "var(--color-base)",
+          background: "var(--color-base)",
           borderRadius: "30px 30px 0 0 ",
           position: "relative",
           p: { md: "24px 4px 0 4px", lg: "24px 12px 0 12px" },
@@ -42,7 +38,11 @@ const SettingsSection = () => {
             icon="settingsIcon"
             link="/dashboard/user-settings"
           />
-          <SettingsItem title="Preferencje" icon="paletteIcon" link="/" />
+          <SettingsItem
+            title="Preferencje"
+            icon="paletteIcon"
+            link="/dashboard/preferences"
+          />
           <SettingsItem title="Premium" icon="premiumIcon" link="/" />
           <SettingsItem title="Powtórz Tutorial" icon="tutorialIcon" link="/" />
           <SettingsItem title="Nowości" icon="newsIcon" link="/" />

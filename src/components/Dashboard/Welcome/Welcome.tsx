@@ -14,6 +14,7 @@ import CategoriesSection from "../CategoriesSection/CategoriesSection";
 import SettingsSection from "../SettingsSection/SettingsSection";
 import AccountSettings from "../SettingsSection/SettingsElements/AccountSettings";
 import Security from "../SettingsSection/SettingsElements/Security";
+import Preferences from "../SettingsSection/SettingsElements/Preferences";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -50,6 +51,7 @@ const Welcome = () => {
         <Route path="/settings" element={<SettingsSection />} />
         <Route path="/user-settings" element={<AccountSettings />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/preferences" element={<Preferences />} />
       </Routes>
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
         <BottomNavigation

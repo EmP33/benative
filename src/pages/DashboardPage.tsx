@@ -5,9 +5,11 @@ import { Grid } from "@mui/material";
 import Welcome from "../components/Dashboard/Welcome/Welcome";
 import HelpSection from "../components/Dashboard/HelpSection/HelpSection";
 import ProfileSection from "../components/Dashboard/ProfileSection/ProfileSection";
+import SettingsSection from "../components/Dashboard/SettingsSection/SettingsSection";
 
 const DashboardPage = () => {
   const location = useLocation();
+
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <Grid
@@ -18,7 +20,11 @@ const DashboardPage = () => {
         lg={4}
         sx={{ background: "var(--color-base-light)" }}
       >
-        {location.pathname.includes("/profile") ? null : <ProfileSection />}
+        {location.pathname.includes("/profile") ? (
+          <SettingsSection />
+        ) : (
+          <ProfileSection />
+        )}
       </Grid>
       <Grid
         item

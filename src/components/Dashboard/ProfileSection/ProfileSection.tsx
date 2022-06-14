@@ -83,7 +83,21 @@ const ProfileSection = () => {
             overflow: "hidden",
           }}
         >
-          <AvatarTwo />
+          {user.photoURL === "AvatarSix" ? (
+            <AvatarSix />
+          ) : user.photoURL === "AvatarFive" ? (
+            <AvatarFive />
+          ) : user.photoURL === "AvatarFour" ? (
+            <AvatarFour />
+          ) : user.photoURL === "AvatarThree" ? (
+            <AvatarThree />
+          ) : user.photoURL === "AvatarTwo" ? (
+            <AvatarTwo />
+          ) : user.photoURL === "AvatarOne" ? (
+            <AvatarOne />
+          ) : (
+            <AvatarOne />
+          )}
         </Box>
 
         <Typography variant="h6">

@@ -64,35 +64,33 @@ export default function TabSection() {
           <Tab label="Odznaki" {...a11yProps(2)} sx={{ color: "#4f525d" }} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        Szczegóły
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Statystyki
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Typography variant="h6" sx={{ mb: 1 }}>
-          Odznaki
-        </Typography>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            rowGap: 2,
-          }}
-        >
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
-          <Badge />
+      {value === 0 && <Box sx={{ mt: 2 }}>Szczegóły</Box>}
+      {value === 1 && <Box sx={{ mt: 2 }}>Statystyki</Box>}
+      {value === 2 && (
+        <Box sx={{ mt: 2 }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            Odznaki
+          </Typography>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3,1fr)",
+              rowGap: 2,
+            }}
+          >
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+            <Badge />
+          </Box>
         </Box>
-      </TabPanel>
+      )}
     </Box>
   );
 }

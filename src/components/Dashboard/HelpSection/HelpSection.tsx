@@ -12,6 +12,7 @@ import { DragButton } from "./HelpSection.styles";
 type Anchor = "top" | "left" | "bottom" | "right";
 
 const HelpSection = () => {
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
 
