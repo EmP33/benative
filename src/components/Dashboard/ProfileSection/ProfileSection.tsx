@@ -65,7 +65,7 @@ const ProfileSection = () => {
             : "var(--color-base)",
           borderRadius: "30px 30px 0 0 ",
           position: "relative",
-          p: { md: "48px 4px 0 4px", lg: "48px 24px 0 24px" },
+          p: { xs: "48px 10px 0 10px", lg: "48px 24px 0 24px" },
           textAlign: "center",
           display: "grid",
           gridTemplateRows: "max-content max-content 1fr",

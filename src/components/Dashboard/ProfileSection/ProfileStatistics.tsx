@@ -15,6 +15,8 @@ const ProfileStatistics = () => {
         gridTemplateColumns: "repeat(3,1fr)",
         p: 1,
         borderRadius: 5,
+        ml: { xs: 2, sm: 4, md: 5, lg: 1 },
+        mr: { xs: 2, sm: 4, md: 5, lg: 1 },
         mt: 3,
       }}
     >

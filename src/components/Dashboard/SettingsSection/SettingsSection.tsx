@@ -1,20 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 // Components
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import GoBackButton from "../../UI/GoBackButton";
+import { Box, List } from "@mui/material";
 import SettingsItem from "./SettingsItem";
 // Icons
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import SectionHeader from "../../UI/SectionHeader";
 
 const SettingsSection = () => {

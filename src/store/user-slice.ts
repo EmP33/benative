@@ -129,6 +129,9 @@ export const updateUserEmail = (email: string) => {
               uiActions.setError("Zaloguj się ponownie by móc zresetować email")
             );
           }
+          if (error.message.includes("email-already-in-use")) {
+            return dispatch(uiActions.setError("Wybrany email jest zajęty"));
+          }
           dispatch(uiActions.setError(error.message));
           // An error occurred
           // ...
