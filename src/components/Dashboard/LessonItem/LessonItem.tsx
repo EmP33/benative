@@ -1,4 +1,7 @@
 import React from "react";
+// Redux Store
+import { useAppDispatch } from "../../../lib/hooks";
+import { uiActions } from "../../../store/ui-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import LessonProgress from "./LessonProgress";
@@ -11,6 +14,7 @@ interface Props {
 }
 
 const LessonItem: React.FC<Props> = ({ title, status }) => {
+  const dispatch = useAppDispatch();
   return (
     <Box
       sx={{
@@ -30,6 +34,7 @@ const LessonItem: React.FC<Props> = ({ title, status }) => {
           filter: "brightness(110%)",
         },
       }}
+      onClick={() => dispatch(uiActions.toggleOpenLessonDrawer())}
     >
       <SchoolIcon sx={{ fontSize: 40 }} />
       <Box>

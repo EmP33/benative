@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Redux Store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
 import { Box, Typography } from "@mui/material";
 import LessonItem from "../LessonItem/LessonItem";
+import LearnDrawer from "../LearnDrawer/LearnDrawer";
 // Icons
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import {
@@ -20,6 +21,7 @@ const LearnSection = () => {
   const navigate = useNavigate();
   const currentHour = new Date().getHours();
   const user = useAppSelector((state) => state.user.user);
+
   return (
     <>
       <Box

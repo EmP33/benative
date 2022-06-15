@@ -9,23 +9,13 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 // Styles
 import { DragButton } from "./HelpSection.styles";
 
-type Anchor = "top" | "left" | "bottom" | "right";
-
 const HelpSection = () => {
-
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const [state, setState] = React.useState(false);
 
   const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event &&
         event.type === "keydown" &&
@@ -35,7 +25,7 @@ const HelpSection = () => {
         return;
       }
 
-      setState({ ...state, [anchor]: open });
+      setState(open);
     };
 
   return (
@@ -92,7 +82,7 @@ const HelpSection = () => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onClick={toggleDrawer("right", true)}
+            onClick={toggleDrawer(true)}
           >
             <EmojiObjectsIcon sx={{ fontSize: 30 }} />
           </Fab>
@@ -102,15 +92,15 @@ const HelpSection = () => {
               display: { xs: "none", sm: "block", md: "none" },
             }}
             size="large"
-            onClick={toggleDrawer("right", true)}
+            onClick={toggleDrawer(true)}
           >
             Open Tips
           </Button>
           <SwipeableDrawer
             anchor="right"
-            open={state["right"]}
-            onClose={toggleDrawer("right", false)}
-            onOpen={toggleDrawer("right", true)}
+            open={state}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
           >
             <Box
               sx={{
@@ -123,10 +113,10 @@ const HelpSection = () => {
                 "&::-webkit-scrollbar": { display: "none" },
               }}
               role="presentation"
-              onClick={toggleDrawer("right", false)}
-              onKeyDown={toggleDrawer("right", false)}
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
             >
-              <DragButton></DragButton>
+              <DragButton />
               <Box>
                 <HelpItem
                   title="Ustaw nazwę użytkownika"

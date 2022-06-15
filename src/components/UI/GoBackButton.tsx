@@ -15,7 +15,7 @@ const GoBackButton = () => {
   const navigateHandler = () => {
     dispatch(userActions.resetDataStatus());
     dispatch(uiActions.removeError());
-    navigate("/dashboard");
+    navigate(-1);
   };
   return (
     <IconButton

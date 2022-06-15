@@ -10,6 +10,7 @@ interface IInitialState {
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
+  openLessonDrawer: boolean;
 }
 
 /* Defining the initial state of the reducer. */
@@ -17,6 +18,7 @@ const initialState: IInitialState = {
   isLoading: false,
   isError: false,
   errorMessage: "",
+  openLessonDrawer: false,
 };
 
 const uiSlice = createSlice({
@@ -33,6 +35,9 @@ const uiSlice = createSlice({
     },
     toggleIsLoading(state) {
       state.isLoading = state.isLoading === false ? true : false;
+    },
+    toggleOpenLessonDrawer(state) {
+      state.openLessonDrawer = state.openLessonDrawer === false ? true : false;
     },
   },
 });

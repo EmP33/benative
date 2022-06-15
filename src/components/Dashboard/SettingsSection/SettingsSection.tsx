@@ -1,4 +1,7 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import { Box, List } from "@mui/material";
 import SettingsItem from "./SettingsItem";
@@ -60,4 +63,19 @@ const SettingsSection = () => {
   );
 };
 
-export default SettingsSection;
+const ConditionRender = () => {
+  const location = useLocation();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  return (
+    <>
+      {matches ? (
+        <SettingsSection />
+      ) : location.pathname.includes("settings") ? (
+        <SettingsSection />
+      ) : null}
+    </>
+  );
+};
+
+export default ConditionRender;

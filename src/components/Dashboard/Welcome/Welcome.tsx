@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../lib/hooks";
+import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
+import { uiActions } from "../../../store/ui-slice";
 // Components
 import {
   Box,
@@ -20,10 +21,13 @@ import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import CategoryIcon from "@mui/icons-material/Category";
 import PersonIcon from "@mui/icons-material/Person";
+import LearnDrawer from "../LearnDrawer/LearnDrawer";
 
 const Welcome = () => {
+  const dispatch = useAppDispatch();
   const isError = useAppSelector((state) => state.ui.isError);
   const errorMessage = useAppSelector((state) => state.ui.errorMessage);
+  const openLessonDrawer = useAppSelector((state) => state.ui.openLessonDrawer);
   const navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = useState(0);
@@ -53,6 +57,7 @@ const Welcome = () => {
         <Route path="/security" element={<Security />} />
         <Route path="/preferences" element={<Preferences />} />
       </Routes>
+
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
         <BottomNavigation
           value={value}
@@ -88,6 +93,31 @@ const Welcome = () => {
             onClick={() => navigate("/dashboard/profile")}
           />
         </BottomNavigation>
+      </Box>
+      {openLessonDrawer && (
+        <Box
+          sx={{
+            width: "100%",
+            height: "100vh",
+            background: "var(--color-base-dark)",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            opacity: ".5",
+          }}
+          onClick={() => dispatch(uiActions.toggleOpenLessonDrawer())}
+        ></Box>
+      )}
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          bottom: 0,
+          height: openLessonDrawer ? "50vh" : 0,
+          transition: "all .4s ease",
+        }}
+      >
+        <LearnDrawer />
       </Box>
     </>
   );

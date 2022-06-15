@@ -3,15 +3,6 @@ import React from "react";
 import SectionHeader from "../../../UI/SectionHeader";
 import { Box, Typography, Grid } from "@mui/material";
 import AvatarItem from "./AvatarItem/AvatarItem";
-// Assets
-import {
-  AvatarFive,
-  AvatarFour,
-  AvatarOne,
-  AvatarSix,
-  AvatarThree,
-  AvatarTwo,
-} from "../../../../assets/avatars";
 
 const Preferences = () => {
   const avatars = [

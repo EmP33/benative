@@ -9,6 +9,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import GoBackButton from "../../UI/GoBackButton";
 import ProfileStatistics from "./ProfileStatistics";
 import TabSection from "./TabsSection/TabsSection";
+import SettingsSection from "../SettingsSection/SettingsSection";
 // Icons
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
@@ -19,6 +20,8 @@ import {
   AvatarFive,
   AvatarSix,
 } from "../../../assets/avatars";
+// Assets
+import bg from "../../../assets/1C1C27.png";
 
 const ProfileSection = () => {
   const location = useLocation();
@@ -35,6 +38,8 @@ const ProfileSection = () => {
         rowGap: 15,
         userSelect: "none",
         overflow: "auto",
+        background: `url(${bg})`,
+        backgroundSize: "cover",
         "&::-webkit-scrollbar": { display: "none" },
       }}
     >
@@ -81,7 +86,10 @@ const ProfileSection = () => {
             transform: "translateX(-50%)",
             borderRadius: "50%",
             overflow: "hidden",
+            cursor: "pointer",
+            "&:hover": { filter: "brightness(50%)" },
           }}
+          onClick={() => navigate("/dashboard/preferences")}
         >
           {user.photoURL === "AvatarSix" ? (
             <AvatarSix />
@@ -121,6 +129,7 @@ const ConditionRender = () => {
       ) : location.pathname.includes("/profile") ? (
         <ProfileSection />
       ) : null}
+      {!matches && <SettingsSection />}
     </>
   );
 };
