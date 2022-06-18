@@ -16,6 +16,7 @@ import SettingsSection from "../SettingsSection/SettingsSection";
 import AccountSettings from "../SettingsSection/SettingsElements/AccountSettings";
 import Security from "../SettingsSection/SettingsElements/Security";
 import Preferences from "../SettingsSection/SettingsElements/Preferences";
+import QuestionResult from "../../Lesson/QuestionResult/QuestionResult";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -56,6 +57,7 @@ const Welcome = () => {
         <Route path="/user-settings" element={<AccountSettings />} />
         <Route path="/security" element={<Security />} />
         <Route path="/preferences" element={<Preferences />} />
+        <Route path="/lesson" element={<QuestionResult />} />
       </Routes>
 
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>

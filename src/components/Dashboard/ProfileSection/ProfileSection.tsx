@@ -122,6 +122,7 @@ const ConditionRender = () => {
   const location = useLocation();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
+  const xsMatches = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <>
       {matches ? (
@@ -129,7 +130,17 @@ const ConditionRender = () => {
       ) : location.pathname.includes("/profile") ? (
         <ProfileSection />
       ) : null}
-      {!matches && <SettingsSection />}
+      {!matches && xsMatches && !location.pathname.includes("/settings") ? (
+        <SettingsSection />
+      ) : (
+        <Box
+          sx={{
+            height: "100vh",
+            background: `url(${bg})`,
+            backgroundSize: "cover",
+          }}
+        ></Box>
+      )}
     </>
   );
 };

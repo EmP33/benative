@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+// Redux Store
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
+import { getData, createUser, fetchUserData } from "../store/data-slice";
+import { uiActions } from "../store/ui-slice";
 // Components
 import { Grid } from "@mui/material";
 import Welcome from "../components/Dashboard/Welcome/Welcome";
@@ -9,9 +13,23 @@ import SettingsSection from "../components/Dashboard/SettingsSection/SettingsSec
 
 const DashboardPage = () => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const { uid } = useAppSelector((state) => state.user.user);
+  const data = useAppSelector((state) => state.data.data);
+  const isError = useAppSelector((state) => state.ui.isError);
+  useEffect(() => {
+    dispatch(getData());
+    if (uid && !isError) {
+      dispatch(fetchUserData(uid));
+    }
+    if (isError) {
+      dispatch(createUser(uid, data));
+      dispatch(uiActions.removeError());
+    }
+  }, [dispatch, uid, isError]);
 
   return (
-    <Grid container sx={{ minHeight: "100vh" }}>
+    <Grid container sx={{ height: "100vh" }}>
       <Grid
         item
         xs={0}

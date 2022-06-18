@@ -21,6 +21,9 @@ const LearnSection = () => {
   const navigate = useNavigate();
   const currentHour = new Date().getHours();
   const user = useAppSelector((state) => state.user.user);
+  const data = useAppSelector((state) => state.data.data);
+
+  console.log(data);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 // Redux Store
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
@@ -11,9 +11,12 @@ import BookIcon from "@mui/icons-material/Book";
 // Assets
 import bg from "../../../assets/1C1C27.png";
 
+type LessonType = "learn" | "repeat" | "test" | null;
+
 const LearnDrawer = () => {
   const dispatch = useAppDispatch();
-  const openLessonDrawer = useAppSelector((state) => state.ui.openLessonDrawer);
+  // const openLessonDrawer = useAppSelector((state) => state.ui.openLessonDrawer);
+  const [choosenLessonPart, setChoosenLessonPart] = useState<LessonType>(null);
   return (
     <Box
       sx={{
@@ -26,6 +29,7 @@ const LearnDrawer = () => {
         transition: "all .5s ease",
       }}
       onClick={(e: React.MouseEvent) => {
+        setChoosenLessonPart(null);
         dispatch(uiActions.toggleOpenLessonDrawer());
       }}
     >
@@ -60,15 +64,23 @@ const LearnDrawer = () => {
         sx={{ display: "flex", justifyContent: "center", columnGap: 2, mb: 4 }}
       >
         <Box
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            setChoosenLessonPart("learn");
+          }}
           sx={{
             width: 100,
             height: 115,
             borderRadius: 5,
-            background: "var(--color-base-light)",
+            border: "2px solid var(--color-base-light)",
             display: "grid",
             placeItems: "center",
             alignContent: "center",
+            cursor: "pointer",
+            background:
+              choosenLessonPart === "learn"
+                ? "var(--color-base-light)"
+                : "transparent",
           }}
         >
           <BookIcon
@@ -77,15 +89,23 @@ const LearnDrawer = () => {
           <Typography>Read</Typography>
         </Box>
         <Box
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            setChoosenLessonPart("repeat");
+          }}
           sx={{
             width: 100,
             height: 115,
             borderRadius: 5,
-            background: "var(--color-base-light)",
+            border: "2px solid var(--color-base-light)",
             display: "grid",
             placeItems: "center",
             alignContent: "center",
+            cursor: "pointer",
+            background:
+              choosenLessonPart === "repeat"
+                ? "var(--color-base-light)"
+                : "transparent",
           }}
         >
           <BookIcon
@@ -94,15 +114,23 @@ const LearnDrawer = () => {
           <Typography>Translate</Typography>
         </Box>
         <Box
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            setChoosenLessonPart("test");
+          }}
           sx={{
             width: 100,
             height: 115,
             borderRadius: 5,
-            background: "var(--color-base-light)",
+            border: "2px solid var(--color-base-light)",
             display: "grid",
             placeItems: "center",
             alignContent: "center",
+            cursor: "pointer",
+            background:
+              choosenLessonPart === "test"
+                ? "var(--color-base-light)"
+                : "transparent",
           }}
         >
           <BookIcon
@@ -112,12 +140,13 @@ const LearnDrawer = () => {
         </Box>
       </Box>
       <Button
+        disabled={!choosenLessonPart}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           console.log("Button");
         }}
         variant="contained"
-        sx={{ width: "100%", mb: 2 }}
+        sx={{ width: "100%", mb: 2, "&:disabled": { color: "#aaa" } }}
         size="large"
       >
         Start
