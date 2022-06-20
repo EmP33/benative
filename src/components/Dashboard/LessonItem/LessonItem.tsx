@@ -2,19 +2,27 @@ import React from "react";
 // Redux Store
 import { useAppDispatch } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
+import { userActions } from "../../../store/user-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import LessonProgress from "./LessonProgress";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
+// Types
+import { LessonType } from "../../../data.types";
 
 interface Props {
-  title: string;
-  status: number;
+  lesson: LessonType;
 }
 
-const LessonItem: React.FC<Props> = ({ title, status }) => {
+const LessonItem: React.FC<Props> = ({ lesson }) => {
   const dispatch = useAppDispatch();
+
+  const openLessonDrawerHandler = () => {
+    dispatch(userActions.setCurrentLesson(lesson));
+    dispatch(uiActions.toggleOpenLessonDrawer());
+  };
+
   return (
     <Box
       sx={{
@@ -34,18 +42,18 @@ const LessonItem: React.FC<Props> = ({ title, status }) => {
           filter: "brightness(110%)",
         },
       }}
-      onClick={() => dispatch(uiActions.toggleOpenLessonDrawer())}
+      onClick={openLessonDrawerHandler}
     >
       <SchoolIcon sx={{ fontSize: 40 }} />
       <Box>
         <Typography variant="h6" sx={{ fontSize: 18 }}>
-          {title}
+          {lesson.title}
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 14 }}>
-          Ukończyłeś {status}% tej lekcji
+          Ukończyłeś {lesson.status}% tej lekcji
         </Typography>
       </Box>
-      <LessonProgress status={status} />
+      <LessonProgress status={lesson.status} />
     </Box>
   );
 };

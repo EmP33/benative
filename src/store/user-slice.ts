@@ -15,17 +15,23 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
+// Types
+import { LessonType, PartType } from "../data.types";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
   user: any;
   dataStatus: { status: boolean; type: string | null };
+  currentLesson: LessonType | null;
+  currentLessonPart: PartType | null;
 }
 
 /* Defining the initial state of the user slice. */
 const initialState: IInitialState = {
   user: undefined,
   dataStatus: { status: false, type: null },
+  currentLesson: null,
+  currentLessonPart: null,
 };
 
 const userSlice = createSlice({
@@ -40,6 +46,12 @@ const userSlice = createSlice({
     },
     resetDataStatus(state) {
       state.dataStatus = { status: false, type: null };
+    },
+    setCurrentLesson(state, action: PayloadAction<LessonType>) {
+      state.currentLesson = action.payload;
+    },
+    setCurrentLessonPart(state, action: PayloadAction<PartType | null>) {
+      state.currentLessonPart = action.payload;
     },
   },
 });
@@ -67,11 +79,13 @@ export const loginUser = (email: string, password: string) => {
     const sendRequest = async () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+          dispatch(uiActions.toggleIsLoading());
           // Signed in
           // const user = userCredential.user;
           // ...
         })
         .catch((error) => {
+          dispatch(uiActions.toggleIsLoading());
           if (error.message.includes("user-not-found")) {
             return dispatch(uiActions.setError("Nie ma takiego użytkownika"));
           }

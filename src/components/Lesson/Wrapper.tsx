@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // Components
 import { Box, Typography } from "@mui/material";
 import { HeaderButton, BorderLinearProgress } from "./Wrapper.style";
@@ -9,10 +10,11 @@ import TuneIcon from "@mui/icons-material/Tune";
 
 interface Props {
   children?: JSX.Element;
+  title: string | undefined;
 }
 
-const Wrapper: React.FC<Props> = ({ children }) => {
-  console.log("wrapper");
+const Wrapper: React.FC<Props> = ({ children, title }) => {
+  const navigate = useNavigate();
   return (
     <Box sx={{ p: 2 }}>
       <Box
@@ -23,15 +25,15 @@ const Wrapper: React.FC<Props> = ({ children }) => {
           mb: 4,
         }}
       >
-        <HeaderButton>
+        <HeaderButton onClick={() => navigate("/dashboard")}>
           <CloseIcon />
         </HeaderButton>
-        <Typography>Wybierz poprawną odpowiedź</Typography>
+        <Typography>{title}</Typography>
         <HeaderButton>
           <TuneIcon />
         </HeaderButton>
       </Box>
-      <BorderLinearProgress variant="determinate" value={30} />
+      <BorderLinearProgress variant="determinate" value={0} />
       {children}
     </Box>
   );

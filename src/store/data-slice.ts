@@ -7,6 +7,7 @@ import {
 import { ref, onValue, set } from "firebase/database";
 import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
+import { userActions } from "./user-slice";
 // Types
 
 /* Defining the shape of the initial state. */
@@ -65,6 +66,27 @@ export const getData = () => {
       onValue(dataRef, (snapshot) => {
         const data = snapshot.val();
         dispatch(dataActions.setData(data));
+      });
+    };
+    await sendRequest();
+  };
+};
+
+export const getLesson = (
+  uid: string,
+  category: string | undefined,
+  lessonID: string | undefined,
+  partID: string | undefined
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      const dataRef = ref(
+        database,
+        `users/${uid}/data/learning/${category}/${lessonID}/parts/${partID}`
+      );
+      onValue(dataRef, (snapshot) => {
+        const data = snapshot.val();
+        dispatch(userActions.setCurrentLessonPart(data));
       });
     };
     await sendRequest();

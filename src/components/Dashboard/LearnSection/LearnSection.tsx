@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 // Redux Store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
-import { Box, Typography } from "@mui/material";
-import LessonItem from "../LessonItem/LessonItem";
-import LearnDrawer from "../LearnDrawer/LearnDrawer";
+import { Box, Typography, Skeleton } from "@mui/material";
+
+import LessonLevel from "./LessonLevel";
 // Icons
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import {
@@ -22,8 +22,6 @@ const LearnSection = () => {
   const currentHour = new Date().getHours();
   const user = useAppSelector((state) => state.user.user);
   const data = useAppSelector((state) => state.data.data);
-
-  console.log(data);
 
   return (
     <>
@@ -117,17 +115,36 @@ const LearnSection = () => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        <Typography variant="h6" sx={{ mt: 1 }}>
-          Poziom początkujący: A1 - 50%
-        </Typography>
-        <LessonItem title="Dzieła sztuki aftrykańskiej" status={100} />
-        <LessonItem title="Marokańskie pociągi" status={100} />
-        <LessonItem title="K-Pop" status={100} />
-        <LessonItem title="Nowy film Barrego" status={100} />
-        <LessonItem title="Niebezpieczny owoc" status={75} />
-        <LessonItem title="Kondolencje" status={15} />
-        <LessonItem title="Gekony" status={0} />
-        <LessonItem title="Kondolencje cz.2" status={0} />
+        {data && data?.id ? (
+          Object.entries(data?.data?.learning).map(
+            ([categoryName, lessons]) => (
+              <LessonLevel
+                key={categoryName}
+                category={categoryName}
+                lessons={Object.values(lessons as {})}
+              />
+            )
+          )
+        ) : (
+          <>
+            <Typography variant="h2">
+              <Skeleton sx={{ background: "var(--color-base-light)" }} />
+            </Typography>
+            {[1, 2, 3, 4, 5, 6, 7].map((numb) => (
+              <Skeleton
+                key={numb}
+                sx={{
+                  borderRadius: 5,
+                  mb: 2,
+                  background: "var(--color-base-light)",
+                }}
+                variant="rectangular"
+                width="100%"
+                height={70}
+              />
+            ))}
+          </>
+        )}
       </Box>
     </>
   );

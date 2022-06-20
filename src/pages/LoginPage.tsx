@@ -17,9 +17,11 @@ const LoginPage = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const isError = useAppSelector((state) => state.ui.isError);
   const errorMessage = useAppSelector((state) => state.ui.errorMessage);
+  const isLoading = useAppSelector((state) => state.ui.isLoading);
 
   const loginUserHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(uiActions.toggleIsLoading());
     // Validation
     if (!emailRef.current || !passwordRef.current) {
       return dispatch(uiActions.setError("Coś poszło nie tak.."));
@@ -92,7 +94,7 @@ const LoginPage = () => {
                 variant="contained"
                 sx={{ width: "100%", mt: 2 }}
               >
-                Zaloguj
+                {isLoading ? "Loading..." : "Zaloguj"}
               </Button>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "center" }}>
