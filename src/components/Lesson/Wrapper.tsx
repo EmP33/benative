@@ -1,5 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../lib/hooks";
+import { userActions } from "../../store/user-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import { HeaderButton, BorderLinearProgress } from "./Wrapper.style";
@@ -15,6 +17,23 @@ interface Props {
 
 const Wrapper: React.FC<Props> = ({ children, title }) => {
   const navigate = useNavigate();
+  const params = useParams();
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.data.data);
+  const { category, lessonID, partID } = params;
+
+  useEffect(() => {
+    if (!category || !lessonID || !partID) return;
+    dispatch(
+      userActions.setCurrentLesson(data.data.learning[category][lessonID])
+    );
+    dispatch(
+      userActions.setCurrentLessonPart(
+        data.data.learning[category][lessonID].parts[partID]
+      )
+    );
+  }, []);
+
   return (
     <Box sx={{ p: 2 }}>
       <Box

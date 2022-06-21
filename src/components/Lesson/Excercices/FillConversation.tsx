@@ -7,9 +7,10 @@ import { TaskType } from "../../../data.types";
 
 interface Props {
   task: TaskType;
+  checkAnswers: (checkedAnswers: boolean[], answers: string[]) => void;
 }
 
-const FillConversation: React.FC<Props> = ({ task }) => {
+const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
   const answerRef = useRef<HTMLInputElement>(null);
   const [answers, setAnswers] = useState<string[]>([]);
   let question = task.question
@@ -24,8 +25,7 @@ const FillConversation: React.FC<Props> = ({ task }) => {
     .join(" ");
 
   const checkAnswerHandler = () => {
-    if (!answerRef.current) return;
-    console.log(answers.length);
+    if (!answerRef.current || answerRef.current.value === "") return;
     const answer = answerRef.current.value;
     if (!answers.length) {
       setAnswers([answer]);
@@ -33,11 +33,19 @@ const FillConversation: React.FC<Props> = ({ task }) => {
       setAnswers((prev) => [...prev, answer]);
     }
     answerRef.current.value = "";
-    // @ts-ignore
-    console.log(task.correctAnswer.filter((answ) => answ.trim() !== answer));
   };
 
-  console.log(answers);
+  const checkTaskHandler = () => {
+    if (answers.length === task.correctAnswer.length) {
+      const checkedAnswers = answers.map((answer) =>
+        task.correctAnswer
+          // @ts-ignore
+          .map((ans: string) => ans.trim())
+          .includes(answer.toLowerCase())
+      );
+      checkAnswers(checkedAnswers, answers);
+    }
+  };
 
   return (
     <Grid container sx={{ textAlign: "center", mt: 5 }}>
@@ -63,15 +71,23 @@ const FillConversation: React.FC<Props> = ({ task }) => {
             flexWrap: "wrap",
           }}
         >
-          {answers.map((answer) => (
+          {answers.map((answer, key) => (
             <Typography
-              key={answer}
+              key={key}
               variant="body1"
               sx={{
                 p: 1,
                 background: " var(--color-primary)",
                 borderRadius: 2,
+                cursor: "pointer",
+
+                "&:hover": {
+                  filter: "brightness(80%)",
+                },
               }}
+              onClick={() =>
+                setAnswers((prev) => prev.filter((ans) => ans !== answer))
+              }
             >
               {answer}
             </Typography>
@@ -80,6 +96,8 @@ const FillConversation: React.FC<Props> = ({ task }) => {
       </Grid>
       <Grid item xs={12}>
         <CSSTextField
+          disabled={task.correctAnswer.length === answers.length}
+          onKeyUp={(e) => e.key === "Enter" && checkAnswerHandler()}
           inputRef={answerRef}
           type="text"
           variant="outlined"
@@ -88,15 +106,25 @@ const FillConversation: React.FC<Props> = ({ task }) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <Button
-          onClick={checkAnswerHandler}
-          onKeyUp={(e) => console.log(e)}
-          size="large"
-          variant="contained"
-          sx={{ width: "70%", mt: 2 }}
-        >
-          Sprawdź
-        </Button>
+        {task.correctAnswer.length === answers.length ? (
+          <Button
+            onClick={checkTaskHandler}
+            size="large"
+            variant="contained"
+            sx={{ width: "70%", mt: 2 }}
+          >
+            Sprawdź
+          </Button>
+        ) : (
+          <Button
+            onClick={checkAnswerHandler}
+            size="large"
+            variant="contained"
+            sx={{ width: "70%", mt: 2 }}
+          >
+            Dodaj
+          </Button>
+        )}
       </Grid>
     </Grid>
   );

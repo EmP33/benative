@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
         --color-base-dark:#16161f;
 
         --color-white: #fff;
+        --color-danger: #f44336;
     }
     
 
