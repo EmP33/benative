@@ -7,8 +7,8 @@ import SadFace from "../../../assets/SadFace";
 interface Props {
   answer: string;
   translation: string;
-  correctAnswers: string[];
-  answers: string[];
+  correctAnswers: string[] | string;
+  answers: string[] | string;
 }
 
 const FailureMessage: React.FC<Props> = ({
@@ -69,14 +69,20 @@ const FailureMessage: React.FC<Props> = ({
         >
           Poprawna odpowiedź
         </Typography>
-        <Typography>{correctAnswers.join(", ")}</Typography>
+        <Typography>
+          {typeof correctAnswers === "string"
+            ? correctAnswers
+            : correctAnswers.join(", ")}
+        </Typography>
         <Typography
           variant="body2"
           sx={{ fontWeight: "bold", color: "var(--color-danger)", mt: 2 }}
         >
           Twoja odpowiedź
         </Typography>
-        <Typography>{answers.join(", ")}</Typography>
+        <Typography>
+          {typeof answers === "string" ? answers : answers.join(", ")}
+        </Typography>
       </Box>
     </Box>
   );

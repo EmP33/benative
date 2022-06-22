@@ -17,6 +17,8 @@ const DashboardPage = () => {
   const { uid } = useAppSelector((state) => state.user.user);
   const data = useAppSelector((state) => state.data.data);
   const isError = useAppSelector((state) => state.ui.isError);
+
+  console.log(data);
   useEffect(() => {
     dispatch(getData());
     if (uid && !isError) {

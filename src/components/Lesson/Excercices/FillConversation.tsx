@@ -17,12 +17,15 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
     .toLowerCase()
     .split(" ")
     .map((word) =>
-      // @ts-ignore
-      task.correctAnswer.map((word: string) => word.trim()).includes(word)
+      task.correctAnswer
+        // @ts-ignore
+        .map((word: string) => word.trim().toLowerCase())
+        .includes(word)
         ? ` _ `
         : word
     )
-    .join(" ");
+    .join(" ")
+    .replaceAll("|", "<br/>");
 
   const checkAnswerHandler = () => {
     if (!answerRef.current || answerRef.current.value === "") return;
@@ -40,11 +43,12 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
       const checkedAnswers = answers.map((answer) =>
         task.correctAnswer
           // @ts-ignore
-          .map((ans: string) => ans.trim())
+          .map((ans: string) => ans.trim().toLowerCase())
           .includes(answer.toLowerCase())
       );
       checkAnswers(checkedAnswers, answers);
     }
+    setAnswers([]);
   };
 
   return (
@@ -52,6 +56,7 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
       <Grid item xs={12}>
         <Typography
           variant="h6"
+          sx={{ lineHeight: 2 }}
           dangerouslySetInnerHTML={{ __html: question }}
         ></Typography>
       </Grid>

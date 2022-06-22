@@ -21,6 +21,9 @@ const Wrapper: React.FC<Props> = ({ children, title }) => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.data.data);
   const { category, lessonID, partID } = params;
+  const currentLessonPart = useAppSelector(
+    (state) => state.user.currentLessonPart
+  );
 
   useEffect(() => {
     if (!category || !lessonID || !partID) return;
@@ -47,12 +50,22 @@ const Wrapper: React.FC<Props> = ({ children, title }) => {
         <HeaderButton onClick={() => navigate("/dashboard")}>
           <CloseIcon />
         </HeaderButton>
-        <Typography>{title}</Typography>
+        <Typography sx={{ padding: "0 16px 0 16px", textAlign: "center" }}>
+          {title}
+        </Typography>
         <HeaderButton>
           <TuneIcon />
         </HeaderButton>
       </Box>
-      <BorderLinearProgress variant="determinate" value={0} />
+      <BorderLinearProgress
+        variant="determinate"
+        value={
+          params.ex
+            ? // @ts-ignore
+              (params.ex / Object.values(currentLessonPart.tasks).length) * 100
+            : 0
+        }
+      />
       {children}
     </Box>
   );

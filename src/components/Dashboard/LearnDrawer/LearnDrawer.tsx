@@ -28,7 +28,7 @@ const LearnDrawer = () => {
   // const [choosenLessonPart, setChoosenLessonPart] = useState<PartType | null>(
   //   null
   // );
-  console.log(currentLesson);
+  console.log("learnDrawer");
 
   return (
     <Box
@@ -118,7 +118,7 @@ const LearnDrawer = () => {
           dispatch(uiActions.toggleOpenLessonDrawer());
         }}
         variant="contained"
-        sx={{ width: "100%", mb: 2, "&:disabled": { color: "#aaa" } }}
+        sx={{ width: "100%", mb: 2, "&:disabled": { color: "#4d3b3b" } }}
         size="large"
       >
         Start
@@ -127,4 +127,4 @@ const LearnDrawer = () => {
   );
 };
 
-export default LearnDrawer;
+export default React.memo(LearnDrawer);

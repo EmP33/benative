@@ -62,7 +62,6 @@ const Welcome = () => {
           element={<QuestionResult />}
         />
       </Routes>
-
       <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
         <BottomNavigation
           value={value}
@@ -122,7 +121,7 @@ const Welcome = () => {
           transition: "all .4s ease",
         }}
       >
-        <LearnDrawer />
+        {openLessonDrawer && <LearnDrawer />}
       </Box>
     </>
   );

@@ -21,7 +21,6 @@ const GlobalStyle = createGlobalStyle`
         --color-white: #fff;
         --color-danger: #f44336;
     }
-    
 
     body {
         margin:0;
