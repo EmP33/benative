@@ -28,7 +28,7 @@ const LearnDrawer = () => {
   // const [choosenLessonPart, setChoosenLessonPart] = useState<PartType | null>(
   //   null
   // );
-  console.log("learnDrawer");
+  console.log(currentLesson);
 
   return (
     <Box
@@ -96,13 +96,22 @@ const LearnDrawer = () => {
                 cursor: "pointer",
                 textAlign: "center",
                 background:
-                  currentLessonPart?.id === part.id
+                  currentLesson?.status === 100
+                    ? "var(--color-primary-light)"
+                    : currentLessonPart?.id === part.id
                     ? "var(--color-base-light)"
                     : "transparent",
               }}
             >
               <BookIcon
-                sx={{ fontSize: 40, mb: 1, color: "var(--color-primary-dark)" }}
+                sx={{
+                  fontSize: 40,
+                  mb: 1,
+                  color:
+                    currentLesson?.status === 100
+                      ? "var(--color-white)"
+                      : "var(--color-primary-light)",
+                }}
               />
               <Typography>{part.title}</Typography>
             </Box>

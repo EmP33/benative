@@ -39,6 +39,7 @@ const QuestionResult = () => {
   if (!currentLessonPart || !params.ex) {
     return <div>Loading...</div>;
   }
+  console.log(currentLessonPart);
 
   const tasks = Object.values(currentLessonPart.tasks).sort(
     (a, b) => a.order - b.order

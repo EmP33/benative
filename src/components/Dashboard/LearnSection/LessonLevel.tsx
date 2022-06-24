@@ -11,22 +11,19 @@ interface Props {
 }
 
 const LessonLevel: React.FC<Props> = ({ category, lessons }) => {
+  const lessonsStatus = lessons.map((lesson: LessonType) => lesson.status);
+
   return (
     <>
       <Typography variant="h6" sx={{ mt: 1 }}>
-        Poziom początkujący: {category.toUpperCase()} - 50%
+        Poziom początkujący: {category.toUpperCase()} -{" "}
+        {lessonsStatus.reduce((a: number, b: number) => a + b, 0) /
+          lessonsStatus.length}
+        %
       </Typography>
       {lessons.map((lesson: LessonType) => (
         <LessonItem key={lesson.id} lesson={lesson} />
       ))}
-
-      {/* <LessonItem title="Marokańskie pociągi" status={100} />
-      <LessonItem title="K-Pop" status={100} />
-      <LessonItem title="Nowy film Barrego" status={100} />
-      <LessonItem title="Niebezpieczny owoc" status={75} />
-      <LessonItem title="Kondolencje" status={15} />
-      <LessonItem title="Gekony" status={0} />
-      <LessonItem title="Kondolencje cz.2" status={0} /> */}
     </>
   );
 };

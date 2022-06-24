@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Redux Store
-import { useAppDispatch } from "../../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
 import { userActions } from "../../../store/user-slice";
+import { updateLesson } from "../../../store/data-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import LessonProgress from "./LessonProgress";
@@ -18,10 +19,35 @@ interface Props {
 const LessonItem: React.FC<Props> = ({ lesson }) => {
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector((state) => state.user.user);
+
   const openLessonDrawerHandler = () => {
     dispatch(userActions.setCurrentLesson(lesson));
     dispatch(uiActions.toggleOpenLessonDrawer());
   };
+
+  useEffect(() => {
+    if (lesson.parts) {
+      const parts = Object.values(lesson.parts).map((part) =>
+        part.status === 100 ? true : false
+      );
+      const completedParts = parts.filter(
+        (value: boolean) => value === true
+      ).length;
+
+      dispatch(
+        updateLesson(user.uid, lesson.category, lesson.id, {
+          category: lesson.category,
+          date: lesson.date,
+          description: lesson.description,
+          id: lesson.id,
+          parts: lesson.parts,
+          status: (completedParts / parts.length) * 100,
+          title: lesson.title,
+        })
+      );
+    }
+  }, [lesson.parts]);
 
   return (
     <Box

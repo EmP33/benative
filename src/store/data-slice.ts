@@ -4,11 +4,12 @@ import {
   Dispatch,
   AnyAction,
 } from "@reduxjs/toolkit";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue, set, update } from "firebase/database";
 import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
 // Types
+import { PartType } from "../data.types";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
@@ -88,6 +89,49 @@ export const getLesson = (
         const data = snapshot.val();
         dispatch(userActions.setCurrentLessonPart(data));
       });
+    };
+    await sendRequest();
+  };
+};
+
+export const updateLessonPart = (
+  uid: string,
+  category: string | undefined,
+  lessonID: string | undefined,
+  partID: string | undefined,
+  data: any
+) => {
+  console.log(
+    `users/${uid}/data/learning/${category}/${lessonID}/parts/${partID}`
+  );
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/learning/${category}/${lessonID}/parts/${partID}`
+        ),
+        data
+      );
+      dispatch(userActions.setCurrentLessonPart(data));
+    };
+    await sendRequest();
+  };
+};
+
+export const updateLesson = (
+  uid: string,
+  category: string | undefined,
+  lessonID: string | undefined,
+  data: any
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(database, `users/${uid}/data/learning/${category}/${lessonID}`),
+        data
+      );
+      dispatch(userActions.setCurrentLesson(data));
     };
     await sendRequest();
   };
