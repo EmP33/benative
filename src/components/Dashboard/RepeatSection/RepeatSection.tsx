@@ -11,8 +11,6 @@ import SectionHeader from "../../UI/SectionHeader";
 const RepeatSection = () => {
   const data = useAppSelector((state) => state.data.data);
 
-  console.log(data.data.words);
-
   return (
     <Box
       sx={{

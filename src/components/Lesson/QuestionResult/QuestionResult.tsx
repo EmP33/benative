@@ -39,7 +39,6 @@ const QuestionResult = () => {
   if (!currentLessonPart || !params.ex) {
     return <div>Loading...</div>;
   }
-  console.log(currentLessonPart);
 
   const tasks = Object.values(currentLessonPart.tasks).sort(
     (a, b) => a.order - b.order
@@ -63,14 +62,6 @@ const QuestionResult = () => {
     setAnswers([]);
     setCheckedAnswers([]);
   };
-
-  // if (checkedAnswers.length === tasks[+params.ex]?.correctAnswer?.length) {
-  //   setTimeout(() => {
-  //     nextQuestionHandler();
-  //   }, 1000 * 10);
-  // }
-
-  console.log(tasks[+params.ex]);
 
   return (
     <Wrapper title={tasks[+params.ex]?.title || "Dobra Robota!"}>

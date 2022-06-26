@@ -28,7 +28,6 @@ const LearnDrawer = () => {
   // const [choosenLessonPart, setChoosenLessonPart] = useState<PartType | null>(
   //   null
   // );
-  console.log(currentLesson);
 
   return (
     <Box
@@ -78,44 +77,46 @@ const LearnDrawer = () => {
       >
         {currentLesson &&
           currentLesson.parts &&
-          Object.values(currentLesson.parts).map((part: PartType) => (
-            <Box
-              key={part.id}
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                dispatch(userActions.setCurrentLessonPart(part));
-              }}
-              sx={{
-                width: 100,
-                height: 115,
-                borderRadius: 5,
-                border: "2px solid var(--color-base-light)",
-                display: "grid",
-                placeItems: "center",
-                alignContent: "center",
-                cursor: "pointer",
-                textAlign: "center",
-                background:
-                  currentLesson?.status === 100
-                    ? "var(--color-primary-light)"
-                    : currentLessonPart?.id === part.id
-                    ? "var(--color-base-light)"
-                    : "transparent",
-              }}
-            >
-              <BookIcon
-                sx={{
-                  fontSize: 40,
-                  mb: 1,
-                  color:
-                    currentLesson?.status === 100
-                      ? "var(--color-white)"
-                      : "var(--color-primary-light)",
+          Object.values(currentLesson.parts)
+            .sort((a, b) => a.order - b.order)
+            .map((part: PartType) => (
+              <Box
+                key={part.id}
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  dispatch(userActions.setCurrentLessonPart(part));
                 }}
-              />
-              <Typography>{part.title}</Typography>
-            </Box>
-          ))}
+                sx={{
+                  width: 100,
+                  height: 115,
+                  borderRadius: 5,
+                  border: "2px solid var(--color-base-light)",
+                  display: "grid",
+                  placeItems: "center",
+                  alignContent: "center",
+                  cursor: "pointer",
+                  textAlign: "center",
+                  background:
+                    currentLesson?.status === 100
+                      ? "var(--color-primary-light)"
+                      : currentLessonPart?.id === part.id
+                      ? "var(--color-base-light)"
+                      : "transparent",
+                }}
+              >
+                <BookIcon
+                  sx={{
+                    fontSize: 40,
+                    mb: 1,
+                    color:
+                      currentLesson?.status === 100
+                        ? "var(--color-white)"
+                        : "var(--color-primary-light)",
+                  }}
+                />
+                <Typography>{part.title}</Typography>
+              </Box>
+            ))}
       </Box>
       <Button
         disabled={!currentLessonPart}

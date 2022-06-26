@@ -4,7 +4,7 @@ import {
   Dispatch,
   AnyAction,
 } from "@reduxjs/toolkit";
-import { ref, onValue, set, update } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
@@ -14,11 +14,13 @@ import { PartType } from "../data.types";
 /* Defining the shape of the initial state. */
 interface IInitialState {
   data: any;
+  dataError: boolean;
 }
 
 /* Defining the initial state of the reducer. */
 const initialState: IInitialState = {
   data: null,
+  dataError: false,
 };
 
 const dataSlice = createSlice({
@@ -27,6 +29,12 @@ const dataSlice = createSlice({
   reducers: {
     setData(state, action: PayloadAction<any>) {
       state.data = action.payload;
+    },
+    setError(state) {
+      state.dataError = true;
+    },
+    removeError(state) {
+      state.dataError = false;
     },
   },
 });
@@ -51,8 +59,7 @@ export const fetchUserData = (uid: string) => {
       const dataRef = ref(database, `users/${uid}`);
       onValue(dataRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data)
-          return dispatch(uiActions.setError("Błąd przy wczytywaniu danych"));
+        if (!data) return dispatch(dataActions.setError());
         dispatch(dataActions.setData(data));
       });
     };
@@ -101,9 +108,6 @@ export const updateLessonPart = (
   partID: string | undefined,
   data: any
 ) => {
-  console.log(
-    `users/${uid}/data/learning/${category}/${lessonID}/parts/${partID}`
-  );
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {
       set(

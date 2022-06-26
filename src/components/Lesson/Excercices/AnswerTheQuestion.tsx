@@ -27,8 +27,6 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
   //     answerRef.current.value = "";
   //   };
 
-  // console.log(task.correctAnswer);
-
   const checkTaskHandler = () => {
     if (!answerRef.current || answerRef.current.value === "") return;
     const answer = answerRef.current.value;

@@ -173,7 +173,7 @@ export const logoutUser = () => {
   };
 };
 
-export const deleteAccount = () => {
+export const deleteAccount = (uid: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {
       if (auth.currentUser === null) throw new Error("No user found");

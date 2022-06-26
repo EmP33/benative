@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // Components
 import {
   Dialog,
@@ -11,7 +12,7 @@ import {
 } from "@mui/material";
 // Redux Store
 import { deleteAccount } from "../../store/user-slice";
-import { useAppDispatch } from "../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 
 interface Props {
   openModal: boolean;
@@ -19,7 +20,9 @@ interface Props {
 }
 
 const DeleteModal: React.FC<Props> = ({ openModal, onCloseModal }) => {
+  const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <Dialog
       open={openModal}
@@ -46,7 +49,8 @@ const DeleteModal: React.FC<Props> = ({ openModal, onCloseModal }) => {
           <Button onClick={onCloseModal}>Nie usuwaj</Button>
           <Button
             onClick={() => {
-              dispatch(deleteAccount());
+              dispatch(deleteAccount(user.uid));
+              onCloseModal();
             }}
             variant="contained"
             color="error"

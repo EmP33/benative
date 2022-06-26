@@ -10,7 +10,6 @@ interface Props {
 }
 
 const NewWordLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
-  console.log(task);
   return (
     <Grid container sx={{ mt: 2 }}>
       <Grid item xs={12}>

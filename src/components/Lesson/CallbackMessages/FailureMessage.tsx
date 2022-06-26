@@ -17,7 +17,6 @@ const FailureMessage: React.FC<Props> = ({
   correctAnswers,
   answers,
 }) => {
-  console.log(correctAnswers, answers);
   return (
     <Box
       onClick={(e) => e.stopPropagation()}

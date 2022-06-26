@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // Redux Store
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
-import { getData, createUser, fetchUserData } from "../store/data-slice";
+import {
+  getData,
+  createUser,
+  fetchUserData,
+  dataActions,
+} from "../store/data-slice";
 import { uiActions } from "../store/ui-slice";
 // Components
 import { Grid } from "@mui/material";
@@ -17,22 +22,23 @@ const DashboardPage = () => {
   const dispatch = useAppDispatch();
   const { uid } = useAppSelector((state) => state.user.user);
   const data = useAppSelector((state) => state.data.data);
-  const isError = useAppSelector((state) => state.ui.isError);
-  console.log(data);
-  if (data?.data) {
-    console.log(
-      Object.values(data?.data.learning)
-        .map((lesson: any) => Object.values(lesson))
-        .flat()
-        .map((lesson: any) => lesson.parts)
-        .filter((part) => part !== undefined)
-        .map((part) => Object.values(part))
-        .flat()
-        .map((part: any) => part.words)
-        .filter((part) => part !== undefined)
-        .flat()
-    );
-  }
+  const isError = useAppSelector((state) => state.data.dataError);
+  console.log(data, isError);
+
+  // if (data?.data) {
+  //   console.log(
+  //     Object.values(data?.data.learning)
+  //       .map((lesson: any) => Object.values(lesson))
+  //       .flat()
+  //       .map((lesson: any) => lesson.parts)
+  //       .filter((part) => part !== undefined)
+  //       .map((part) => Object.values(part))
+  //       .flat()
+  //       .map((part: any) => part.words)
+  //       .filter((part) => part !== undefined)
+  //       .flat()
+  //   );
+  // }
   useEffect(() => {
     dispatch(getData());
     if (uid && !isError) {
@@ -40,7 +46,7 @@ const DashboardPage = () => {
     }
     if (isError) {
       dispatch(createUser(uid, data));
-      dispatch(uiActions.removeError());
+      dispatch(dataActions.removeError());
     }
   }, [dispatch, uid, isError]);
 
