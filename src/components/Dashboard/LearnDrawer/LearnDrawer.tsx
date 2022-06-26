@@ -97,7 +97,7 @@ const LearnDrawer = () => {
                   cursor: "pointer",
                   textAlign: "center",
                   background:
-                    currentLesson?.status === 100
+                    part?.status === 100
                       ? "var(--color-primary-light)"
                       : currentLessonPart?.id === part.id
                       ? "var(--color-base-light)"
@@ -109,7 +109,7 @@ const LearnDrawer = () => {
                     fontSize: 40,
                     mb: 1,
                     color:
-                      currentLesson?.status === 100
+                      part?.status === 100
                         ? "var(--color-white)"
                         : "var(--color-primary-light)",
                   }}

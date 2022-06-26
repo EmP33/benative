@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // Components
 import { Box, Typography, Button } from "@mui/material";
 // Icons
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const HelpItem: React.FC<Props> = ({ title, description, linkTitle, link }) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -34,7 +36,12 @@ const HelpItem: React.FC<Props> = ({ title, description, linkTitle, link }) => {
       >
         {description}
       </Typography>
-      <Button sx={{ color: "var(--color-primary)" }}>{linkTitle}</Button>
+      <Button
+        onClick={() => navigate(link)}
+        sx={{ color: "var(--color-primary)" }}
+      >
+        {linkTitle}
+      </Button>
     </Box>
   );
 };

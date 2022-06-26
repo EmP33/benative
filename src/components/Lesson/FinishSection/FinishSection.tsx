@@ -16,6 +16,7 @@ const FinishSection = () => {
     (state) => state.user.currentLessonPart
   );
   const user = useAppSelector((state) => state.user.user);
+  console.log(currentLessonPart);
 
   useEffect(() => {
     dispatch(
@@ -30,6 +31,7 @@ const FinishSection = () => {
           tasks: currentLessonPart?.tasks,
           title: currentLessonPart?.title,
           words: currentLessonPart?.words ? currentLessonPart?.words : [],
+          order: currentLessonPart?.order,
         }
       )
     );
@@ -59,7 +61,7 @@ const FinishSection = () => {
             Poznane przez Ciebie słówka w tej sekcji:
           </Typography>
           {currentLessonPart?.words.map((wordPair, i) => (
-            <Box sx={{ display: "flex" }} key={i}>
+            <Box sx={{ display: "flex", textAlign: "left" }} key={i}>
               <Typography
                 sx={{
                   mt: 3,
@@ -71,7 +73,7 @@ const FinishSection = () => {
                 {wordPair[0]}{" "}
               </Typography>
 
-              <Typography sx={{ mt: 3 }} variant="body2">
+              <Typography sx={{ mt: 3, textAlign: "left" }} variant="body2">
                 {" "}
                 -{wordPair[1]}
               </Typography>

@@ -6,10 +6,11 @@ import SmileFace from "../../../assets/SmileFace";
 
 interface Props {
   answer: string;
-  translation: string;
+  translation: string | string[];
 }
 
 const SuccessMessage: React.FC<Props> = ({ answer, translation }) => {
+  console.log(translation);
   return (
     <Box
       sx={{
@@ -50,9 +51,15 @@ const SuccessMessage: React.FC<Props> = ({ answer, translation }) => {
         <Typography>{answer}</Typography>
         <Typography
           variant="body2"
-          sx={{ mb: 3, fontWeight: "bold", color: "var(--color-primary)" }}
+          sx={{
+            mb: 3,
+            fontWeight: "bold",
+            color: "var(--color-tertiary-dark)",
+          }}
         >
-          {translation}
+          {typeof translation === "string"
+            ? translation
+            : translation.join(", ")}
         </Typography>
       </Box>
     </Box>

@@ -13,19 +13,8 @@ interface Props {
   ) => void;
 }
 
-const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
+const TranslatePhrase: React.FC<Props> = ({ task, checkAnswers }) => {
   const answerRef = useRef<HTMLInputElement>(null);
-
-  //   const checkAnswerHandler = () => {
-  //     if (!answerRef.current || answerRef.current.value === "") return;
-  //     const answer = answerRef.current.value;
-  //     if (!answers.length) {
-  //       setAnswers([answer]);
-  //     } else {
-  //       setAnswers((prev) => [...prev, answer]);
-  //     }
-  //     answerRef.current.value = "";
-  //   };
 
   const checkTaskHandler = () => {
     if (!answerRef.current || answerRef.current.value === "") return;
@@ -72,4 +61,4 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
   );
 };
 
-export default FillConversation;
+export default TranslatePhrase;

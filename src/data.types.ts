@@ -1,6 +1,8 @@
 export interface TaskType {
   id: string;
   correctAnswer: string | [];
+  answers?: string[];
+  translation: string;
   order: number;
   question: string;
   title: string;
@@ -13,6 +15,7 @@ export interface PartType {
   title: string;
   tasks: TaskType;
   words: [];
+  order: number;
 }
 
 export interface LessonType {

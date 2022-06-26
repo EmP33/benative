@@ -38,7 +38,7 @@ const HelpSection = () => {
               description=" Ustaw nazwę jaka zostanie przypisana dla twojego konta. Możesz to zrobić
       tutaj:"
               linkTitle="Ustawienia Konta"
-              link="settings"
+              link="/dashboard/user-settings"
             />
             <HelpItem
               title="Dowiedz się więcej.."
@@ -50,13 +50,13 @@ const HelpSection = () => {
               title="Pamiętaj o regularnym powtarzaniu!"
               description="Staraj regularanie korzystać z zakładki powtórz, aby na bierząco powtarzać uczone przec Ciebie słownictwo oraz gramatykę."
               linkTitle="Powtórz"
-              link="settings"
+              link="/dashboard/repeat"
             />
             <HelpItem
               title="Nowy tryb!"
               description="Dodaliśmy nowy tryb gry: Memories. Możesz go znaleźć w zakładce z kategoriami lub też klikając poniższy link."
               linkTitle="Memories"
-              link="settings"
+              link="/dashboard/categories"
             />
           </Box>
         </Box>

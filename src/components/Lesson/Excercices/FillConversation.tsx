@@ -56,7 +56,10 @@ const FillConversation: React.FC<Props> = ({ task, checkAnswers }) => {
       <Grid item xs={12}>
         <Typography
           variant="h6"
-          sx={{ lineHeight: 2 }}
+          sx={{
+            lineHeight: 2,
+            "&::first-letter": { textTransform: "uppercase" },
+          }}
           dangerouslySetInnerHTML={{ __html: question }}
         ></Typography>
       </Grid>

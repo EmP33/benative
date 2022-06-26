@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAudio } from "../../../lib/hooks";
 // Redux Store
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 import { getLesson } from "../../../store/data-slice";
 // Components
 import { Box } from "@mui/material";
 import Wrapper from "../Wrapper";
+
 import FillConversation from "../Excercices/FillConversation";
+import TranslatePhrase from "../Excercices/TranslatePhrase";
+import ChooseCorrectAnswer from "../Excercices/ChooseCorrectAnswer";
+import ChooseCorrectAnswerAng from "../Excercices/ChooseCorrectAnswerAng";
+import MatchToGap from "../Excercices/MatchToGap";
+
 import SuccessMessage from "../CallbackMessages/SuccessMessage";
 import FailureMessage from "../CallbackMessages/FailureMessage";
-import AnswerTheQuestion from "../Excercices/AnswerTheQuestion";
+
 import BasicLearnBoard from "../BoardSection/BasicLearnBoard";
 import NewWordLearnBoard from "../BoardSection/NewWordLearnBoard";
-import FinishSection from "../FinishSection/FinishSection";
 import MultipleWordsLearnBoard from "../BoardSection/MultipleWordsLearnBoard";
+
+import FinishSection from "../FinishSection/FinishSection";
 
 const QuestionResult = () => {
   const navigate = useNavigate();
@@ -29,6 +37,12 @@ const QuestionResult = () => {
     (state) => state.user.currentLessonPart
   );
   const currentLesson = useAppSelector((state) => state.user.currentLesson);
+  const [playingCorrect, toggleCorrect] = useAudio(
+    "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/correct-answer_ezfmgk.mp3"
+  );
+  const [playingIncorrect, toggleInCorrect] = useAudio(
+    "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
+  );
 
   useEffect(() => {
     dispatch(
@@ -48,6 +62,14 @@ const QuestionResult = () => {
     checkedAnswers: boolean[] | boolean,
     answers: string[] | string
   ) => {
+    console.log(checkedAnswers);
+    if (checkedAnswers) {
+      // @ts-ignore
+      toggleCorrect();
+    } else {
+      // @ts-ignore
+      toggleInCorrect();
+    }
     setCheckedAnswers(checkedAnswers);
     setAnswers(answers);
   };
@@ -72,13 +94,25 @@ const QuestionResult = () => {
               task={tasks[+params.ex]}
               checkAnswers={checkAnswers}
             />
-          ) : tasks[+params.ex].type === "answer-the-question" ? (
-            <AnswerTheQuestion
+          ) : tasks[+params.ex].type === "translate-phrase" ? (
+            <TranslatePhrase
               task={tasks[+params.ex]}
               checkAnswers={checkAnswers}
             />
-          ) : tasks[+params.ex].type === "translate-phrase" ? (
-            <AnswerTheQuestion
+          ) : tasks[+params.ex].type === "translate-phrase-ang" ? (
+            <TranslatePhrase
+              task={tasks[+params.ex]}
+              checkAnswers={checkAnswers}
+            />
+          ) : tasks[+params.ex].type === "match-to-gap" ? (
+            <MatchToGap task={tasks[+params.ex]} checkAnswers={checkAnswers} />
+          ) : tasks[+params.ex].type === "choose-correct-answer" ? (
+            <ChooseCorrectAnswer
+              task={tasks[+params.ex]}
+              checkAnswers={checkAnswers}
+            />
+          ) : tasks[+params.ex].type === "choose-correct-answer-ang" ? (
+            <ChooseCorrectAnswerAng
               task={tasks[+params.ex]}
               checkAnswers={checkAnswers}
             />
@@ -103,7 +137,6 @@ const QuestionResult = () => {
         ) : (
           <FinishSection />
         )}
-
         {typeof checkedAnswers === "boolean" ? (
           !checkedAnswers ? (
             <Box
@@ -138,7 +171,7 @@ const QuestionResult = () => {
             >
               <SuccessMessage
                 answer={tasks[+params.ex].question}
-                translation={tasks[+params.ex].translation}
+                translation={tasks[+params.ex].correctAnswer}
               />
             </Box>
           )
@@ -177,7 +210,7 @@ const QuestionResult = () => {
             >
               <SuccessMessage
                 answer={tasks[+params.ex].question}
-                translation={tasks[+params.ex].translation}
+                translation={tasks[+params.ex].correctAnswer}
               />
             </Box>
           )
