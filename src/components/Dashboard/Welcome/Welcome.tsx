@@ -17,6 +17,7 @@ import AccountSettings from "../SettingsSection/SettingsElements/AccountSettings
 import Security from "../SettingsSection/SettingsElements/Security";
 import Preferences from "../SettingsSection/SettingsElements/Preferences";
 import QuestionResult from "../../Lesson/QuestionResult/QuestionResult";
+import RepeatSection from "../RepeatSection/RepeatSection";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -53,6 +54,7 @@ const Welcome = () => {
         <Route path="/" element={<LearnSection />} />
         <Route path="/profile" element={<ProfileSection />} />
         <Route path="/categories" element={<CategoriesSection />} />
+        <Route path="/repeat" element={<RepeatSection />} />
         <Route path="/settings" element={<SettingsSection />} />
         <Route path="/user-settings" element={<AccountSettings />} />
         <Route path="/security" element={<Security />} />
