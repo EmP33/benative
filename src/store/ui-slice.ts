@@ -11,6 +11,7 @@ interface IInitialState {
   isError: boolean;
   errorMessage: string;
   openLessonDrawer: boolean;
+  isSound: boolean;
 }
 
 /* Defining the initial state of the reducer. */
@@ -19,6 +20,7 @@ const initialState: IInitialState = {
   isError: false,
   errorMessage: "",
   openLessonDrawer: false,
+  isSound: true,
 };
 
 const uiSlice = createSlice({
@@ -38,6 +40,9 @@ const uiSlice = createSlice({
     },
     toggleOpenLessonDrawer(state) {
       state.openLessonDrawer = state.openLessonDrawer === false ? true : false;
+    },
+    toggleSound(state) {
+      state.isSound = state.isSound === false ? true : false;
     },
   },
 });

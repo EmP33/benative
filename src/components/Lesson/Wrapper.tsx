@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { userActions } from "../../store/user-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import { HeaderButton, BorderLinearProgress } from "./Wrapper.style";
-
+import LessonSettings from "./LessonSettings/LessonSettings";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -24,6 +24,7 @@ const Wrapper: React.FC<Props> = ({ children, title }) => {
   const currentLessonPart = useAppSelector(
     (state) => state.user.currentLessonPart
   );
+  const [openSettings, setOpenSettings] = useState(false);
 
   useEffect(() => {
     if (!category || !lessonID || !partID) return;
@@ -53,7 +54,7 @@ const Wrapper: React.FC<Props> = ({ children, title }) => {
         <Typography sx={{ padding: "0 16px 0 16px", textAlign: "center" }}>
           {title}
         </Typography>
-        <HeaderButton>
+        <HeaderButton onClick={() => setOpenSettings(true)}>
           <TuneIcon />
         </HeaderButton>
       </Box>
@@ -67,6 +68,32 @@ const Wrapper: React.FC<Props> = ({ children, title }) => {
         }
       />
       {children}
+      {openSettings && (
+        <Box
+          sx={{
+            width: "100%",
+            height: "100vh",
+            background: "var(--color-base-dark)",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            opacity: ".5",
+          }}
+          onClick={() => setOpenSettings(false)}
+        ></Box>
+      )}
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          height: openSettings ? "50vh" : 0,
+          transition: "all .4s ease",
+        }}
+      >
+        {openSettings && <LessonSettings />}
+      </Box>
     </Box>
   );
 };

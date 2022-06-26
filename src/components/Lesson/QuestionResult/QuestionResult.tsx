@@ -28,6 +28,7 @@ const QuestionResult = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const user = useAppSelector((state) => state.user.user);
+  const isSound = useAppSelector((state) => state.ui.isSound);
   const [answers, setAnswers] = useState<string[] | string>([]);
   const [currentTask, setCurrentTask] = useState<number>(
     !params.ex ? 0 : +params.ex
@@ -62,14 +63,25 @@ const QuestionResult = () => {
     checkedAnswers: boolean[] | boolean,
     answers: string[] | string
   ) => {
-    console.log(checkedAnswers);
-    if (checkedAnswers) {
-      // @ts-ignore
-      toggleCorrect();
+    /* Checking if the answer is correct or not. */
+    if (typeof checkedAnswers === "boolean") {
+      if (checkedAnswers && isSound) {
+        // @ts-ignore
+        toggleCorrect();
+      } else if (!checkedAnswers && isSound) {
+        // @ts-ignore
+        toggleInCorrect();
+      }
     } else {
-      // @ts-ignore
-      toggleInCorrect();
+      if (checkedAnswers.every((ans) => ans === true) && isSound) {
+        // @ts-ignore
+        toggleCorrect();
+      } else if (checkedAnswers.some((ans) => ans === false) && isSound) {
+        // @ts-ignore
+        toggleInCorrect();
+      }
     }
+
     setCheckedAnswers(checkedAnswers);
     setAnswers(answers);
   };
