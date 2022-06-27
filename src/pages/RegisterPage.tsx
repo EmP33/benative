@@ -1,23 +1,37 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 // Redux Store
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { createUser } from "../store/user-slice";
 import { uiActions } from "../store/ui-slice";
 // Components
-import { Grid, Typography, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Button,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 // Icons
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // Styles
 import { GoBackButton, CSSTextField } from "../components/UI/Components.style";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
+  // Redux Store
+  const isError = useAppSelector((state) => state.ui.isError);
+  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
+  // Local State
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
-  const isError = useAppSelector((state) => state.ui.isError);
-  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Functions
+  const toggleShowPasswordHandler = () => setShowPassword((prev) => !prev);
 
   const createUserHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,7 +96,10 @@ const RegisterPage = () => {
                 label="Email"
                 variant="outlined"
                 color="success"
-                sx={{ width: "100%", input: { color: "#86868f" } }}
+                sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
+                inputProps={{
+                  autoComplete: "off",
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -95,7 +112,29 @@ const RegisterPage = () => {
                 variant="outlined"
                 color="success"
                 type="password"
-                sx={{ width: "100%", input: { color: "#86868f" } }}
+                sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
+                inputProps={{
+                  autoComplete: "off",
+                }}
+                InputProps={{
+                  // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowPasswordHandler}
+                        onMouseDown={toggleShowPasswordHandler}
+                        sx={{ color: "var(--color-grey-1)" }}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -108,7 +147,29 @@ const RegisterPage = () => {
                 variant="outlined"
                 color="success"
                 type="password"
-                sx={{ width: "100%", input: { color: "#86868f" } }}
+                sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
+                inputProps={{
+                  autoComplete: "off",
+                }}
+                InputProps={{
+                  // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowPasswordHandler}
+                        onMouseDown={toggleShowPasswordHandler}
+                        sx={{ color: "var(--color-grey-1)" }}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12}>

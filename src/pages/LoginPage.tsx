@@ -1,13 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 // Redux store
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { loginUser } from "../store/user-slice";
 import { uiActions } from "../store/ui-slice";
 // Components
-import { Grid, Typography, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Button,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 // Icons
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // Styles
 import { GoBackButton, CSSTextField } from "../components/UI/Components.style";
 
@@ -15,9 +23,15 @@ const LoginPage = () => {
   const dispatch = useAppDispatch();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  // Redux Store
   const isError = useAppSelector((state) => state.ui.isError);
   const errorMessage = useAppSelector((state) => state.ui.errorMessage);
   const isLoading = useAppSelector((state) => state.ui.isLoading);
+  // Local State
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Functions
+  const toggleShowPasswordHandler = () => setShowPassword((prev) => !prev);
 
   const loginUserHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +72,7 @@ const LoginPage = () => {
         <Typography variant="h4" sx={{ mt: 4 }}>
           Zaloguj się
         </Typography>
-        <form onSubmit={loginUserHandler} autoComplete="off" autoSave="off">
+        <form onSubmit={loginUserHandler} autoComplete="off">
           <Grid container spacing={2} sx={{ mt: 4 }}>
             <Grid item xs={12}>
               <CSSTextField
@@ -70,7 +84,13 @@ const LoginPage = () => {
                 label="Email"
                 variant="outlined"
                 color="success"
-                sx={{ width: "100%", input: { color: "#86868f" } }}
+                inputProps={{
+                  autoComplete: "off",
+                }}
+                sx={{
+                  width: "100%",
+                  input: { color: "#86868f" },
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -79,11 +99,33 @@ const LoginPage = () => {
                 helperText={errorMessage}
                 onFocus={() => dispatch(uiActions.removeError())}
                 inputRef={passwordRef}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 label="Utwórz hasło"
                 variant="outlined"
                 color="success"
-                sx={{ width: "100%", input: { color: "#86868f" } }}
+                inputProps={{
+                  autoComplete: "off",
+                }}
+                sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
+                InputProps={{
+                  // <-- This is where the toggle button is added.
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowPasswordHandler}
+                        onMouseDown={toggleShowPasswordHandler}
+                        sx={{ color: "var(--color-grey-1)" }}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
 
@@ -98,7 +140,9 @@ const LoginPage = () => {
               </Button>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "center" }}>
-              <Button sx={{ color: "#86868f" }}>Zapomniałeś hasła?</Button>
+              <Button sx={{ color: "var(--color-grey-1)" }}>
+                Zapomniałeś hasła?
+              </Button>
             </Grid>
           </Grid>
         </form>
