@@ -13,6 +13,8 @@ import TranslatePhrase from "../Excercices/TranslatePhrase";
 import ChooseCorrectAnswer from "../Excercices/ChooseCorrectAnswer";
 import ChooseCorrectAnswerAng from "../Excercices/ChooseCorrectAnswerAng";
 import MatchToGap from "../Excercices/MatchToGap";
+import MultipleCorrectAnswersTranslation from "../Excercices/MultipleCorrectAnswersTranslation";
+import MultipleAnswerQuestion from "../Excercices/MultipleAnswerQuestion";
 
 import SuccessMessage from "../CallbackMessages/SuccessMessage";
 import FailureMessage from "../CallbackMessages/FailureMessage";
@@ -128,6 +130,17 @@ const QuestionResult = () => {
               task={tasks[+params.ex]}
               checkAnswers={checkAnswers}
             />
+          ) : tasks[+params.ex].type ===
+            "multiple-correct-answers-translation" ? (
+            <MultipleCorrectAnswersTranslation
+              task={tasks[+params.ex]}
+              checkAnswers={checkAnswers}
+            />
+          ) : tasks[+params.ex].type === "multiple-answer-question" ? (
+            <MultipleAnswerQuestion
+              task={tasks[+params.ex]}
+              checkAnswers={checkAnswers}
+            />
           ) : tasks[+params.ex].type === "basic" ? (
             <BasicLearnBoard
               task={tasks[+params.ex]}
@@ -183,7 +196,8 @@ const QuestionResult = () => {
             >
               <SuccessMessage
                 answer={tasks[+params.ex].question}
-                translation={tasks[+params.ex].correctAnswer}
+                translation={tasks[+params.ex].translation}
+                correctAnswer={tasks[+params.ex].correctAnswer}
               />
             </Box>
           )
@@ -222,7 +236,8 @@ const QuestionResult = () => {
             >
               <SuccessMessage
                 answer={tasks[+params.ex].question}
-                translation={tasks[+params.ex].correctAnswer}
+                translation={tasks[+params.ex].translation}
+                correctAnswer={tasks[+params.ex].correctAnswer}
               />
             </Box>
           )

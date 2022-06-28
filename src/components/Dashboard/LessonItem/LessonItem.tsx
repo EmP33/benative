@@ -76,7 +76,7 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
           {lesson.title}
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 14 }}>
-          Ukończyłeś {lesson.status}% tej lekcji
+          Ukończyłeś {lesson.status.toFixed(2)}% tej lekcji
         </Typography>
       </Box>
       <LessonProgress status={lesson.status} />
@@ -84,4 +84,4 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
   );
 };
 
-export default LessonItem;
+export default React.memo(LessonItem);

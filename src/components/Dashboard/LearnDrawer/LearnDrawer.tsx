@@ -68,7 +68,7 @@ const LearnDrawer = () => {
         <Box>
           <Typography variant="h6">{currentLesson?.title}</Typography>
           <Typography variant="body2" sx={{ color: "#636384" }}>
-            Ukończyłeś {currentLesson?.status}% tej lekcji
+            Ukończyłeś {currentLesson?.status.toFixed(2)}% tej lekcji
           </Typography>
         </Box>
       </Box>

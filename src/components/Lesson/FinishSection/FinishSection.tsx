@@ -38,7 +38,17 @@ const FinishSection = () => {
   }, []);
 
   return (
-    <Box sx={{ textAlign: "center", mt: 3 }}>
+    <Box
+      sx={{
+        textAlign: "center",
+        mt: 3,
+        overflow: "auto",
+        height: "78vh",
+        "&::-webkit-scrollbar ": {
+          display: "none",
+        },
+      }}
+    >
       <Typography variant="h6">Udało się Tobie ukończyć część:</Typography>
       <Typography
         variant="body1"

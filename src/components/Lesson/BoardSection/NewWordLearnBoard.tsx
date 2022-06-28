@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, Paper } from "@mui/material";
 // Icons
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
@@ -27,12 +27,15 @@ const NewWordLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
       </Grid>
       <Grid item xs={12}>
         {task.image && (
-          <img
-            src={task.image}
-            srcSet={task.image}
-            alt={task.title}
-            loading="lazy"
-          />
+          <Paper variant="outlined" sx={{ width: 250 }}>
+            <img
+              src={task.image}
+              srcSet={task.image}
+              alt={task.title}
+              loading="lazy"
+              style={{ width: "100%" }}
+            />
+          </Paper>
         )}
       </Grid>
       <Grid item xs={12} sx={{ mt: 2, mb: 2 }}>

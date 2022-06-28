@@ -71,7 +71,7 @@ const FailureMessage: React.FC<Props> = ({
         <Typography>
           {typeof correctAnswers === "string"
             ? correctAnswers
-            : correctAnswers.join(", ")}
+            : correctAnswers.join(" | ")}
         </Typography>
         <Typography
           variant="body2"

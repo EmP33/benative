@@ -13,42 +13,34 @@ interface Props {
   ) => void;
 }
 
-const MatchToGap: React.FC<Props> = ({ task, checkAnswers }) => {
+const MultipleAnswerQuestion: React.FC<Props> = ({ task, checkAnswers }) => {
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const checkTaskHandler = (answer: string) => {
+    if (selectedAnswers.length) {
+      setSelectedAnswers((prev) => [...prev, answer]);
+    } else {
+      setSelectedAnswers([answer]);
+    }
     if (!answer || answer === "") return;
-    if (typeof task.correctAnswer === "string")
-      checkAnswers(
-        answer.toLowerCase().trim() === task.correctAnswer.toLowerCase().trim(),
-        answer
-      );
-  };
 
-  let phrase = task.question
-    .toLowerCase()
-    .split(" ")
-    .map((word) => (word === task.correctAnswer ? "_" : word))
-    .join(" ");
+    if (typeof task.correctAnswer === "string") return;
+
+    checkAnswers(
+      task.correctAnswer
+        .map((ans: string) => ans.toLowerCase().trim())
+        .includes(answer.toLowerCase().trim()),
+      answer
+    );
+  };
 
   return (
     <Grid container sx={{ textAlign: "center", mt: 5 }}>
       <Grid item xs={12} sx={{ mb: 8 }}>
         <Typography
           variant="h6"
-          sx={{
-            lineHeight: 2,
-            "&::first-letter": { textTransform: "uppercase" },
-          }}
-          dangerouslySetInnerHTML={{ __html: phrase }}
+          sx={{ lineHeight: 2 }}
+          dangerouslySetInnerHTML={{ __html: task.translation }}
         ></Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "var(--color-grey-1)",
-            "&::first-letter": { textTransform: "uppercase" },
-          }}
-        >
-          {task.translation}
-        </Typography>
       </Grid>
 
       {/* It's a random sort of the answers. */}
@@ -83,4 +75,4 @@ const MatchToGap: React.FC<Props> = ({ task, checkAnswers }) => {
   );
 };
 
-export default MatchToGap;
+export default MultipleAnswerQuestion;
