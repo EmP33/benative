@@ -23,22 +23,7 @@ const DashboardPage = () => {
   const { uid } = useAppSelector((state) => state.user.user);
   const data = useAppSelector((state) => state.data.data);
   const isError = useAppSelector((state) => state.data.dataError);
-  console.log(data, isError);
 
-  // if (data?.data) {
-  //   console.log(
-  //     Object.values(data?.data.learning)
-  //       .map((lesson: any) => Object.values(lesson))
-  //       .flat()
-  //       .map((lesson: any) => lesson.parts)
-  //       .filter((part) => part !== undefined)
-  //       .map((part) => Object.values(part))
-  //       .flat()
-  //       .map((part: any) => part.words)
-  //       .filter((part) => part !== undefined)
-  //       .flat()
-  //   );
-  // }
   useEffect(() => {
     dispatch(getData());
     if (uid && !isError) {

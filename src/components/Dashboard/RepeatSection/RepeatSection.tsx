@@ -1,15 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // Redux Store
 import { useAppSelector } from "../../../lib/hooks";
-import { dataActions } from "../../../store/data-slice";
+
 // Components
-import { Box, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
 import SectionHeader from "../../UI/SectionHeader";
+// Types
+import { WordType } from "../../../data.types";
 
 const RepeatSection = () => {
   const data = useAppSelector((state) => state.data.data);
+  const navigate = useNavigate();
+
+  const weakWords = data?.data?.words.filter(
+    (word: WordType) => word.status === "weak"
+  );
+  const averageWords = data?.data?.words.filter(
+    (word: WordType) => word.status === "average"
+  );
+  const wellWords = data?.data?.words.filter(
+    (word: WordType) => word.status === "well"
+  );
 
   return (
     <Box
@@ -42,10 +56,31 @@ const RepeatSection = () => {
             columnGap: 2,
           }}
         >
-          <WordsStatus title="Słabo znane" />
-          <WordsStatus title="Średnio znane" />
-          <WordsStatus title="Dobrze znane" />
+          <WordsStatus
+            title="Słabo znane"
+            words={weakWords}
+            status={(weakWords?.length / data?.data?.words?.length) * 100}
+          />
+          <WordsStatus
+            title="Średnio znane"
+            words={averageWords}
+            status={(averageWords?.length / data?.data?.words?.length) * 100}
+          />
+          <WordsStatus
+            title="Dobrze znane"
+            words={wellWords}
+            status={(wellWords?.length / data?.data?.words?.length) * 100}
+          />
         </Box>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="error"
+          sx={{ mt: 3 }}
+          onClick={() => navigate("/dashboard/repeat-words")}
+        >
+          Powtórz słówka
+        </Button>
         <Box
           sx={{
             display: "grid",
@@ -54,12 +89,18 @@ const RepeatSection = () => {
         >
           {data?.data?.words &&
             data.data.words.map(
-              (word: { status: string; word: string[] }, key: number) => (
+              (
+                word: {
+                  status: string;
+                  word: { word: string[]; translation: string };
+                },
+                key: number
+              ) => (
                 <WordElement
                   key={key}
                   status={word.status}
-                  word={word.word[0]}
-                  translation={word.word[1]}
+                  word={word.word.word[0]}
+                  translation={word.word.translation}
                 />
               )
             )}

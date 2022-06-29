@@ -34,9 +34,9 @@ const WordElement: React.FC<Props> = ({ status, word, translation }) => {
           width: 25,
           height: 25,
           background:
-            status === "strong"
+            status === "well"
               ? "linear-gradient(100deg, rgba(31,139,77,1) 21%, rgba(47,209,115,1) 77%)"
-              : status === "medium"
+              : status === "average"
               ? "linear-gradient(100deg, rgba(245,124,0,1) 21%, rgba(255,167,38,1) 77%)"
               : "linear-gradient(100deg, #d32f2f 21%, #f44336 77%)",
           borderRadius: "50%",

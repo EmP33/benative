@@ -16,7 +16,6 @@ const FinishSection = () => {
     (state) => state.user.currentLessonPart
   );
   const user = useAppSelector((state) => state.user.user);
-  console.log(currentLessonPart);
 
   useEffect(() => {
     dispatch(

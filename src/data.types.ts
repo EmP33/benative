@@ -27,3 +27,12 @@ export interface LessonType {
   status: number;
   title: string;
 }
+
+export interface WordType {
+  status: string;
+  id: string;
+  word: {
+    translation: string;
+    word: string[];
+  };
+}

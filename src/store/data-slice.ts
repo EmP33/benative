@@ -141,5 +141,14 @@ export const updateLesson = (
   };
 };
 
+export const updateWords = (uid: string, words: any) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(ref(database, `users/${uid}/data/words`), words);
+    };
+    await sendRequest();
+  };
+};
+
 export const dataActions = dataSlice.actions;
 export default dataSlice;
