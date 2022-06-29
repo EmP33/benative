@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../lib/hooks";
 
 // Components
-import { Box, Button } from "@mui/material";
+import { Box, Button, Skeleton } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
 import SectionHeader from "../../UI/SectionHeader";
@@ -87,23 +87,52 @@ const RepeatSection = () => {
             mt: 3,
           }}
         >
-          {data?.data?.words &&
-            data.data.words.map(
-              (
-                word: {
-                  status: string;
-                  word: { word: string[]; translation: string };
-                },
-                key: number
-              ) => (
-                <WordElement
-                  key={key}
-                  status={word.status}
-                  word={word.word.word[0]}
-                  translation={word.word.translation}
-                />
+          {data?.data?.words
+            ? data.data.words.map(
+                (
+                  word: {
+                    status: string;
+                    word: { word: string[]; translation: string };
+                  },
+                  key: number
+                ) => (
+                  <WordElement
+                    key={key}
+                    status={word.status}
+                    word={word.word.word[0]}
+                    translation={word.word.translation}
+                  />
+                )
               )
-            )}
+            : [0, 1, 2, 3, 4, 5, 6, 7, 8].map((numb) => (
+                <Box
+                  key={numb}
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr max-content",
+                    mb: 2,
+                  }}
+                >
+                  <Box>
+                    <Skeleton
+                      variant="text"
+                      width="35%"
+                      sx={{ background: "var(--color-grey-2)" }}
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="50%"
+                      sx={{ background: "var(--color-grey-2)" }}
+                    />
+                  </Box>
+                  <Skeleton
+                    variant="circular"
+                    width={25}
+                    height={25}
+                    sx={{ background: "var(--color-grey-2)" }}
+                  />
+                </Box>
+              ))}
         </Box>
       </Box>
     </Box>

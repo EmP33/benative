@@ -20,7 +20,8 @@ const GlobalStyle = createGlobalStyle`
 
         --color-white: #fff;
         --color-danger: #f44336;
-        --color-grey-1: #86868f
+        --color-grey-1: #86868f;
+        --color-grey-2: #3f3f42;
     }
 
     body {
