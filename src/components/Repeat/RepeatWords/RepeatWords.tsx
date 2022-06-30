@@ -15,6 +15,7 @@ import FinishSection from "../FinishSection/FinishSection";
 
 const RepeatWords = () => {
   const words = useAppSelector((state) => state.data?.data?.data?.words);
+  const typeWords = useAppSelector((state) => state.data?.words);
   const isSound = useAppSelector((state) => state.ui.isSound);
   // Local State
   const [currentWord, setCurrentWord] = useState(0);
@@ -30,20 +31,33 @@ const RepeatWords = () => {
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
 
+  console.log(typeWords);
+
   useEffect(() => {
+    // 10 - count of words in repetition
+    /* Checking if the words are available and if the typeWords are available. */
     if (words) {
-      // 10 - count of words in repetition
-      /* Taking the first 10 words from the array and setting them to the state. */
-      setUsedWords(
-        words
-          .map((value: WordType) => ({ value, sort: Math.random() }))
-          .sort((a: any, b: any) => a.sort - b.sort)
-          // @ts-ignore
-          .map(({ value }) => value)
-          .slice(0, 10)
-      );
+      if (typeWords.length) {
+        setUsedWords(
+          typeWords
+            .map((value: WordType) => ({ value, sort: Math.random() }))
+            .sort((a: any, b: any) => a.sort - b.sort)
+            // @ts-ignore
+            .map(({ value }) => value)
+            .slice(0, 10)
+        );
+      } else {
+        setUsedWords(
+          words
+            .map((value: WordType) => ({ value, sort: Math.random() }))
+            .sort((a: any, b: any) => a.sort - b.sort)
+            // @ts-ignore
+            .map(({ value }) => value)
+            .slice(0, 10)
+        );
+      }
     }
-  }, [words]);
+  }, [words, typeWords]);
 
   const checkAnswers = (
     checkedAnswers: boolean[] | boolean,

@@ -8,11 +8,26 @@ interface Props {
   title: string;
   words: WordType[];
   status: number;
+  changeRepeatType: (type: string) => void;
+  repeatType: string;
 }
 
-const WordsStatus: React.FC<Props> = ({ title, words, status }) => {
+const WordsStatus: React.FC<Props> = ({
+  title,
+  words,
+  status,
+  changeRepeatType,
+  repeatType,
+}) => {
   return (
     <Box
+      onClick={() => {
+        if (repeatType === title) {
+          changeRepeatType("");
+        } else {
+          changeRepeatType(title);
+        }
+      }}
       sx={{
         background:
           title === "Słabo znane"
@@ -26,7 +41,10 @@ const WordsStatus: React.FC<Props> = ({ title, words, status }) => {
             : `linear-gradient(0deg, rgba(31,139,77,1) ${
                 status - 2
               }%, rgba(22,22,31,1) ${status}%)`,
-        border: "2px solid var(--color-base-light)",
+        border:
+          repeatType === title
+            ? "2px solid var(--color-tertiary-light)"
+            : "2px solid var(--color-base-light)",
         p: 2,
         textAlign: "center",
       }}

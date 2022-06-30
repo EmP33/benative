@@ -49,6 +49,8 @@ const FinishSection: React.FC<Props> = ({ words }) => {
     }
   });
 
+  console.log(words);
+
   useEffect(() => {
     dispatch(updateWords(user.uid, copyOfDataWords));
   }, [copyOfDataWords, dispatch]);
@@ -90,6 +92,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
             .map((word, i) => (
               <WordElement
                 key={i}
+                oldStatus={words[i]}
                 status={word.status}
                 word={word.word.word[0]}
                 translation={word.word.translation}

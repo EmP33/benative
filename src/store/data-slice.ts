@@ -9,18 +9,20 @@ import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
 // Types
-import { PartType } from "../data.types";
+import { WordType } from "../data.types";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
   data: any;
   dataError: boolean;
+  words: WordType[];
 }
 
 /* Defining the initial state of the reducer. */
 const initialState: IInitialState = {
   data: null,
   dataError: false,
+  words: [],
 };
 
 const dataSlice = createSlice({
@@ -35,6 +37,9 @@ const dataSlice = createSlice({
     },
     removeError(state) {
       state.dataError = false;
+    },
+    setWords(state, action: PayloadAction<any>) {
+      state.words = action.payload;
     },
   },
 });
