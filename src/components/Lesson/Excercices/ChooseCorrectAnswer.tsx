@@ -29,7 +29,7 @@ const ChooseCorrectAnswer: React.FC<Props> = ({ task, checkAnswers }) => {
         <Typography
           variant="h6"
           sx={{ lineHeight: 2 }}
-          dangerouslySetInnerHTML={{ __html: task.translation }}
+          dangerouslySetInnerHTML={{ __html: task.question }}
         ></Typography>
       </Grid>
 

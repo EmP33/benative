@@ -44,6 +44,7 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
           parts: lesson.parts,
           status: (completedParts / parts.length) * 100,
           title: lesson.title,
+          order: lesson.order,
         })
       );
     }

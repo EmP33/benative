@@ -23,15 +23,13 @@ const ChooseCorrectAnswerAng: React.FC<Props> = ({ task, checkAnswers }) => {
       );
   };
 
-
-
   return (
     <Grid container sx={{ textAlign: "center", mt: 5 }}>
       <Grid item xs={12} sx={{ mb: 8 }}>
         <Typography
           variant="h6"
           sx={{ lineHeight: 2 }}
-          dangerouslySetInnerHTML={{ __html: task.translation }}
+          dangerouslySetInnerHTML={{ __html: task.question }}
         ></Typography>
       </Grid>
 

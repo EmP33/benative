@@ -49,8 +49,6 @@ const FinishSection: React.FC<Props> = ({ words }) => {
     }
   });
 
-  console.log(words);
-
   useEffect(() => {
     dispatch(updateWords(user.uid, copyOfDataWords));
   }, [copyOfDataWords, dispatch]);

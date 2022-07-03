@@ -11,7 +11,17 @@ interface Props {
 
 const MultipleWordsLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
   return (
-    <Grid container sx={{ mt: 2 }}>
+    <Grid
+      container
+      sx={{
+        mt: 2,
+        overflow: "auto",
+        height: "79vh",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <Grid item xs={12}>
         <Typography
           variant="h6"

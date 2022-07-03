@@ -13,14 +13,15 @@ import CheckIcon from "@mui/icons-material/Check";
 
 const Security = () => {
   const dispatch = useAppDispatch();
+  // Redux Store
+  const { isError, errorMessage, isLoading } = useAppSelector(
+    (state) => state.ui
+  );
+  const { user, dataStatus } = useAppSelector((state) => state.user);
+  // Local Storage
   const emailRef = useRef<HTMLInputElement>(null);
   const newPasswordRef = useRef<HTMLInputElement>(null);
   const repeatPasswordRef = useRef<HTMLInputElement>(null);
-  const user = useAppSelector((state) => state.user.user);
-  const isError = useAppSelector((state) => state.ui.isError);
-  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
-  const isLoading = useAppSelector((state) => state.ui.isLoading);
-  const dataStatus = useAppSelector((state) => state.user.dataStatus);
 
   const changePasswordHandler = (e: React.FormEvent) => {
     e.preventDefault();

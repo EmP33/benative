@@ -8,22 +8,22 @@ import {
   fetchUserData,
   dataActions,
 } from "../store/data-slice";
-import { uiActions } from "../store/ui-slice";
 // Components
 import { Grid } from "@mui/material";
 import Welcome from "../components/Dashboard/Welcome/Welcome";
 import HelpSection from "../components/Dashboard/HelpSection/HelpSection";
 import ProfileSection from "../components/Dashboard/ProfileSection/ProfileSection";
 import SettingsSection from "../components/Dashboard/SettingsSection/SettingsSection";
-import { LessonType } from "../data.types";
 
 const DashboardPage = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { uid } = useAppSelector((state) => state.user.user);
-  const data = useAppSelector((state) => state.data.data);
-  const isError = useAppSelector((state) => state.data.dataError);
+  const { data, dataError: isError } = useAppSelector((state) => state.data);
 
+
+  /* A React Hook that is called when the component is mounted. It is used to fetch data from the
+  database. */
   useEffect(() => {
     dispatch(getData());
     if (uid && !isError) {

@@ -17,28 +17,30 @@ import { Ring } from "@uiball/loaders";
 import CheckIcon from "@mui/icons-material/Check";
 
 const AccountSettings = () => {
+  const dispatch = useAppDispatch();
+  // Redux Store
+  const { isError, errorMessage, isLoading } = useAppSelector(
+    (state) => state.ui
+  );
+  const { dataStatus } = useAppSelector((state) => state.user);
+  // Local State
   const [formType, setFormType] = useState<string>("");
   const [openModal, setOpenModal] = useState<boolean>(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const dispatch = useAppDispatch();
-  const isError = useAppSelector((state) => state.ui.isError);
-  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
-  const isLoading = useAppSelector((state) => state.ui.isLoading);
-  const dataStatus = useAppSelector((state) => state.user.dataStatus);
 
+  // Function
   const openModalHandler = () => {
     setOpenModal(true);
   };
-
   const closeModalHandler = useCallback(() => {
     setOpenModal(false);
   }, []);
 
   const changeUsernameHandler = (e: React.FormEvent) => {
+    e.preventDefault();
     setFormType("username");
     dispatch(userActions.resetDataStatus());
-    e.preventDefault();
     if (!usernameRef.current) {
       return dispatch(uiActions.setError("Coś poszło nie tak.."));
     }

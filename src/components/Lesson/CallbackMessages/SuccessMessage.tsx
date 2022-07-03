@@ -15,6 +15,7 @@ const SuccessMessage: React.FC<Props> = ({
   translation,
   correctAnswer,
 }) => {
+  
   return (
     <Box
       sx={{
@@ -52,7 +53,11 @@ const SuccessMessage: React.FC<Props> = ({
         </Box>
       </Box>
       <Box sx={{ background: "var(--color-base-dark)", p: 2, borderRadius: 5 }}>
-        <Typography>{answer}</Typography>
+        <Typography>
+          {answer.includes("https") || answer.includes("http")
+            ? correctAnswer
+            : answer}
+        </Typography>
         <Typography
           variant="body2"
           sx={{ color: "var(--color-grey-1)", mb: 1 }}

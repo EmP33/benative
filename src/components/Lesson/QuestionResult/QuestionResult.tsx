@@ -15,6 +15,7 @@ import ChooseCorrectAnswerAng from "../Excercices/ChooseCorrectAnswerAng";
 import MatchToGap from "../Excercices/MatchToGap";
 import MultipleCorrectAnswersTranslation from "../Excercices/MultipleCorrectAnswersTranslation";
 import MultipleAnswerQuestion from "../Excercices/MultipleAnswerQuestion";
+import MatchWordToImage from "../Excercices/MatchWordToImage";
 
 import SuccessMessage from "../CallbackMessages/SuccessMessage";
 import FailureMessage from "../CallbackMessages/FailureMessage";
@@ -29,17 +30,19 @@ const QuestionResult = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const params = useParams();
-  const user = useAppSelector((state) => state.user.user);
-  const isSound = useAppSelector((state) => state.ui.isSound);
+  // Redux Store
+  const { isSound } = useAppSelector((state) => state.ui);
+  const { currentLessonPart, currentLesson, user } = useAppSelector(
+    (state) => state.user
+  );
+  // Local State
   const [answers, setAnswers] = useState<string[] | string>([]);
   const [currentTask, setCurrentTask] = useState<number>(
     !params.ex ? 0 : +params.ex
   );
   const [checkedAnswers, setCheckedAnswers] = useState<boolean[] | boolean>([]);
-  const currentLessonPart = useAppSelector(
-    (state) => state.user.currentLessonPart
-  );
-  const currentLesson = useAppSelector((state) => state.user.currentLesson);
+
+  // Audio
   const [playingCorrect, toggleCorrect] = useAudio(
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/correct-answer_ezfmgk.mp3"
   );
@@ -47,16 +50,20 @@ const QuestionResult = () => {
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
 
+  /* A hook that is called when the component is mounted. It is used to fetch data from the database. */
   useEffect(() => {
     dispatch(
       getLesson(user.uid, params.category, params.lessonID, params.partID)
     );
   }, [user.uid, dispatch, params.category, params.lessonID, params.partID]);
 
+  /* Checking if the currentLessonPart is not null or undefined and if the params.ex is not null or
+ undefined. If it is, it will return a div with the text "Loading...". */
   if (!currentLessonPart || !params.ex) {
     return <div>Loading...</div>;
   }
 
+  /* Sorting the tasks by order. */
   const tasks = Object.values(currentLessonPart.tasks).sort(
     (a, b) => a.order - b.order
   );
@@ -101,7 +108,7 @@ const QuestionResult = () => {
 
   return (
     <Wrapper title={tasks[+params.ex]?.title || "Dobra Robota!"}>
-      <>
+      <Box>
         {tasks[+params.ex] ? (
           tasks[+params.ex].type === "fill-conversation" ? (
             <FillConversation
@@ -138,6 +145,11 @@ const QuestionResult = () => {
             />
           ) : tasks[+params.ex].type === "multiple-answer-question" ? (
             <MultipleAnswerQuestion
+              task={tasks[+params.ex]}
+              checkAnswers={checkAnswers}
+            />
+          ) : tasks[+params.ex].type === "match-word-to-image" ? (
+            <MatchWordToImage
               task={tasks[+params.ex]}
               checkAnswers={checkAnswers}
             />
@@ -244,7 +256,7 @@ const QuestionResult = () => {
         ) : (
           ""
         )}
-      </>
+      </Box>
     </Wrapper>
   );
 };

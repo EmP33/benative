@@ -26,6 +26,7 @@ export interface LessonType {
   parts: PartType;
   status: number;
   title: string;
+  order: number;
 }
 
 export interface WordType {

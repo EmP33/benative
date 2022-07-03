@@ -9,11 +9,12 @@ import TranslatePhraseAng from "./Excercices/TranslatePhraseAng";
 import { Box } from "@mui/material";
 import FailureMessage from "../../Lesson/CallbackMessages/FailureMessage";
 import SuccessMessage from "../../Lesson/CallbackMessages/SuccessMessage";
+import FinishSection from "../FinishSection/FinishSection";
 // Types
 import { WordType } from "../../../data.types";
-import FinishSection from "../FinishSection/FinishSection";
 
 const RepeatWords = () => {
+  // Redux Store
   const words = useAppSelector((state) => state.data?.data?.data?.words);
   const typeWords = useAppSelector((state) => state.data?.words);
   const isSound = useAppSelector((state) => state.ui.isSound);
@@ -23,6 +24,7 @@ const RepeatWords = () => {
   const [answers, setAnswers] = useState<string[] | string>([]);
   const [checkedAnswers, setCheckedAnswers] = useState<boolean[] | boolean>([]);
   const [secondTurn, setSecondTurn] = useState<any[]>([]);
+
   // Audio
   const [playingCorrect, toggleCorrect] = useAudio(
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/correct-answer_ezfmgk.mp3"
@@ -30,8 +32,6 @@ const RepeatWords = () => {
   const [playingIncorrect, toggleInCorrect] = useAudio(
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
-
-  console.log(typeWords);
 
   useEffect(() => {
     // 10 - count of words in repetition
@@ -82,6 +82,11 @@ const RepeatWords = () => {
       }
     }
 
+    /* Checking if the current word is less than the used words length. If it is, it is checking if the
+    second turn length is greater than 0. If it is, it is setting the second turn to the previous
+    value and adding the status, id, word, and wasCorrect to the second turn. If it is not, it is
+    setting the second turn to the previous value and adding the status, id, word, and wasCorrect to
+    the second turn. */
     if (currentWord < usedWords.length) {
       if (secondTurn.length) {
         setSecondTurn((prev) => [
@@ -103,33 +108,35 @@ const RepeatWords = () => {
           },
         ]);
       }
-    } else {
+    } /* Checking if the word was correct in the first turn and if it was, it is setting the
+    wasCorrect property to true. If it wasn't, it is setting it to false. */ else {
       if (
-        secondTurn.find((word) => word.id === secondTurn[currentWord - 10].id)
-          .wasCorrect
+        secondTurn.find(
+          (word) => word.id === secondTurn[currentWord - usedWords.length].id
+        ).wasCorrect
       ) {
         secondTurn.splice(
           secondTurn.findIndex(
-            (prev) => prev.id === secondTurn[currentWord - 10].id
+            (prev) => prev.id === secondTurn[currentWord - usedWords.length].id
           ),
           1,
           {
-            status: secondTurn[currentWord - 10].status,
-            id: secondTurn[currentWord - 10].id,
-            word: secondTurn[currentWord - 10].word,
+            status: secondTurn[currentWord - usedWords.length].status,
+            id: secondTurn[currentWord - usedWords.length].id,
+            word: secondTurn[currentWord - usedWords.length].word,
             wasCorrect: checkedAnswers,
           }
         );
       } else {
         secondTurn.splice(
           secondTurn.findIndex(
-            (prev) => prev.id === secondTurn[currentWord - 10].id
+            (prev) => prev.id === secondTurn[currentWord - usedWords.length].id
           ),
           1,
           {
-            status: secondTurn[currentWord - 10].status,
-            id: secondTurn[currentWord - 10].id,
-            word: secondTurn[currentWord - 10].word,
+            status: secondTurn[currentWord - usedWords.length].status,
+            id: secondTurn[currentWord - usedWords.length].id,
+            word: secondTurn[currentWord - usedWords.length].word,
             wasCorrect: false,
           }
         );
@@ -142,6 +149,10 @@ const RepeatWords = () => {
     setAnswers(answers);
   };
 
+  /**
+   * When the user clicks the next word button, the current word index is incremented by one, the
+   * answers array is emptied, and the checked answers array is emptied.
+   */
   const nextWordHandler = () => {
     setCurrentWord((prev) => prev + 1);
     setAnswers([]);
@@ -154,17 +165,24 @@ const RepeatWords = () => {
       status={(currentWord / usedWords.length / 2) * 100}
     >
       <>
+        {/* Checking if the current word is equal to the used words length plus the second turn length
+        and if the second turn length is greater than 0. If it is, it is rendering the FinishSection
+        component. */}
         {currentWord === usedWords.length + secondTurn.length &&
           !!secondTurn.length && <FinishSection words={secondTurn} />}
+        {/* Checking if the used words length is greater than 0 and if the current word is less than the
+        used words length. If it is, it is rendering the TranslatePhrase component. */}
         {!!usedWords.length && currentWord < usedWords.length && (
           <TranslatePhrase
             word={usedWords[currentWord]}
             checkAnswers={checkAnswers}
           />
         )}
+        {/* Checking if the length of the usedWords array is equal to the length of the secondTurn
+        array. If it is, it will render the TranslatePhraseAng component. */}
         {usedWords.length === secondTurn.length && (
           <TranslatePhraseAng
-            word={secondTurn[currentWord - 10]}
+            word={secondTurn[currentWord - usedWords.length]}
             checkAnswers={checkAnswers}
           />
         )}
@@ -228,11 +246,15 @@ const RepeatWords = () => {
             >
               <FailureMessage
                 answer={
-                  secondTurn[currentWord - 10].word?.word &&
-                  secondTurn[currentWord - 10].word?.word[0]
+                  secondTurn[currentWord - usedWords.length].word?.word &&
+                  secondTurn[currentWord - usedWords.length].word?.word[0]
                 }
-                translation={secondTurn[currentWord - 10].word.translation}
-                correctAnswers={secondTurn[currentWord - 10].word.translation}
+                translation={
+                  secondTurn[currentWord - usedWords.length].word.translation
+                }
+                correctAnswers={
+                  secondTurn[currentWord - usedWords.length].word.translation
+                }
                 answers={answers}
               />
             </Box>
@@ -250,11 +272,15 @@ const RepeatWords = () => {
             >
               <SuccessMessage
                 answer={
-                  secondTurn[currentWord - 10].word?.word &&
-                  secondTurn[currentWord - 10].word?.word[0]
+                  secondTurn[currentWord - usedWords.length].word?.word &&
+                  secondTurn[currentWord - usedWords.length].word?.word[0]
                 }
-                translation={secondTurn[currentWord - 10].word.translation}
-                correctAnswer={secondTurn[currentWord - 10].word.word}
+                translation={
+                  secondTurn[currentWord - usedWords.length].word.translation
+                }
+                correctAnswer={
+                  secondTurn[currentWord - usedWords.length].word.word
+                }
               />
             </Box>
           )

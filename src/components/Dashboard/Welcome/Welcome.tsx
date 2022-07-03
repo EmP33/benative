@@ -19,23 +19,27 @@ import Preferences from "../SettingsSection/SettingsElements/Preferences";
 import QuestionResult from "../../Lesson/QuestionResult/QuestionResult";
 import RepeatSection from "../RepeatSection/RepeatSection";
 import RepeatWords from "../../Repeat/RepeatWords/RepeatWords";
+import LearnDrawer from "../LearnDrawer/LearnDrawer";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import CategoryIcon from "@mui/icons-material/Category";
 import PersonIcon from "@mui/icons-material/Person";
-import LearnDrawer from "../LearnDrawer/LearnDrawer";
 
 const Welcome = () => {
   const dispatch = useAppDispatch();
-  const isError = useAppSelector((state) => state.ui.isError);
-  const errorMessage = useAppSelector((state) => state.ui.errorMessage);
-  const openLessonDrawer = useAppSelector((state) => state.ui.openLessonDrawer);
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+  // Redux Store
+  const { isError, errorMessage, openLessonDrawer } = useAppSelector(
+    (state) => state.ui
+  );
+  // Local State
+  // Bottom Navigation Card
   const [value, setValue] = useState(0);
 
   useEffect(() => {
+    /* Setting the value of the bottom navigation bar based on the current pathname. */
     setValue(
       location.pathname.includes("/profile")
         ? 3
@@ -131,4 +135,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default React.memo(Welcome);

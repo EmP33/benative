@@ -14,10 +14,13 @@ import { WordType } from "../../../data.types";
 
 const RepeatSection = () => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.data.data);
   const navigate = useNavigate();
+  // Redux Store
+  const { data } = useAppSelector((state) => state.data);
+  // Local State
   const [repeatType, setRepeatType] = useState("");
 
+  /* Filtering words by status. */
   const weakWords = data?.data?.words.filter(
     (word: WordType) => word.status === "weak"
   );
@@ -79,6 +82,7 @@ const RepeatSection = () => {
             changeRepeatType={changeRepeatTypeHandler}
             title="Słabo znane"
             words={weakWords}
+            /* It's calculating the percentage of words with a given status. */
             status={(weakWords?.length / data?.data?.words?.length) * 100}
           />
           <WordsStatus
@@ -86,6 +90,7 @@ const RepeatSection = () => {
             changeRepeatType={changeRepeatTypeHandler}
             title="Średnio znane"
             words={averageWords}
+            /* It's calculating the percentage of words with a given status. */
             status={(averageWords?.length / data?.data?.words?.length) * 100}
           />
           <WordsStatus
@@ -93,6 +98,7 @@ const RepeatSection = () => {
             changeRepeatType={changeRepeatTypeHandler}
             title="Dobrze znane"
             words={wellWords}
+            /* It's calculating the percentage of words with a given status. */
             status={(wellWords?.length / data?.data?.words?.length) * 100}
           />
         </Box>
@@ -103,6 +109,7 @@ const RepeatSection = () => {
           sx={{ mt: 3 }}
           onClick={() => navigate("/dashboard/repeat-words")}
         >
+          {/* It's a button that is changing its text depending on the repeatType state. */}
           Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
         </Button>
         <Box
@@ -196,7 +203,8 @@ const RepeatSection = () => {
                     />
                   )
                 )
-            : [0, 1, 2, 3, 4, 5, 6, 7, 8].map((numb) => (
+            : /* It's creating a skeleton loader. */
+              [0, 1, 2, 3, 4, 5, 6, 7, 8].map((numb) => (
                 <Box
                   key={numb}
                   sx={{

@@ -79,4 +79,4 @@ const ConditionRender = () => {
   );
 };
 
-export default ConditionRender;
+export default React.memo(ConditionRender);

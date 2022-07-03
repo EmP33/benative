@@ -123,8 +123,13 @@ const ConditionRender = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const xsMatches = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <>
+      {/* Rendering the ProfileSection component if the screen is larger than lg or if the url is
+     /profile. It is rendering the SettingsSection component if the screen is larger than md and the
+     url is not /settings. It is rendering a box with a background image if the screen is smaller
+     than md or the url is /settings. */}
       {matches ? (
         <ProfileSection />
       ) : location.pathname.includes("/profile") ? (

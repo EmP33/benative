@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
@@ -12,8 +12,10 @@ import { DragButton } from "./HelpSection.styles";
 const HelpSection = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  const [state, setState] = React.useState(false);
+  // Local State
+  const [state, setState] = useState(false);
 
+  // Functions
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -28,38 +30,42 @@ const HelpSection = () => {
       setState(open);
     };
 
+  const HelpPart = (
+    <Box>
+      <Box>
+        <HelpItem
+          title="Ustaw nazwę użytkownika"
+          description=" Ustaw nazwę jaka zostanie przypisana dla twojego konta. Możesz to zrobić
+tutaj:"
+          linkTitle="Ustawienia Konta"
+          link="/dashboard/user-settings"
+        />
+        <HelpItem
+          title="Dowiedz się więcej.."
+          description="Zobacz jakie funkcjonalności oferuje dla Ciebie BeNative. Tutorial dostępny już teraz:"
+          linkTitle="Tutorial"
+          link="settings"
+        />
+        <HelpItem
+          title="Pamiętaj o regularnym powtarzaniu!"
+          description="Staraj regularanie korzystać z zakładki powtórz, aby na bierząco powtarzać uczone przec Ciebie słownictwo oraz gramatykę."
+          linkTitle="Powtórz"
+          link="/dashboard/repeat"
+        />
+        <HelpItem
+          title="Nowy tryb!"
+          description="Dodaliśmy nowy tryb gry: Memories. Możesz go znaleźć w zakładce z kategoriami lub też klikając poniższy link."
+          linkTitle="Memories"
+          link="/dashboard/categories"
+        />
+      </Box>
+    </Box>
+  );
+
   return (
     <>
       {matches ? (
-        <Box>
-          <Box>
-            <HelpItem
-              title="Ustaw nazwę użytkownika"
-              description=" Ustaw nazwę jaka zostanie przypisana dla twojego konta. Możesz to zrobić
-      tutaj:"
-              linkTitle="Ustawienia Konta"
-              link="/dashboard/user-settings"
-            />
-            <HelpItem
-              title="Dowiedz się więcej.."
-              description="Zobacz jakie funkcjonalności oferuje dla Ciebie BeNative. Tutorial dostępny już teraz:"
-              linkTitle="Tutorial"
-              link="settings"
-            />
-            <HelpItem
-              title="Pamiętaj o regularnym powtarzaniu!"
-              description="Staraj regularanie korzystać z zakładki powtórz, aby na bierząco powtarzać uczone przec Ciebie słownictwo oraz gramatykę."
-              linkTitle="Powtórz"
-              link="/dashboard/repeat"
-            />
-            <HelpItem
-              title="Nowy tryb!"
-              description="Dodaliśmy nowy tryb gry: Memories. Możesz go znaleźć w zakładce z kategoriami lub też klikając poniższy link."
-              linkTitle="Memories"
-              link="/dashboard/categories"
-            />
-          </Box>
-        </Box>
+        <Box>{HelpPart}</Box>
       ) : (
         <Box
           sx={{
@@ -117,33 +123,7 @@ const HelpSection = () => {
               onKeyDown={toggleDrawer(false)}
             >
               <DragButton />
-              <Box>
-                <HelpItem
-                  title="Ustaw nazwę użytkownika"
-                  description=" Ustaw nazwę jaka zostanie przypisana dla twojego konta. Możesz to zrobić
-    tutaj:"
-                  linkTitle="Ustawienia Konta"
-                  link="settings"
-                />
-                <HelpItem
-                  title="Dowiedz się więcej.."
-                  description="Zobacz jakie funkcjonalności oferuje dla Ciebie BeNative. Tutorial dostępny już teraz:"
-                  linkTitle="Tutorial"
-                  link="settings"
-                />
-                <HelpItem
-                  title="Pamiętaj o regularnym powtarzaniu!"
-                  description="Staraj regularanie korzystać z zakładki powtórz, aby na bierząco powtarzać uczone przec Ciebie słownictwo oraz gramatykę."
-                  linkTitle="Powtórz"
-                  link="settings"
-                />
-                <HelpItem
-                  title="Nowy tryb!"
-                  description="Dodaliśmy nowy tryb gry: Memories. Możesz go znaleźć w zakładce z kategoriami lub też klikając poniższy link."
-                  linkTitle="Memories"
-                  link="settings"
-                />
-              </Box>
+              {HelpPart}
             </Box>
           </SwipeableDrawer>
         </Box>
@@ -152,4 +132,4 @@ const HelpSection = () => {
   );
 };
 
-export default HelpSection;
+export default React.memo(HelpSection);

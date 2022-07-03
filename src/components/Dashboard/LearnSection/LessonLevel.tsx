@@ -31,9 +31,11 @@ const LessonLevel: React.FC<Props> = ({ category, lessons }) => {
         ).toFixed(2)}
         %
       </Typography>
-      {lessons.map((lesson: LessonType) => (
-        <LessonItem key={lesson.id} lesson={lesson} />
-      ))}
+      {lessons
+        .sort((a: LessonType, b: LessonType) => a.order - b.order)
+        .map((lesson: LessonType) => (
+          <LessonItem key={lesson.id} lesson={lesson} />
+        ))}
     </>
   );
 };

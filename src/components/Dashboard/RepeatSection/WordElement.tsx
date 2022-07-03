@@ -8,7 +8,7 @@ interface Props {
   status: string;
   word: string;
   translation: string;
-  oldStatus?: string;
+  oldStatus?: { status: string; id: string; wasCorrect: boolean; word: {} };
 }
 
 const WordElement: React.FC<Props> = ({
@@ -43,9 +43,9 @@ const WordElement: React.FC<Props> = ({
             width: 25,
             height: 25,
             background:
-              oldStatus === "well"
+              oldStatus.status === "well"
                 ? "linear-gradient(100deg, rgba(31,139,77,1) 21%, rgba(47,209,115,1) 77%)"
-                : oldStatus === "average"
+                : oldStatus.status === "average"
                 ? "linear-gradient(100deg, rgba(245,124,0,1) 21%, rgba(255,167,38,1) 77%)"
                 : "linear-gradient(100deg, #d32f2f 21%, #f44336 77%)",
             borderRadius: "50%",

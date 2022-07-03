@@ -19,7 +19,9 @@ import {
 
 const LearnSection = () => {
   const navigate = useNavigate();
+  /* Getting the current hour from the user's computer. */
   const currentHour = new Date().getHours();
+  // Redux Store
   const user = useAppSelector((state) => state.user.user);
   const data = useAppSelector((state) => state.data.data);
 

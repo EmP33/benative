@@ -46,7 +46,9 @@ const WordsStatus: React.FC<Props> = ({
             ? "2px solid var(--color-tertiary-light)"
             : "2px solid var(--color-base-light)",
         p: 2,
-        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Typography

@@ -26,7 +26,12 @@ const MatchToGap: React.FC<Props> = ({ task, checkAnswers }) => {
   let phrase = task.question
     .toLowerCase()
     .split(" ")
-    .map((word) => (word === task.correctAnswer ? "_" : word))
+    .map((word) =>
+      // @ts-ignore
+      word.toLowerCase().trim() === task.correctAnswer.toLowerCase().trim()
+        ? "_"
+        : word
+    )
     .join(" ");
 
   return (
