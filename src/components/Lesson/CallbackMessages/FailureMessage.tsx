@@ -55,7 +55,11 @@ const FailureMessage: React.FC<Props> = ({
         </Box>
       </Box>
       <Box sx={{ background: "var(--color-base-dark)", p: 2, borderRadius: 5 }}>
-        <Typography>{answer}</Typography>
+        <Typography>
+          {answer.includes("https") || answer.includes("http")
+            ? correctAnswers
+            : answer}
+        </Typography>
         <Typography
           variant="body2"
           sx={{ mb: 3, fontWeight: "bold", color: "var(--color-primary)" }}

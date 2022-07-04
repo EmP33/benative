@@ -58,14 +58,13 @@ const LearnDrawer = () => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "max-content 1fr",
+          gridTemplateColumns: "max-content max-content",
           columnGap: 2,
           mb: 4,
         }}
-        onClick={(e: React.MouseEvent) => e.stopPropagation()}
       >
         <SchoolIcon sx={{ fontSize: 50 }} />
-        <Box>
+        <Box onClick={(e: React.MouseEvent) => e.stopPropagation()}>
           <Typography variant="h6">{currentLesson?.title}</Typography>
           <Typography variant="body2" sx={{ color: "#636384" }}>
             Ukończyłeś {currentLesson?.status.toFixed(2)}% tej lekcji

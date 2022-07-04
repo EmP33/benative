@@ -16,7 +16,7 @@ const MultipleWordsLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
       sx={{
         mt: 2,
         overflow: "auto",
-        height: "79vh",
+        height: "78vh",
         "&::-webkit-scrollbar": {
           display: "none",
         },
@@ -35,44 +35,50 @@ const MultipleWordsLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
           {task.title}
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <Typography
-          variant="body1"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            color: "#8e8e97",
-          }}
-        >
-          {task.description}
-        </Typography>
-      </Grid>
+      {task.description && (
+        <Grid item xs={12}>
+          <Typography
+            variant="body1"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: "#8e8e97",
+            }}
+          >
+            {task.description}
+          </Typography>
+        </Grid>
+      )}
       <Grid item xs={12} sx={{ mt: 2, mb: 2 }}>
-        <Grid
-          container
-          sx={{ border: "1px solid var(--color-primary)", pb: 2 }}
-          spacing={1}
-        >
+        <Grid container sx={{ border: "1px solid var(--color-primary)" }}>
           <Grid
             item
             xs={6}
-            sx={{ fontWeight: "bold", color: "var(--color-tertiary-dark)" }}
+            sx={{
+              fontWeight: "bold",
+              color: "var(--color-tertiary-dark)",
+              p: 1,
+            }}
           >
             Słówko
           </Grid>
           <Grid
             item
             xs={6}
-            sx={{ fontWeight: "bold", color: "var(--color-tertiary-dark)" }}
+            sx={{
+              fontWeight: "bold",
+              color: "var(--color-tertiary-dark)",
+              p: 1,
+            }}
           >
             Tłumaczenie
           </Grid>
           {task.wordPair.map((pair: any, i: number) => (
-            <Grid container key={i} sx={{ p: 1 }}>
-              <Grid item xs={6}>
+            <Grid container key={i}>
+              <Grid item xs={6} sx={{ p: 1 }}>
                 {pair.word}
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} sx={{ p: 1 }}>
                 {pair.translation}
               </Grid>
             </Grid>
@@ -87,6 +93,7 @@ const MultipleWordsLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
           mt: 2,
           display: "flex",
           justifyContent: "flex-end",
+          alignItems: "center",
         }}
       >
         <Button onClick={nextQuestion} variant="contained" size="large">
