@@ -11,6 +11,8 @@ import { DragButtonHorizontal } from "./LearnDrawer.styles";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import BookIcon from "@mui/icons-material/Book";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import QuizIcon from "@mui/icons-material/Quiz";
 // Assets
 import bg from "../../../assets/1C1C27.png";
 // Types
@@ -28,6 +30,8 @@ const LearnDrawer = () => {
   // const [choosenLessonPart, setChoosenLessonPart] = useState<PartType | null>(
   //   null
   // );
+
+  console.log(currentLesson);
 
   return (
     <Box
@@ -103,16 +107,52 @@ const LearnDrawer = () => {
                       : "transparent",
                 }}
               >
-                <BookIcon
-                  sx={{
-                    fontSize: 40,
-                    mb: 1,
-                    color:
-                      part?.status === 100
-                        ? "var(--color-white)"
-                        : "var(--color-primary-light)",
-                  }}
-                />
+                {part.title === "Nauka" ? (
+                  <BookIcon
+                    sx={{
+                      fontSize: 40,
+                      mb: 1,
+                      color:
+                        part?.status === 100
+                          ? "var(--color-white)"
+                          : "var(--color-primary-light)",
+                    }}
+                  />
+                ) : part.title === "Powtórz" ? (
+                  <RepeatIcon
+                    sx={{
+                      fontSize: 40,
+                      mb: 1,
+                      color:
+                        part?.status === 100
+                          ? "var(--color-white)"
+                          : "var(--color-primary-light)",
+                    }}
+                  />
+                ) : part.title === "Test" ? (
+                  <QuizIcon
+                    sx={{
+                      fontSize: 40,
+                      mb: 1,
+                      color:
+                        part?.status === 100
+                          ? "var(--color-white)"
+                          : "var(--color-primary-light)",
+                    }}
+                  />
+                ) : (
+                  <BookIcon
+                    sx={{
+                      fontSize: 40,
+                      mb: 1,
+                      color:
+                        part?.status === 100
+                          ? "var(--color-white)"
+                          : "var(--color-primary-light)",
+                    }}
+                  />
+                )}
+
                 <Typography>{part.title}</Typography>
               </Box>
             ))}
