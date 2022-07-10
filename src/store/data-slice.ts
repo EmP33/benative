@@ -154,6 +154,14 @@ export const updateWords = (uid: string, words: any) => {
     await sendRequest();
   };
 };
+export const updateWord = (uid: string, word: any, index: number) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(ref(database, `users/${uid}/data/words/${index}`), word);
+    };
+    await sendRequest();
+  };
+};
 
 export const dataActions = dataSlice.actions;
 export default dataSlice;

@@ -21,7 +21,6 @@ const DashboardPage = () => {
   const { uid } = useAppSelector((state) => state.user.user);
   const { data, dataError: isError } = useAppSelector((state) => state.data);
 
-
   /* A React Hook that is called when the component is mounted. It is used to fetch data from the
   database. */
   useEffect(() => {

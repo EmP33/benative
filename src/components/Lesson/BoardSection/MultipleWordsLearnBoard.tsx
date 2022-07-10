@@ -16,7 +16,7 @@ const MultipleWordsLearnBoard: React.FC<Props> = ({ task, nextQuestion }) => {
       sx={{
         mt: 2,
         overflow: "auto",
-        height: "78vh",
+        height: "79vh",
         "&::-webkit-scrollbar": {
           display: "none",
         },

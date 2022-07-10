@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // Redux Store
-import { updateLessonPart } from "../../../store/data-slice";
+import { updateLessonPart, updateWord } from "../../../store/data-slice";
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
-import { current } from "@reduxjs/toolkit";
+// Types
+import { WordType } from "../../../data.types";
 
 const FinishSection = () => {
   const navigate = useNavigate();
@@ -15,7 +16,12 @@ const FinishSection = () => {
   const currentLessonPart = useAppSelector(
     (state) => state.user.currentLessonPart
   );
+  const data = useAppSelector((state) => state.data.data);
   const user = useAppSelector((state) => state.user.user);
+  // Local State
+  const [words, setWords] = useState(data.data.words);
+
+  console.log(data.data.words);
 
   useEffect(() => {
     dispatch(
@@ -35,6 +41,22 @@ const FinishSection = () => {
       )
     );
   }, []);
+
+  if (currentLessonPart) {
+    currentLessonPart.words.map((w) => {
+      const wordIndex = words.findIndex((word: WordType) =>
+        word.word.word.includes(w[0])
+      );
+      const word = words.find((word: any) => word.word.word.includes(w[0]));
+      dispatch(
+        updateWord(
+          user.uid,
+          { id: word.id, known: true, status: word.status, word: word.word },
+          wordIndex
+        )
+      );
+    });
+  }
 
   return (
     <Box

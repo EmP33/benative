@@ -21,15 +21,15 @@ const RepeatSection = () => {
   const [repeatType, setRepeatType] = useState("");
 
   /* Filtering words by status. */
-  const weakWords = data?.data?.words.filter(
-    (word: WordType) => word.status === "weak"
-  );
-  const averageWords = data?.data?.words.filter(
-    (word: WordType) => word.status === "average"
-  );
-  const wellWords = data?.data?.words.filter(
-    (word: WordType) => word.status === "well"
-  );
+  const weakWords = data?.data?.words
+    .filter((word: WordType) => word.status === "weak")
+    .filter((word: WordType) => word.known === true);
+  const averageWords = data?.data?.words
+    .filter((word: WordType) => word.status === "average")
+    .filter((word: WordType) => word.known === true);
+  const wellWords = data?.data?.words
+    .filter((word: WordType) => word.status === "well")
+    .filter((word: WordType) => word.known === true);
 
   const changeRepeatTypeHandler = (type: string) => {
     setRepeatType(type);
@@ -83,7 +83,13 @@ const RepeatSection = () => {
             title="Słabo znane"
             words={weakWords}
             /* It's calculating the percentage of words with a given status. */
-            status={(weakWords?.length / data?.data?.words?.length) * 100}
+            status={
+              (weakWords?.length /
+                data?.data?.words.filter(
+                  (word: WordType) => word.known === true
+                ).length) *
+              100
+            }
           />
           <WordsStatus
             repeatType={repeatType}
@@ -91,7 +97,13 @@ const RepeatSection = () => {
             title="Średnio znane"
             words={averageWords}
             /* It's calculating the percentage of words with a given status. */
-            status={(averageWords?.length / data?.data?.words?.length) * 100}
+            status={
+              (averageWords?.length /
+                data?.data?.words.filter(
+                  (word: WordType) => word.known === true
+                ).length) *
+              100
+            }
           />
           <WordsStatus
             repeatType={repeatType}
@@ -99,7 +111,13 @@ const RepeatSection = () => {
             title="Dobrze znane"
             words={wellWords}
             /* It's calculating the percentage of words with a given status. */
-            status={(wellWords?.length / data?.data?.words?.length) * 100}
+            status={
+              (wellWords?.length /
+                data?.data?.words.filter(
+                  (word: WordType) => word.known === true
+                ).length) *
+              100
+            }
           />
         </Box>
         <Button
@@ -171,7 +189,27 @@ const RepeatSection = () => {
                       />
                     )
                   )
-                : data.data.words.map(
+                : data?.data?.words
+                    .filter((word: WordType) => word.known === true)
+                    .map(
+                      (
+                        word: {
+                          status: string;
+                          word: { word: string[]; translation: string };
+                        },
+                        key: number
+                      ) => (
+                        <WordElement
+                          key={key}
+                          status={word.status}
+                          word={word.word.word[0]}
+                          translation={word.word.translation}
+                        />
+                      )
+                    )
+              : data?.data?.words
+                  .filter((word: WordType) => word.known === true)
+                  .map(
                     (
                       word: {
                         status: string;
@@ -187,22 +225,6 @@ const RepeatSection = () => {
                       />
                     )
                   )
-              : data.data.words.map(
-                  (
-                    word: {
-                      status: string;
-                      word: { word: string[]; translation: string };
-                    },
-                    key: number
-                  ) => (
-                    <WordElement
-                      key={key}
-                      status={word.status}
-                      word={word.word.word[0]}
-                      translation={word.word.translation}
-                    />
-                  )
-                )
             : /* It's creating a skeleton loader. */
               [0, 1, 2, 3, 4, 5, 6, 7, 8].map((numb) => (
                 <Box

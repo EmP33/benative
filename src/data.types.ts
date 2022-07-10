@@ -32,6 +32,7 @@ export interface LessonType {
 export interface WordType {
   status: string;
   id: string;
+  known: boolean;
   word: {
     translation: string;
     word: string[];
