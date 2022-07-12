@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
+import { userActions } from "../../../store/user-slice";
 // Components
 import {
   Box,
@@ -34,6 +35,8 @@ const Welcome = () => {
   const { isError, errorMessage, openLessonDrawer } = useAppSelector(
     (state) => state.ui
   );
+  console.log(location.pathname);
+
   // Local State
   // Bottom Navigation Card
   const [value, setValue] = useState(0);
@@ -70,42 +73,47 @@ const Welcome = () => {
           element={<QuestionResult />}
         />
       </Routes>
-      <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
-        <BottomNavigation
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          sx={{
-            background: "var(--color-base-dark)",
-          }}
-        >
-          <BottomNavigationAction
-            sx={{ color: "var(--color-white)" }}
-            label="Nauka"
-            icon={<SchoolIcon />}
-            onClick={() => navigate("/dashboard")}
-          />
-          <BottomNavigationAction
-            sx={{ color: "var(--color-white)" }}
-            label="Powtórz"
-            icon={<RepeatIcon />}
-            onClick={() => navigate("/dashboard/repeat")}
-          />
-          <BottomNavigationAction
-            sx={{ color: "var(--color-white)" }}
-            label="Kategorie"
-            icon={<CategoryIcon />}
-            onClick={() => navigate("/dashboard/categories")}
-          />
-          <BottomNavigationAction
-            sx={{ color: "var(--color-white)" }}
-            label="Profile"
-            icon={<PersonIcon />}
-            onClick={() => navigate("/dashboard/profile")}
-          />
-        </BottomNavigation>
-      </Box>
+      {location.pathname.includes("/lesson") || location.pathname.includes('/repeat-words') ? (
+        ""
+      ) : (
+        <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
+          <BottomNavigation
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            sx={{
+              background: "var(--color-base-dark)",
+            }}
+          >
+            <BottomNavigationAction
+              sx={{ color: "var(--color-white)" }}
+              label="Nauka"
+              icon={<SchoolIcon />}
+              onClick={() => navigate("/dashboard")}
+            />
+            <BottomNavigationAction
+              sx={{ color: "var(--color-white)" }}
+              label="Powtórz"
+              icon={<RepeatIcon />}
+              onClick={() => navigate("/dashboard/repeat")}
+            />
+            <BottomNavigationAction
+              sx={{ color: "var(--color-white)" }}
+              label="Kategorie"
+              icon={<CategoryIcon />}
+              onClick={() => navigate("/dashboard/categories")}
+            />
+            <BottomNavigationAction
+              sx={{ color: "var(--color-white)" }}
+              label="Profile"
+              icon={<PersonIcon />}
+              onClick={() => navigate("/dashboard/profile")}
+            />
+          </BottomNavigation>
+        </Box>
+      )}
+
       {openLessonDrawer && (
         <Box
           sx={{
@@ -117,7 +125,10 @@ const Welcome = () => {
             top: 0,
             opacity: ".5",
           }}
-          onClick={() => dispatch(uiActions.toggleOpenLessonDrawer())}
+          onClick={() => {
+            dispatch(userActions.setCurrentLessonPart(null));
+            dispatch(uiActions.toggleOpenLessonDrawer());
+          }}
         ></Box>
       )}
       <Box

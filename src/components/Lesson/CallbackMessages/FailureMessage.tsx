@@ -9,6 +9,7 @@ interface Props {
   translation: string;
   correctAnswers: string[] | string;
   answers: string[] | string;
+  nextQuestion: () => void;
 }
 
 const FailureMessage: React.FC<Props> = ({
@@ -16,10 +17,11 @@ const FailureMessage: React.FC<Props> = ({
   translation,
   correctAnswers,
   answers,
+  nextQuestion,
 }) => {
   return (
     <Box
-      onClick={(e) => e.stopPropagation()}
+      onClick={nextQuestion}
       sx={{
         position: "absolute",
         left: "50%",

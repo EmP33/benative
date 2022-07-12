@@ -208,6 +208,7 @@ const RepeatWords = () => {
                   translation={usedWords[currentWord].word.translation}
                   correctAnswers={usedWords[currentWord].word.word}
                   answers={answers}
+                  nextQuestion={nextWordHandler}
                 />
               </Box>
             ) : (
@@ -229,6 +230,7 @@ const RepeatWords = () => {
                   }
                   translation={usedWords[currentWord].word.translation}
                   correctAnswer={usedWords[currentWord].word.word}
+                  nextQuestion={nextWordHandler}
                 />
               </Box>
             )
@@ -256,6 +258,7 @@ const RepeatWords = () => {
                   secondTurn[currentWord - usedWords.length].word.translation
                 }
                 answers={answers}
+                nextQuestion={nextWordHandler}
               />
             </Box>
           ) : (
@@ -281,6 +284,7 @@ const RepeatWords = () => {
                 correctAnswer={
                   secondTurn[currentWord - usedWords.length].word.word
                 }
+                nextQuestion={nextWordHandler}
               />
             </Box>
           )
@@ -303,6 +307,7 @@ const RepeatWords = () => {
                 translation={usedWords[currentWord].word.translation}
                 correctAnswers={usedWords[currentWord].word.word}
                 answers={answers}
+                nextQuestion={nextWordHandler}
               />
             </Box>
           ) : (
@@ -321,6 +326,7 @@ const RepeatWords = () => {
                 answer={usedWords[currentWord].word?.word[0]}
                 translation={usedWords[currentWord].word.translation}
                 correctAnswer={usedWords[currentWord].word.word}
+                nextQuestion={nextWordHandler}
               />
             </Box>
           )

@@ -6,10 +6,15 @@ import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
+import FinishMessage from "../../UI/CallbackMessages/FinishMessage";
 // Types
 import { WordType } from "../../../data.types";
 
-const FinishSection = () => {
+interface Props {
+  resultAnswers: boolean[];
+}
+
+const FinishSection: React.FC<Props> = ({ resultAnswers }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const params = useParams();
@@ -20,8 +25,7 @@ const FinishSection = () => {
   const user = useAppSelector((state) => state.user.user);
   // Local State
   const [words, setWords] = useState(data.data.words);
-
-  console.log(data.data.words);
+  const [hideFinishMessage, setHideFinishMessage] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -117,6 +121,27 @@ const FinishSection = () => {
             Zostaną one dodane do sekcji POWTÓRZ
           </Typography>
         </>
+      )}
+      {!hideFinishMessage && !!resultAnswers.length && (
+        <Box
+          onClick={() => setHideFinishMessage(true)}
+          sx={{
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,.5)",
+            position: "absolute",
+            left: 0,
+            top: 0,
+          }}
+        >
+          <FinishMessage
+            correctAnswersQty={
+              resultAnswers.filter((ans) => ans === true).length
+            }
+            allAnswersQty={resultAnswers.length}
+            showPoints={true}
+          />
+        </Box>
       )}
     </Box>
   );

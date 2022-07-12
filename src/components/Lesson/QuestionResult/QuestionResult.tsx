@@ -41,6 +41,7 @@ const QuestionResult = () => {
     !params.ex ? 0 : +params.ex
   );
   const [checkedAnswers, setCheckedAnswers] = useState<boolean[] | boolean>([]);
+  const [resultAnswers, setResultAnswers] = useState<boolean[]>([]);
 
   // Audio
   const [playingCorrect, toggleCorrect] = useAudio(
@@ -49,6 +50,8 @@ const QuestionResult = () => {
   const [playingIncorrect, toggleInCorrect] = useAudio(
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
+
+  console.log(currentLessonPart);
 
   /* A hook that is called when the component is mounted. It is used to fetch data from the database. */
   useEffect(() => {
@@ -77,17 +80,21 @@ const QuestionResult = () => {
       if (checkedAnswers && isSound) {
         // @ts-ignore
         toggleCorrect();
+        setResultAnswers((prev) => [...prev, checkedAnswers]);
       } else if (!checkedAnswers && isSound) {
         // @ts-ignore
         toggleInCorrect();
+        setResultAnswers((prev) => [...prev, checkedAnswers]);
       }
     } else {
       if (checkedAnswers.every((ans) => ans === true) && isSound) {
         // @ts-ignore
         toggleCorrect();
+        setResultAnswers((prev) => [...prev, true]);
       } else if (checkedAnswers.some((ans) => ans === false) && isSound) {
         // @ts-ignore
         toggleInCorrect();
+        setResultAnswers((prev) => [...prev, false]);
       }
     }
 
@@ -100,7 +107,8 @@ const QuestionResult = () => {
     navigate(
       `/dashboard/lesson/${currentLesson?.category}/${currentLesson?.id}/${
         currentLessonPart?.id
-      }/${currentTask + 1}`
+      }/${currentTask + 1}`,
+      { replace: true }
     );
     setAnswers([]);
     setCheckedAnswers([]);
@@ -172,7 +180,7 @@ const QuestionResult = () => {
             ""
           )
         ) : (
-          <FinishSection />
+          <FinishSection resultAnswers={resultAnswers} />
         )}
         {typeof checkedAnswers === "boolean" ? (
           !checkedAnswers ? (
@@ -192,6 +200,7 @@ const QuestionResult = () => {
                 translation={tasks[+params.ex].translation}
                 correctAnswers={tasks[+params.ex]?.correctAnswer}
                 answers={answers}
+                nextQuestion={nextQuestionHandler}
               />
             </Box>
           ) : (
@@ -210,6 +219,7 @@ const QuestionResult = () => {
                 answer={tasks[+params.ex].question}
                 translation={tasks[+params.ex].translation}
                 correctAnswer={tasks[+params.ex].correctAnswer}
+                nextQuestion={nextQuestionHandler}
               />
             </Box>
           )
@@ -232,6 +242,7 @@ const QuestionResult = () => {
                 translation={tasks[+params.ex].translation}
                 correctAnswers={tasks[+params.ex]?.correctAnswer}
                 answers={answers}
+                nextQuestion={nextQuestionHandler}
               />
             </Box>
           ) : (
@@ -250,6 +261,7 @@ const QuestionResult = () => {
                 answer={tasks[+params.ex].question}
                 translation={tasks[+params.ex].translation}
                 correctAnswer={tasks[+params.ex].correctAnswer}
+                nextQuestion={nextQuestionHandler}
               />
             </Box>
           )

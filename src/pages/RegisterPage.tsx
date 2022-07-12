@@ -29,9 +29,12 @@ const RegisterPage = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Functions
   const toggleShowPasswordHandler = () => setShowPassword((prev) => !prev);
+  const toggleShowConfirmPasswordHandler = () =>
+    setShowConfirmPassword((prev) => !prev);
 
   const createUserHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,7 +114,7 @@ const RegisterPage = () => {
                 label="Utwórz Hasło"
                 variant="outlined"
                 color="success"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
                 inputProps={{
                   autoComplete: "off",
@@ -146,7 +149,7 @@ const RegisterPage = () => {
                 label="Potwierdź Hasło"
                 variant="outlined"
                 color="success"
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 sx={{ width: "100%", input: { color: "var(--color-grey-1)" } }}
                 inputProps={{
                   autoComplete: "off",
@@ -157,11 +160,11 @@ const RegisterPage = () => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={toggleShowPasswordHandler}
-                        onMouseDown={toggleShowPasswordHandler}
+                        onClick={toggleShowConfirmPasswordHandler}
+                        onMouseDown={toggleShowConfirmPasswordHandler}
                         sx={{ color: "var(--color-grey-1)" }}
                       >
-                        {showPassword ? (
+                        {showConfirmPassword ? (
                           <VisibilityIcon />
                         ) : (
                           <VisibilityOffIcon />

@@ -8,16 +8,18 @@ interface Props {
   answer: string;
   translation: string;
   correctAnswer: string | string[];
+  nextQuestion: () => void;
 }
 
 const SuccessMessage: React.FC<Props> = ({
   answer,
   translation,
   correctAnswer,
+  nextQuestion,
 }) => {
-  
   return (
     <Box
+      onClick={nextQuestion}
       sx={{
         position: "absolute",
         left: "50%",

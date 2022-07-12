@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 // Redux Store
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
@@ -20,18 +20,17 @@ import { PartType } from "../../../data.types";
 
 // type LessonType = "learn" | "repeat" | "test" | null;
 
-const LearnDrawer = () => {
+const LearnDrawer: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentLesson = useAppSelector((state) => state.user.currentLesson);
   const currentLessonPart = useAppSelector(
     (state) => state.user.currentLessonPart
   );
-  // const [choosenLessonPart, setChoosenLessonPart] = useState<PartType | null>(
-  //   null
-  // );
 
-  console.log(currentLesson);
+  useEffect(() => {
+    dispatch(userActions.setCurrentLessonPart(null));
+  }, []);
 
   return (
     <Box
@@ -43,6 +42,7 @@ const LearnDrawer = () => {
         height: "50vh",
         overflow: "hidden",
         transition: "all .5s ease",
+        userSelect: "none",
       }}
       onClick={(e: React.MouseEvent) => {
         dispatch(userActions.setCurrentLessonPart(null));

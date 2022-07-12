@@ -163,5 +163,14 @@ export const updateWord = (uid: string, word: any, index: number) => {
   };
 };
 
+export const updatePoints = (uid: string, points: number) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(ref(database, `users/${uid}/data/points`), points);
+    };
+    await sendRequest();
+  };
+};
+
 export const dataActions = dataSlice.actions;
 export default dataSlice;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Redux Store
 import { updateWords } from "../../../store/data-slice";
@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 // Components
 import { Box, Typography, Button } from "@mui/material";
 import WordElement from "../../Dashboard/RepeatSection/WordElement";
+import FinishMessage from "../../UI/CallbackMessages/FinishMessage";
 
 interface Props {
   words: any[];
@@ -17,6 +18,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
   const dispatch = useAppDispatch();
   const dataWords = useAppSelector((state) => state?.data?.data?.data?.words);
   const user = useAppSelector((state) => state.user.user);
+  const [hideFinishMessage, setHideFinishMessage] = useState(false);
 
   const copyOfDataWords = [...dataWords];
 
@@ -32,6 +34,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
             ? "well"
             : "weak",
         word: w.word,
+        known: true,
       };
     } else {
       copyOfDataWords[wordIndex] = {
@@ -45,6 +48,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
             ? "average"
             : "well",
         word: w.word,
+        known: true,
       };
     }
   });
@@ -96,25 +100,25 @@ const FinishSection: React.FC<Props> = ({ words }) => {
                 translation={word.word.translation}
               />
             ))}
-          {/* {words.map((wordPair, i) => (
-            <Box sx={{ display: "flex", textAlign: "left" }} key={i}>
-              <Typography
-                sx={{
-                  mt: 3,
-                  fontWeight: "bold",
-                  color: "var(--color-tertiary)",
-                }}
-                variant="body2"
-              >
-                {wordPair[0]}{" "}
-              </Typography>
-
-              <Typography sx={{ mt: 3, textAlign: "left" }} variant="body2">
-                {" "}
-                -{wordPair[1]}
-              </Typography>
+          {!hideFinishMessage && (
+            <Box
+              onClick={() => setHideFinishMessage(true)}
+              sx={{
+                width: "100%",
+                height: "100%",
+                background: "rgba(0,0,0,.5)",
+                position: "absolute",
+                left: 0,
+                top: 0,
+              }}
+            >
+              <FinishMessage
+                correctAnswersQty={5}
+                allAnswersQty={10}
+                showPoints={false}
+              />
             </Box>
-          ))} */}
+          )}
         </>
       )}
     </Box>

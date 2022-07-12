@@ -56,6 +56,7 @@ const MatchWordToImage: React.FC<Props> = ({ task, checkAnswers }) => {
 
       <Grid item xs={12}>
         <CSSTextField
+          autoFocus
           onKeyUp={(e) => e.key === "Enter" && checkTaskHandler()}
           inputRef={answerRef}
           type="text"

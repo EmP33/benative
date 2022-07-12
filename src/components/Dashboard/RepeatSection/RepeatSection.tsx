@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 import { dataActions } from "../../../store/data-slice";
 
 // Components
-import { Box, Button, Skeleton } from "@mui/material";
+import { Box, Button, Skeleton, Typography } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
 import SectionHeader from "../../UI/SectionHeader";
@@ -120,16 +120,24 @@ const RepeatSection = () => {
             }
           />
         </Box>
-        <Button
-          fullWidth
-          variant="outlined"
-          color="error"
-          sx={{ mt: 3 }}
-          onClick={() => navigate("/dashboard/repeat-words")}
-        >
-          {/* It's a button that is changing its text depending on the repeatType state. */}
-          Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
-        </Button>
+        {data?.data?.words.filter((word: WordType) => word.known === true)
+          .length ? (
+          <Button
+            fullWidth
+            variant="outlined"
+            color="error"
+            sx={{ mt: 3 }}
+            onClick={() => navigate("/dashboard/repeat-words")}
+          >
+            {/* It's a button that is changing its text depending on the repeatType state. */}
+            Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
+          </Button>
+        ) : (
+          <Typography variant="h6" sx={{ textAlign: "center", mt: 5 }}>
+            Nie masz żadnych słówek
+          </Typography>
+        )}
+
         <Box
           sx={{
             display: "grid",
