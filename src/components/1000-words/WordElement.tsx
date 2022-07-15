@@ -17,7 +17,6 @@ const WordElement: React.FC<Props> = ({
   translation,
   oldStatus,
 }) => {
-  console.log(status, word, translation, oldStatus);
   return (
     <Box
       sx={{

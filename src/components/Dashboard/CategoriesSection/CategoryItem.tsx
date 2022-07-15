@@ -1,13 +1,33 @@
 import React, { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 // Components
 import { Box, Typography } from "@mui/material";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
+// Types
+import { AppCategoryType } from "../../../data.types";
+// Icons
+import TranslateIcon from "@mui/icons-material/Translate";
+import WorkIcon from "@mui/icons-material/Work";
+import BoltIcon from "@mui/icons-material/Bolt";
 
-const CategoryItem = () => {
+interface Props {
+  category: AppCategoryType;
+}
+
+const CategoryItem: React.FC<Props> = ({ category }) => {
+  const navigate = useNavigate();
   const [onHover, setOnHover] = useState<boolean>(false);
+
+  const navigateHandler = () => {
+    if (category.title === "1000 słów") {
+      navigate("/dashboard/categories/10-hundred-words");
+    }
+    console.log(category);
+  };
 
   return (
     <Box
+      onClick={navigateHandler}
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
       sx={{
@@ -18,6 +38,7 @@ const CategoryItem = () => {
         alignContent: "center",
         justifyItems: "center",
         borderRadius: 5,
+        cursor: "pointer",
       }}
     >
       <Box
@@ -33,18 +54,27 @@ const CategoryItem = () => {
           borderRadius: 4,
         }}
       >
-        <HeadphonesIcon sx={{ fontSize: 26 }} />
+        {category.title === "1000 słów" ? (
+          <TranslateIcon sx={{ fontSize: 26 }} />
+        ) : category.title === "Praca" ? (
+          <WorkIcon sx={{ fontSize: 26 }} />
+        ) : category.title === "Fiszki" ? (
+          <BoltIcon sx={{ fontSize: 26 }} />
+        ) : (
+          <HeadphonesIcon sx={{ fontSize: 26 }} />
+        )}
       </Box>
       <Typography
         variant="body1"
         sx={{
           color: onHover ? "var(--color-white)" : "var(--color-tertiary)",
           fontWeight: "bold",
+          mt: 1,
         }}
       >
-        Słuchanie
+        {category.title}
       </Typography>
-      <Typography variant="body2">21 Lekcji</Typography>
+      {/* <Typography variant="body2" sx={{ textAlign: "center" }}></Typography> */}
     </Box>
   );
 };

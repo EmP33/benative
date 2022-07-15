@@ -9,7 +9,7 @@ import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
 // Types
-import { WordType } from "../data.types";
+import { WordType, LessonType } from "../data.types";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
@@ -132,7 +132,7 @@ export const updateLesson = (
   uid: string,
   category: string | undefined,
   lessonID: string | undefined,
-  data: any
+  data: LessonType
 ) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {
@@ -154,6 +154,22 @@ export const updateWords = (uid: string, words: any) => {
     await sendRequest();
   };
 };
+export const updat10HundredWords = (
+  uid: string,
+  categoryID: string,
+  words: any
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(database, `users/${uid}/data/categories/${categoryID}/words`),
+        words
+      );
+    };
+    await sendRequest();
+  };
+};
+
 export const updateWord = (uid: string, word: any, index: number) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // Redux Store
-import { updateWords } from "../../../store/data-slice";
+import { updateWords, updat10HundredWords } from "../../../store/data-slice";
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
 import WordElement from "../../Dashboard/RepeatSection/WordElement";
 import FinishMessage from "../../UI/CallbackMessages/FinishMessage";
+import Words1000 from "../../1000-words/Words1000";
 
 interface Props {
   words: any[];
@@ -15,12 +16,32 @@ interface Props {
 
 const FinishSection: React.FC<Props> = ({ words }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const dataWords = useAppSelector((state) => state?.data?.data?.data?.words);
+  const categories = useAppSelector((state) => state.data.data.data.categories);
   const user = useAppSelector((state) => state.user.user);
   const [hideFinishMessage, setHideFinishMessage] = useState(false);
 
-  const copyOfDataWords = [...dataWords];
+  let copyOfDataWords: any[] = [];
+
+  if (location.pathname.includes("10-hundred-words")) {
+    copyOfDataWords = [
+      ...Object.values(
+        // @ts-ignore
+        Object.values(categories).find((cat) => cat.title === "1000 słów").words
+      ),
+    ];
+  } else {
+    copyOfDataWords = [...dataWords];
+  }
+
+  console.log(
+    Object.values(
+      // @ts-ignore
+      Object.values(categories).find((cat) => cat.title === "1000 słów").words
+    )
+  );
 
   words.map((w) => {
     const wordIndex = copyOfDataWords.findIndex((word) => word.id === w.id);
@@ -34,6 +55,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
             ? "well"
             : "weak",
         word: w.word,
+        translation: w.translation,
         known: true,
       };
     } else {
@@ -48,13 +70,25 @@ const FinishSection: React.FC<Props> = ({ words }) => {
             ? "average"
             : "well",
         word: w.word,
+        translation: w.translation,
         known: true,
       };
     }
   });
 
   useEffect(() => {
-    dispatch(updateWords(user.uid, copyOfDataWords));
+    if (location.pathname.includes("10-hundred-words")) {
+      dispatch(
+        updat10HundredWords(
+          user.uid,
+          // @ts-ignore
+          Object.values(categories).find((cat) => cat.title === "1000 słów").id,
+          copyOfDataWords
+        )
+      );
+    } else {
+      dispatch(updateWords(user.uid, copyOfDataWords));
+    }
   }, [copyOfDataWords, dispatch]);
 
   return (
@@ -75,7 +109,13 @@ const FinishSection: React.FC<Props> = ({ words }) => {
         Ukończyłeś tryb powtarzania słówek
       </Typography>
       <Button
-        onClick={() => navigate("/dashboard/repeat")}
+        onClick={() => {
+          if (location.pathname.includes("10-hundred-words")) {
+            navigate("/dashboard/categories/10-hundred-words");
+          } else {
+            navigate("/dashboard/repeat");
+          }
+        }}
         sx={{ mt: 1 }}
         variant="outlined"
         fullWidth
@@ -89,17 +129,34 @@ const FinishSection: React.FC<Props> = ({ words }) => {
           <Typography sx={{ mt: 3, textAlign: "center" }}>
             Słówka które udało się tobie utrwalić
           </Typography>
-          {words
-            .map((word) => copyOfDataWords.find((w) => w.id === word.id))
-            .map((word, i) => (
-              <WordElement
-                key={i}
-                oldStatus={words[i]}
-                status={word.status}
-                word={word.word.word[0]}
-                translation={word.word.translation}
-              />
-            ))}
+
+          {words &&
+            words
+              .map((word) => copyOfDataWords.find((w) => w.id === word.id))
+              .map((word, i) => {
+                if (location.pathname.includes("10-hundred-words")) {
+                  console.log(word.word);
+                  return (
+                    <WordElement
+                      key={i}
+                      oldStatus={words[i]}
+                      status={word.status}
+                      word={word.word}
+                      translation={word.translation}
+                    />
+                  );
+                } else {
+                  return (
+                    <WordElement
+                      key={i}
+                      oldStatus={words[i]}
+                      status={word.status}
+                      word={word.word.word[0]}
+                      translation={word.word.translation}
+                    />
+                  );
+                }
+              })}
           {!hideFinishMessage && (
             <Box
               onClick={() => setHideFinishMessage(true)}

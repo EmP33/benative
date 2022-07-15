@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAudio } from "../../../lib/hooks";
+import { useLocation } from "react-router-dom";
 // Redux Store
 import { useAppSelector } from "../../../lib/hooks";
 // Components
@@ -14,13 +15,14 @@ import FinishSection from "../FinishSection/FinishSection";
 import { WordType } from "../../../data.types";
 
 const RepeatWords = () => {
+  const location = useLocation();
   // Redux Store
   const words = useAppSelector((state) => state.data?.data?.data?.words);
   const typeWords = useAppSelector((state) => state.data?.words);
   const isSound = useAppSelector((state) => state.ui.isSound);
   // Local State
   const [currentWord, setCurrentWord] = useState(0);
-  const [usedWords, setUsedWords] = useState<WordType[]>([]);
+  const [usedWords, setUsedWords] = useState<any>([]);
   const [answers, setAnswers] = useState<string[] | string>([]);
   const [checkedAnswers, setCheckedAnswers] = useState<boolean[] | boolean>([]);
   const [secondTurn, setSecondTurn] = useState<any[]>([]);
@@ -32,6 +34,9 @@ const RepeatWords = () => {
   const [playingIncorrect, toggleInCorrect] = useAudio(
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
+
+  console.log(usedWords);
+  console.log(secondTurn);
 
   useEffect(() => {
     // 10 - count of words in repetition
@@ -49,6 +54,7 @@ const RepeatWords = () => {
       } else {
         setUsedWords(
           words
+            .filter((word: WordType) => word.known === true)
             .map((value: WordType) => ({ value, sort: Math.random() }))
             .sort((a: any, b: any) => a.sort - b.sort)
             // @ts-ignore
@@ -63,6 +69,7 @@ const RepeatWords = () => {
     checkedAnswers: boolean[] | boolean,
     answers: string[] | string
   ) => {
+    console.log(secondTurn[currentWord - usedWords.length], "SIEMAAA");
     /* Checking if the answer is correct or not. */
     if (typeof checkedAnswers === "boolean") {
       if (checkedAnswers && isSound) {
@@ -96,6 +103,7 @@ const RepeatWords = () => {
             id: usedWords[currentWord].id,
             word: usedWords[currentWord].word,
             wasCorrect: checkedAnswers,
+            translation: usedWords[currentWord].translation,
           },
         ]);
       } else {
@@ -105,6 +113,7 @@ const RepeatWords = () => {
             id: usedWords[currentWord].id,
             word: usedWords[currentWord].word,
             wasCorrect: checkedAnswers,
+            translation: usedWords[currentWord].translation,
           },
         ]);
       }
@@ -124,6 +133,7 @@ const RepeatWords = () => {
             status: secondTurn[currentWord - usedWords.length].status,
             id: secondTurn[currentWord - usedWords.length].id,
             word: secondTurn[currentWord - usedWords.length].word,
+            translation: secondTurn[currentWord - usedWords.length].translation,
             wasCorrect: checkedAnswers,
           }
         );
@@ -137,6 +147,7 @@ const RepeatWords = () => {
             status: secondTurn[currentWord - usedWords.length].status,
             id: secondTurn[currentWord - usedWords.length].id,
             word: secondTurn[currentWord - usedWords.length].word,
+            translation: secondTurn[currentWord - usedWords.length].translation,
             wasCorrect: false,
           }
         );
@@ -188,6 +199,49 @@ const RepeatWords = () => {
         )}
         {typeof checkedAnswers === "boolean" ? (
           currentWord < usedWords.length ? (
+            location.pathname.includes("10-hundred-words") ? (
+              // For first round for 10-hundred minigame
+              !checkedAnswers && usedWords.length ? (
+                <Box
+                  onClick={nextWordHandler}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0,0,0,.5)",
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <FailureMessage
+                    answer={usedWords[currentWord].word}
+                    translation={usedWords[currentWord].translation}
+                    correctAnswers={usedWords[currentWord].word}
+                    answers={answers}
+                    nextQuestion={nextWordHandler}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  onClick={nextWordHandler}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0,0,0,.5)",
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <SuccessMessage
+                    answer={usedWords[currentWord].word}
+                    translation={usedWords[currentWord].translation}
+                    correctAnswer={usedWords[currentWord].word}
+                    nextQuestion={nextWordHandler}
+                  />
+                </Box>
+              )
+            ) : // For first round to repeat
             !checkedAnswers && usedWords.length ? (
               <Box
                 onClick={nextWordHandler}
@@ -230,6 +284,55 @@ const RepeatWords = () => {
                   }
                   translation={usedWords[currentWord].word.translation}
                   correctAnswer={usedWords[currentWord].word.word}
+                  nextQuestion={nextWordHandler}
+                />
+              </Box>
+            )
+          ) : location.pathname.includes("10-hundred-words") ? (
+            !checkedAnswers && secondTurn.length ? (
+              <Box
+                onClick={nextWordHandler}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(0,0,0,.5)",
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                }}
+              >
+                <FailureMessage
+                  answer={secondTurn[currentWord - usedWords.length].word}
+                  translation={
+                    secondTurn[currentWord - usedWords.length].translation
+                  }
+                  correctAnswers={
+                    secondTurn[currentWord - usedWords.length].translation
+                  }
+                  answers={answers}
+                  nextQuestion={nextWordHandler}
+                />
+              </Box>
+            ) : (
+              <Box
+                onClick={nextWordHandler}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(0,0,0,.5)",
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                }}
+              >
+                <SuccessMessage
+                  answer={secondTurn[currentWord - usedWords.length].word}
+                  translation={
+                    secondTurn[currentWord - usedWords.length].translation
+                  }
+                  correctAnswer={
+                    secondTurn[currentWord - usedWords.length].word
+                  }
                   nextQuestion={nextWordHandler}
                 />
               </Box>

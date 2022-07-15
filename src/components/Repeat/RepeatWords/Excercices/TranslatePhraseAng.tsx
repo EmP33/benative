@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 // Components
 import { Box, Button, Typography, Grid } from "@mui/material";
 import { CSSTextField } from "../../../UI/Components.style";
@@ -6,7 +7,7 @@ import { CSSTextField } from "../../../UI/Components.style";
 import { WordType } from "../../../../data.types";
 
 interface Props {
-  word: WordType;
+  word: any;
   checkAnswers: (
     checkedAnswers: boolean[] | boolean,
     answers: string[] | string
@@ -14,19 +15,30 @@ interface Props {
 }
 
 const TranslatePhraseAng: React.FC<Props> = ({ word, checkAnswers }) => {
+  const location = useLocation();
   const answerRef = useRef<HTMLInputElement>(null);
+  console.log(word);
 
   const checkTaskHandler = () => {
     if (!answerRef.current || answerRef.current.value === "") return;
     const answer = answerRef.current.value;
     if (typeof word.word.word === "string") return;
-    const checkedAnswer =
-      word.word.translation.toLowerCase().trim() ===
-      answer.toLowerCase().trim();
+    if (location.pathname.includes("10-hundred-words")) {
+      const checkedAnswer =
+        word.translation.toLowerCase().trim() === answer.toLowerCase().trim();
 
-    checkAnswers(checkedAnswer, answer);
-    answerRef.current.blur();
-    answerRef.current.value = "";
+      checkAnswers(checkedAnswer, answer);
+      answerRef.current.blur();
+      answerRef.current.value = "";
+    } else {
+      const checkedAnswer =
+        word.word.translation.toLowerCase().trim() ===
+        answer.toLowerCase().trim();
+
+      checkAnswers(checkedAnswer, answer);
+      answerRef.current.blur();
+      answerRef.current.value = "";
+    }
   };
 
   return (
@@ -35,7 +47,7 @@ const TranslatePhraseAng: React.FC<Props> = ({ word, checkAnswers }) => {
         <Typography
           variant="h6"
           sx={{ lineHeight: 2 }}
-          dangerouslySetInnerHTML={{ __html: word?.word?.word[0] }}
+          dangerouslySetInnerHTML={{ __html: word?.word }}
         ></Typography>
       </Grid>
 

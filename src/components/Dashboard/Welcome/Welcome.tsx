@@ -21,6 +21,7 @@ import QuestionResult from "../../Lesson/QuestionResult/QuestionResult";
 import RepeatSection from "../RepeatSection/RepeatSection";
 import RepeatWords from "../../Repeat/RepeatWords/RepeatWords";
 import LearnDrawer from "../LearnDrawer/LearnDrawer";
+import Words1000 from "../../1000-words/Words1000";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -62,6 +63,11 @@ const Welcome = () => {
         <Route path="/" element={<LearnSection />} />
         <Route path="/profile" element={<ProfileSection />} />
         <Route path="/categories" element={<CategoriesSection />} />
+        <Route path="/categories/10-hundred-words" element={<Words1000 />} />
+        <Route
+          path="/categories/10-hundred-words/repeat-words"
+          element={<RepeatWords />}
+        />
         <Route path="/repeat" element={<RepeatSection />} />
         <Route path="/repeat-words" element={<RepeatWords />} />
         <Route path="/settings" element={<SettingsSection />} />
@@ -73,7 +79,8 @@ const Welcome = () => {
           element={<QuestionResult />}
         />
       </Routes>
-      {location.pathname.includes("/lesson") || location.pathname.includes('/repeat-words') ? (
+      {location.pathname.includes("/lesson") ||
+      location.pathname.includes("/repeat-words") ? (
         ""
       ) : (
         <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>

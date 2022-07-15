@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Redux Store
-import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
-import { dataActions } from "../../../store/data-slice";
+import { useAppSelector, useAppDispatch } from "../../lib/hooks";
+import { dataActions } from "../../store/data-slice";
 
 // Components
 import { Box, Button, Skeleton, Typography } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
-import SectionHeader from "../../UI/SectionHeader";
+import SectionHeader from "../UI/SectionHeader";
 // Types
-import { WordType } from "../../../data.types";
+import { WordType } from "../../data.types";
 
-const RepeatSection = () => {
+const Words1000 = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   // Redux Store
@@ -21,18 +21,29 @@ const RepeatSection = () => {
   const [repeatType, setRepeatType] = useState("");
 
   /* Filtering words by status. */
-  const weakWords = data?.data?.words
-    .filter((word: WordType) => word.status === "weak")
-    .filter((word: WordType) => word.known === true);
-  const averageWords = data?.data?.words
-    .filter((word: WordType) => word.status === "average")
-    .filter((word: WordType) => word.known === true);
-  const wellWords = data?.data?.words
-    .filter((word: WordType) => word.status === "well")
-    .filter((word: WordType) => word.known === true);
+  const weakWords = Object.values(
+    // @ts-ignore
+    Object.values(data.data.categories).find(
+      // @ts-ignore
+      (category) => category.title === "1000 słów"
+    ).words
+  ).filter((word: any) => word.status === "weak");
 
-  console.log(data?.data?.words);
+  const averageWords = Object.values(
+    // @ts-ignore
+    Object.values(data.data.categories).find(
+      // @ts-ignore
+      (category) => category.title === "1000 słów"
+    ).words
+  ).filter((word: any) => word.status === "average");
 
+  const wellWords = Object.values(
+    // @ts-ignore
+    Object.values(data.data.categories).find(
+      // @ts-ignore
+      (category) => category.title === "1000 słów"
+    ).words
+  ).filter((word: any) => word.status === "well");
   const changeRepeatTypeHandler = (type: string) => {
     setRepeatType(type);
     dispatch(
@@ -61,7 +72,7 @@ const RepeatSection = () => {
         "&::-webkit-scrollbar": { display: "none" },
       }}
     >
-      <SectionHeader title="Powtórz Słownictwo" />
+      <SectionHeader title="1000 słów" />
       <Box
         sx={{
           width: "100%",
@@ -87,8 +98,12 @@ const RepeatSection = () => {
             /* It's calculating the percentage of words with a given status. */
             status={
               (weakWords?.length /
-                data?.data?.words.filter(
-                  (word: WordType) => word.known === true
+                Object.values(
+                  // @ts-ignore
+                  Object.values(data.data.categories).find(
+                    // @ts-ignore
+                    (category) => category.title === "1000 słów"
+                  ).words
                 ).length) *
               100
             }
@@ -101,8 +116,12 @@ const RepeatSection = () => {
             /* It's calculating the percentage of words with a given status. */
             status={
               (averageWords?.length /
-                data?.data?.words.filter(
-                  (word: WordType) => word.known === true
+                Object.values(
+                  // @ts-ignore
+                  Object.values(data.data.categories).find(
+                    // @ts-ignore
+                    (category) => category.title === "1000 słów"
+                  ).words
                 ).length) *
               100
             }
@@ -115,30 +134,29 @@ const RepeatSection = () => {
             /* It's calculating the percentage of words with a given status. */
             status={
               (wellWords?.length /
-                data?.data?.words.filter(
-                  (word: WordType) => word.known === true
+                Object.values(
+                  // @ts-ignore
+                  Object.values(data.data.categories).find(
+                    // @ts-ignore
+                    (category) => category.title === "1000 słów"
+                  ).words
                 ).length) *
               100
             }
           />
         </Box>
-        {data?.data?.words.filter((word: WordType) => word.known === true)
-          .length ? (
-          <Button
-            fullWidth
-            variant="outlined"
-            color="error"
-            sx={{ mt: 3 }}
-            onClick={() => navigate("/dashboard/repeat-words")}
-          >
-            {/* It's a button that is changing its text depending on the repeatType state. */}
-            Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
-          </Button>
-        ) : (
-          <Typography variant="h6" sx={{ textAlign: "center", mt: 5 }}>
-            Nie masz żadnych słówek
-          </Typography>
-        )}
+        <Button
+          fullWidth
+          variant="outlined"
+          color="error"
+          sx={{ mt: 3 }}
+          onClick={() =>
+            navigate("/dashboard/categories/10-hundred-words/repeat-words")
+          }
+        >
+          {/* It's a button that is changing its text depending on the repeatType state. */}
+          Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
+        </Button>
 
         <Box
           sx={{
@@ -150,91 +168,100 @@ const RepeatSection = () => {
             ? repeatType
               ? repeatType === "Słabo znane"
                 ? weakWords.map(
-                    (
-                      word: {
-                        status: string;
-                        word: { word: string[]; translation: string };
-                      },
-                      key: number
-                    ) => (
+                    // @ts-ignore
+                    (word: {
+                      word: string;
+                      translation: string;
+                      status: string;
+                      id: string;
+                    }) => (
                       <WordElement
-                        key={key}
+                        key={word.id}
                         status={word.status}
-                        word={word.word.word[0]}
-                        translation={word.word.translation}
+                        word={word.word}
+                        translation={word.translation}
                       />
                     )
                   )
                 : repeatType === "Średnio znane"
                 ? averageWords.map(
-                    (
-                      word: {
-                        status: string;
-                        word: { word: string[]; translation: string };
-                      },
-                      key: number
-                    ) => (
+                    // @ts-ignore
+                    (word: {
+                      word: string;
+                      translation: string;
+                      status: string;
+                      id: string;
+                    }) => (
                       <WordElement
-                        key={key}
+                        key={word.id}
                         status={word.status}
-                        word={word.word.word[0]}
-                        translation={word.word.translation}
+                        word={word.word}
+                        translation={word.translation}
                       />
                     )
                   )
                 : repeatType === "Dobrze znane"
                 ? wellWords.map(
-                    (
-                      word: {
-                        status: string;
-                        word: { word: string[]; translation: string };
-                      },
-                      key: number
-                    ) => (
+                    // @ts-ignore
+                    (word: {
+                      word: string;
+                      translation: string;
+                      status: string;
+                      id: string;
+                    }) => (
                       <WordElement
-                        key={key}
+                        key={word.id}
                         status={word.status}
-                        word={word.word.word[0]}
-                        translation={word.word.translation}
+                        word={word.word}
+                        translation={word.translation}
                       />
                     )
                   )
-                : data?.data?.words
-                    .filter((word: WordType) => word.known === true)
-                    .map(
-                      (
-                        word: {
-                          status: string;
-                          word: { word: string[]; translation: string };
-                        },
-                        key: number
-                      ) => (
-                        <WordElement
-                          key={key}
-                          status={word.status}
-                          word={word.word.word[0]}
-                          translation={word.word.translation}
-                        />
-                      )
-                    )
-              : data?.data?.words
-                  .filter((word: WordType) => word.known === true)
-                  .map(
-                    (
-                      word: {
-                        status: string;
-                        word: { word: string[]; translation: string };
-                      },
-                      key: number
-                    ) => (
+                : Object.values(
+                    // @ts-ignore
+                    Object.values(data.data.categories).find(
+                      // @ts-ignore
+
+                      (category) => category.title === "1000 słów"
+                    ).words
+                  ).map(
+                    // @ts-ignore
+                    (word: {
+                      word: string;
+                      translation: string;
+                      status: string;
+                      id: string;
+                    }) => (
                       <WordElement
-                        key={key}
+                        key={word.id}
                         status={word.status}
-                        word={word.word.word[0]}
-                        translation={word.word.translation}
+                        word={word.word}
+                        translation={word.translation}
                       />
                     )
                   )
+              : Object.values(
+                  // @ts-ignore
+                  Object.values(data.data.categories).find(
+                    // @ts-ignore
+                    (category) => category.title === "1000 słów"
+                  ).words
+                ).map(
+                  // @ts-ignore
+                  (word: {
+                    word: string;
+                    translation: string;
+                    status: string;
+                    id: string;
+                  }) => (
+                    <WordElement
+                      key={word.id}
+                      status={word.status}
+                      word={word.word}
+                      translation={word.translation}
+                    />
+                  )
+                )
             : /* It's creating a skeleton loader. */
               [0, 1, 2, 3, 4, 5, 6, 7, 8].map((numb) => (
                 <Box
@@ -271,4 +298,4 @@ const RepeatSection = () => {
   );
 };
 
-export default RepeatSection;
+export default Words1000;

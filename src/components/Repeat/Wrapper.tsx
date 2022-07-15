@@ -5,6 +5,7 @@ import { userActions } from "../../store/user-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import { HeaderButton, BorderLinearProgress } from "./Wrapper.style";
+import LessonSettings from "../Lesson/LessonSettings/LessonSettings";
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -57,6 +58,18 @@ const Wrapper: React.FC<Props> = ({ children, title, status }) => {
           onClick={() => setOpenSettings(false)}
         ></Box>
       )}
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          height: openSettings ? "50vh" : 0,
+          transition: "all .4s ease",
+        }}
+      >
+        {openSettings && <LessonSettings />}
+      </Box>
     </Box>
   );
 };

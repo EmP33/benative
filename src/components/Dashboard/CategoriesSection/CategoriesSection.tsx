@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppSelector } from "../../../lib/hooks";
 
 // Components
 import { Box } from "@mui/material";
@@ -6,6 +7,8 @@ import CategoryItem from "./CategoryItem";
 import SectionHeader from "../../UI/SectionHeader";
 
 const CategoriesSection = () => {
+  const data = useAppSelector((state) => state.data.data);
+
   return (
     <Box
       sx={{
@@ -30,24 +33,16 @@ const CategoriesSection = () => {
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
+          alignContent: "flex-start",
           columnGap: 2,
           rowGap: 2,
         }}
       >
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
+        {data?.data?.categories
+          ? Object.values(data.data.categories).map((category: any) => (
+              <CategoryItem key={category.id} category={category} />
+            ))
+          : ""}
       </Box>
     </Box>
   );

@@ -38,3 +38,9 @@ export interface WordType {
     word: string[];
   };
 }
+
+export interface AppCategoryType {
+  title: string;
+  description: string;
+  id: string;
+}
