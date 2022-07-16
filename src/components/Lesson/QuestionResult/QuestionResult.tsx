@@ -51,8 +51,6 @@ const QuestionResult = () => {
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
 
-  console.log(currentLessonPart);
-
   /* A hook that is called when the component is mounted. It is used to fetch data from the database. */
   useEffect(() => {
     dispatch(

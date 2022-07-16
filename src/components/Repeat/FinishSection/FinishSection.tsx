@@ -36,43 +36,66 @@ const FinishSection: React.FC<Props> = ({ words }) => {
     copyOfDataWords = [...dataWords];
   }
 
-  console.log(
-    Object.values(
-      // @ts-ignore
-      Object.values(categories).find((cat) => cat.title === "1000 słów").words
-    )
-  );
-
   words.map((w) => {
     const wordIndex = copyOfDataWords.findIndex((word) => word.id === w.id);
-    if (w.wasCorrect) {
-      copyOfDataWords[wordIndex] = {
-        id: w.id,
-        status:
-          w.status === "weak"
-            ? "average"
-            : w.status === "average"
-            ? "well"
-            : "weak",
-        word: w.word,
-        translation: w.translation,
-        known: true,
-      };
+    if (location.pathname.includes("10-hundred-words")) {
+      if (w.wasCorrect) {
+        copyOfDataWords[wordIndex] = {
+          id: w.id,
+          status:
+            w.status === "weak"
+              ? "average"
+              : w.status === "average"
+              ? "well"
+              : "weak",
+          word: w.word,
+          translation: w.translation,
+          known: true,
+        };
+      } else {
+        copyOfDataWords[wordIndex] = {
+          id: w.id,
+          status:
+            w.status === "weak"
+              ? "weak"
+              : w.status === "average"
+              ? "weak"
+              : w.status === "well"
+              ? "average"
+              : "well",
+          word: w.word,
+          translation: w.translation,
+          known: true,
+        };
+      }
     } else {
-      copyOfDataWords[wordIndex] = {
-        id: w.id,
-        status:
-          w.status === "weak"
-            ? "weak"
-            : w.status === "average"
-            ? "weak"
-            : w.status === "well"
-            ? "average"
-            : "well",
-        word: w.word,
-        translation: w.translation,
-        known: true,
-      };
+      if (w.wasCorrect) {
+        copyOfDataWords[wordIndex] = {
+          id: w.id,
+          status:
+            w.status === "weak"
+              ? "average"
+              : w.status === "average"
+              ? "well"
+              : "weak",
+          word: w.word,
+          known: true,
+        };
+      } else {
+        copyOfDataWords[wordIndex] = {
+          id: w.id,
+          status:
+            w.status === "weak"
+              ? "weak"
+              : w.status === "average"
+              ? "weak"
+              : w.status === "well"
+              ? "average"
+              : "well",
+          word: w.word,
+          known: true,
+        };
+      }
     }
   });
 
@@ -111,9 +134,13 @@ const FinishSection: React.FC<Props> = ({ words }) => {
       <Button
         onClick={() => {
           if (location.pathname.includes("10-hundred-words")) {
-            navigate("/dashboard/categories/10-hundred-words");
+            navigate("/dashboard/categories/10-hundred-words", {
+              replace: true,
+            });
           } else {
-            navigate("/dashboard/repeat");
+            navigate("/dashboard/repeat", {
+              replace: true,
+            });
           }
         }}
         sx={{ mt: 1 }}
@@ -135,7 +162,6 @@ const FinishSection: React.FC<Props> = ({ words }) => {
               .map((word) => copyOfDataWords.find((w) => w.id === word.id))
               .map((word, i) => {
                 if (location.pathname.includes("10-hundred-words")) {
-                  console.log(word.word);
                   return (
                     <WordElement
                       key={i}

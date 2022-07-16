@@ -21,8 +21,9 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
   const navigateHandler = () => {
     if (category.title === "1000 słów") {
       navigate("/dashboard/categories/10-hundred-words");
+    } else if (category.title === "Fiszki") {
+      navigate("/dashboard/categories/flash-cards");
     }
-    console.log(category);
   };
 
   return (
@@ -31,7 +32,8 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
       sx={{
-        background: onHover ? "var(--color-primary)" : "var(--color-base)",
+        background: onHover ? "var(--color-base)" : "var(--color-base-dark)",
+        border: "4px solid var(--color-base)",
         width: 150,
         height: 150,
         display: "grid",
@@ -43,9 +45,7 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
     >
       <Box
         sx={{
-          background: onHover
-            ? "var(--color-primary-dark)"
-            : "var(--color-base-dark)",
+          background: onHover ? "var(--color-base-dark)" : "var(--color-base)",
           width: 50,
           height: 50,
           display: "flex",
@@ -55,19 +55,19 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
         }}
       >
         {category.title === "1000 słów" ? (
-          <TranslateIcon sx={{ fontSize: 26 }} />
+          <TranslateIcon sx={{ fontSize: 30 }} />
         ) : category.title === "Praca" ? (
-          <WorkIcon sx={{ fontSize: 26 }} />
+          <WorkIcon sx={{ fontSize: 30 }} />
         ) : category.title === "Fiszki" ? (
-          <BoltIcon sx={{ fontSize: 26 }} />
+          <BoltIcon sx={{ fontSize: 30 }} />
         ) : (
-          <HeadphonesIcon sx={{ fontSize: 26 }} />
+          <HeadphonesIcon sx={{ fontSize: 30 }} />
         )}
       </Box>
       <Typography
         variant="body1"
         sx={{
-          color: onHover ? "var(--color-white)" : "var(--color-tertiary)",
+          color: onHover ? "var(--color-white)" : "#aaa",
           fontWeight: "bold",
           mt: 1,
         }}

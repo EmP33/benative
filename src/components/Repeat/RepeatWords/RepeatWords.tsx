@@ -35,9 +35,6 @@ const RepeatWords = () => {
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
 
-  console.log(usedWords);
-  console.log(secondTurn);
-
   useEffect(() => {
     // 10 - count of words in repetition
     /* Checking if the words are available and if the typeWords are available. */
@@ -69,7 +66,6 @@ const RepeatWords = () => {
     checkedAnswers: boolean[] | boolean,
     answers: string[] | string
   ) => {
-    console.log(secondTurn[currentWord - usedWords.length], "SIEMAAA");
     /* Checking if the answer is correct or not. */
     if (typeof checkedAnswers === "boolean") {
       if (checkedAnswers && isSound) {
@@ -95,27 +91,50 @@ const RepeatWords = () => {
     setting the second turn to the previous value and adding the status, id, word, and wasCorrect to
     the second turn. */
     if (currentWord < usedWords.length) {
-      if (secondTurn.length) {
-        setSecondTurn((prev) => [
-          ...prev,
-          {
-            status: usedWords[currentWord].status,
-            id: usedWords[currentWord].id,
-            word: usedWords[currentWord].word,
-            wasCorrect: checkedAnswers,
-            translation: usedWords[currentWord].translation,
-          },
-        ]);
+      if (location.pathname.includes("10-hundred-words")) {
+        if (secondTurn.length) {
+          setSecondTurn((prev) => [
+            ...prev,
+            {
+              status: usedWords[currentWord].status,
+              id: usedWords[currentWord].id,
+              word: usedWords[currentWord].word,
+              wasCorrect: checkedAnswers,
+              translation: usedWords[currentWord].translation,
+            },
+          ]);
+        } else {
+          setSecondTurn((prev) => [
+            {
+              status: usedWords[currentWord].status,
+              id: usedWords[currentWord].id,
+              word: usedWords[currentWord].word,
+              wasCorrect: checkedAnswers,
+              translation: usedWords[currentWord].translation,
+            },
+          ]);
+        }
       } else {
-        setSecondTurn((prev) => [
-          {
-            status: usedWords[currentWord].status,
-            id: usedWords[currentWord].id,
-            word: usedWords[currentWord].word,
-            wasCorrect: checkedAnswers,
-            translation: usedWords[currentWord].translation,
-          },
-        ]);
+        if (secondTurn.length) {
+          setSecondTurn((prev) => [
+            ...prev,
+            {
+              status: usedWords[currentWord].status,
+              id: usedWords[currentWord].id,
+              word: usedWords[currentWord].word,
+              wasCorrect: checkedAnswers,
+            },
+          ]);
+        } else {
+          setSecondTurn((prev) => [
+            {
+              status: usedWords[currentWord].status,
+              id: usedWords[currentWord].id,
+              word: usedWords[currentWord].word,
+              wasCorrect: checkedAnswers,
+            },
+          ]);
+        }
       }
     } /* Checking if the word was correct in the first turn and if it was, it is setting the
     wasCorrect property to true. If it wasn't, it is setting it to false. */ else {

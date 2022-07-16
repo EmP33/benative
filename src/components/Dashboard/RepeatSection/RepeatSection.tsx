@@ -31,8 +31,6 @@ const RepeatSection = () => {
     .filter((word: WordType) => word.status === "well")
     .filter((word: WordType) => word.known === true);
 
-  console.log(data?.data?.words);
-
   const changeRepeatTypeHandler = (type: string) => {
     setRepeatType(type);
     dispatch(

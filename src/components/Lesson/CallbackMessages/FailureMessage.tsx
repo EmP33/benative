@@ -19,11 +19,6 @@ const FailureMessage: React.FC<Props> = ({
   answers,
   nextQuestion,
 }) => {
-  console.log(correctAnswers);
-  console.log(answer);
-  console.log(translation);
-  console.log(answers);
-
   return (
     <Box
       onClick={nextQuestion}

@@ -16,6 +16,7 @@ interface IInitialState {
   data: any;
   dataError: boolean;
   words: WordType[];
+  setsWords: any[];
 }
 
 /* Defining the initial state of the reducer. */
@@ -23,6 +24,7 @@ const initialState: IInitialState = {
   data: null,
   dataError: false,
   words: [],
+  setsWords: [],
 };
 
 const dataSlice = createSlice({
@@ -40,6 +42,14 @@ const dataSlice = createSlice({
     },
     setWords(state, action: PayloadAction<any>) {
       state.words = action.payload;
+    },
+    setSetsWords(state, action: PayloadAction<any>) {
+      state.setsWords = state.setsWords.length
+        ? [...state.setsWords, action.payload]
+        : [action.payload];
+    },
+    setAllSetsWords(state, action: PayloadAction<any>) {
+      state.setsWords = [...action.payload];
     },
   },
 });
@@ -183,6 +193,21 @@ export const updatePoints = (uid: string, points: number) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     const sendRequest = async () => {
       set(ref(database, `users/${uid}/data/points`), points);
+    };
+    await sendRequest();
+  };
+};
+
+export const addWordSet = (uid: string, categoryID: string, appSet: any) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/categories/${categoryID}/sets/${appSet.id}`
+        ),
+        appSet
+      );
     };
     await sendRequest();
   };

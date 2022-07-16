@@ -17,6 +17,7 @@ interface Props {
 const TranslatePhraseAng: React.FC<Props> = ({ word, checkAnswers }) => {
   const location = useLocation();
   const answerRef = useRef<HTMLInputElement>(null);
+
   console.log(word);
 
   const checkTaskHandler = () => {
@@ -44,11 +45,19 @@ const TranslatePhraseAng: React.FC<Props> = ({ word, checkAnswers }) => {
   return (
     <Grid container sx={{ textAlign: "center", mt: 5 }}>
       <Grid item xs={12}>
-        <Typography
-          variant="h6"
-          sx={{ lineHeight: 2 }}
-          dangerouslySetInnerHTML={{ __html: word?.word }}
-        ></Typography>
+        {location.pathname.includes("10-hundred-words") ? (
+          <Typography
+            variant="h6"
+            sx={{ lineHeight: 2 }}
+            dangerouslySetInnerHTML={{ __html: word?.word }}
+          ></Typography>
+        ) : (
+          <Typography
+            variant="h6"
+            sx={{ lineHeight: 2 }}
+            dangerouslySetInnerHTML={{ __html: word?.word?.word[0] }}
+          ></Typography>
+        )}
       </Grid>
 
       <Grid item xs={12}>

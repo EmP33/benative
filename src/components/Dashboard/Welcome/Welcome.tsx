@@ -22,6 +22,9 @@ import RepeatSection from "../RepeatSection/RepeatSection";
 import RepeatWords from "../../Repeat/RepeatWords/RepeatWords";
 import LearnDrawer from "../LearnDrawer/LearnDrawer";
 import Words1000 from "../../1000-words/Words1000";
+import Flashcards from "../../FlashCards/Flashcards";
+import FlashcardCreate from "../../FlashCards/FlashcardCreate";
+import SetSection from "../../FlashCards/SetSection/SetSection";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -36,7 +39,6 @@ const Welcome = () => {
   const { isError, errorMessage, openLessonDrawer } = useAppSelector(
     (state) => state.ui
   );
-  console.log(location.pathname);
 
   // Local State
   // Bottom Navigation Card
@@ -67,6 +69,15 @@ const Welcome = () => {
         <Route
           path="/categories/10-hundred-words/repeat-words"
           element={<RepeatWords />}
+        />
+        <Route path="/categories/flash-cards" element={<Flashcards />} />
+        <Route
+          path="/categories/flash-cards/create"
+          element={<FlashcardCreate />}
+        />
+        <Route
+          path="/categories/flash-cards/set/:setID"
+          element={<SetSection />}
         />
         <Route path="/repeat" element={<RepeatSection />} />
         <Route path="/repeat-words" element={<RepeatWords />} />

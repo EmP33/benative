@@ -1,13 +1,19 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 // Components
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import GoBackButton from "./GoBackButton";
+// Icons
+import CheckIcon from "@mui/icons-material/Check";
 
 interface Props {
   title?: string;
+  onSubmit?: () => void;
 }
 
-const SectionHeader: React.FC<Props> = ({ title = "" }) => {
+const SectionHeader: React.FC<Props> = ({ title = "", onSubmit }) => {
+  const location = useLocation();
+
   return (
     <Box
       sx={{
@@ -29,6 +35,20 @@ const SectionHeader: React.FC<Props> = ({ title = "" }) => {
       >
         {title}
       </Typography>
+      {location.pathname.includes("flash-cards/create") && (
+        <IconButton
+          sx={{
+            position: "absolute",
+            right: "0%",
+          }}
+          aria-label="add"
+          size="large"
+          color="success"
+          onClick={onSubmit}
+        >
+          <CheckIcon fontSize="inherit" />
+        </IconButton>
+      )}
     </Box>
   );
 };

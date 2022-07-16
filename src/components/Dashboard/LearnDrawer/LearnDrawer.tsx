@@ -101,7 +101,7 @@ const LearnDrawer: React.FC = () => {
                   textAlign: "center",
                   background:
                     part?.status === 100
-                      ? "var(--color-primary-light)"
+                      ? "var(--color-base-light)"
                       : currentLessonPart?.id === part.id
                       ? "var(--color-base-light)"
                       : "transparent",
@@ -114,7 +114,7 @@ const LearnDrawer: React.FC = () => {
                       mb: 1,
                       color:
                         part?.status === 100
-                          ? "var(--color-white)"
+                          ? "#aaa"
                           : "var(--color-primary-light)",
                     }}
                   />
@@ -125,7 +125,7 @@ const LearnDrawer: React.FC = () => {
                       mb: 1,
                       color:
                         part?.status === 100
-                          ? "var(--color-white)"
+                          ? "#aaa"
                           : "var(--color-primary-light)",
                     }}
                   />
@@ -136,7 +136,7 @@ const LearnDrawer: React.FC = () => {
                       mb: 1,
                       color:
                         part?.status === 100
-                          ? "var(--color-white)"
+                          ? "#aaa"
                           : "var(--color-primary-light)",
                     }}
                   />
@@ -147,13 +147,19 @@ const LearnDrawer: React.FC = () => {
                       mb: 1,
                       color:
                         part?.status === 100
-                          ? "var(--color-white)"
+                          ? "#aaa"
                           : "var(--color-primary-light)",
                     }}
                   />
                 )}
 
-                <Typography>{part.title}</Typography>
+                <Typography
+                  sx={{
+                    color: part?.status === 100 ? "#aaa" : "#fff",
+                  }}
+                >
+                  {part.title}
+                </Typography>
               </Box>
             ))}
       </Box>

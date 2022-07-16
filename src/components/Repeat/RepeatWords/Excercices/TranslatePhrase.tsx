@@ -25,10 +25,6 @@ const TranslatePhrase: React.FC<Props> = ({ word, checkAnswers }) => {
       const checkedAnswer =
         word.word.toLowerCase().trim() === answer.toLowerCase().trim();
 
-      console.log(
-        word.word.toLowerCase().trim() === answer.toLowerCase().trim()
-      );
-
       checkAnswers(checkedAnswer, answer);
       answerRef.current.blur();
       answerRef.current.value = "";
