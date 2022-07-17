@@ -94,7 +94,13 @@ const Welcome = () => {
       location.pathname.includes("/repeat-words") ? (
         ""
       ) : (
-        <Box sx={{ width: "100%", position: "absolute", bottom: 0 }}>
+        <Box
+          sx={{
+            width: "100%",
+            position: { xs: "fixed", sm: "absolute" },
+            bottom: 0,
+          }}
+        >
           <BottomNavigation
             value={value}
             onChange={(event, newValue) => {

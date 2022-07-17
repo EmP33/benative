@@ -44,3 +44,8 @@ export interface AppCategoryType {
   description: string;
   id: string;
 }
+
+export interface FlashCardWordType {
+  concept: string;
+  definition: string;
+}
