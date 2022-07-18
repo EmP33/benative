@@ -25,6 +25,8 @@ import Words1000 from "../../1000-words/Words1000";
 import Flashcards from "../../FlashCards/Flashcards";
 import FlashcardCreate from "../../FlashCards/FlashcardCreate";
 import SetSection from "../../FlashCards/SetSection/SetSection";
+import Flashgame from "../../FlashCards/FlashCardGame/Flashgame";
+import Learngame from "../../FlashCards/FlashCardGame/Learngame";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -78,6 +80,18 @@ const Welcome = () => {
         <Route
           path="/categories/flash-cards/set/:setID"
           element={<SetSection />}
+        />{" "}
+        <Route
+          path="/categories/flash-cards/set/:setID/edit"
+          element={<FlashcardCreate />}
+        />
+        <Route
+          path="/categories/flash-cards/set/:setID/flash-game"
+          element={<Flashgame />}
+        />
+        <Route
+          path="/categories/flash-cards/set/:setID/learn-game"
+          element={<Learngame />}
         />
         <Route path="/repeat" element={<RepeatSection />} />
         <Route path="/repeat-words" element={<RepeatWords />} />

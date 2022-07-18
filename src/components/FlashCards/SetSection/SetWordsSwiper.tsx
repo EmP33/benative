@@ -44,7 +44,7 @@ const SetWordsSwiper: React.FC<Props> = ({ words }) => {
   return (
     <Swiper
       slidesPerView={1.5}
-      spaceBetween={5}
+      spaceBetween={30}
       freeMode={true}
       modules={[FreeMode]}
       className="mySwiper"
@@ -60,7 +60,7 @@ const SetWordsSwiper: React.FC<Props> = ({ words }) => {
                 sx={{
                   position: "realtive",
                   cursor: "pointer",
-                  width: "240px",
+                  width: "100%",
                   height: "250px",
                   transition: ".5s ease-in-out",
                   transformStyle: "preserve-3d",

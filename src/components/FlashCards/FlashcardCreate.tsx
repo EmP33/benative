@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 // Redux Store
 import { useAppSelector, useAppDispatch } from "../../lib/hooks";
 import { addWordSet, dataActions } from "../../store/data-slice";
@@ -13,6 +13,8 @@ import DisplayCard from "./DisplayCard";
 interface Props {}
 
 const FlashcardCreate: React.FC<Props> = () => {
+  const location = useLocation();
+  const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const data = useAppSelector((state) => state.data.data);
@@ -20,6 +22,35 @@ const FlashcardCreate: React.FC<Props> = () => {
   const setsWords = useAppSelector((state) => state.data.setsWords);
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
+
+  console.log(title);
+
+  useEffect(() => {
+    if (location.pathname.includes("/edit")) {
+      setTitle(
+        // @ts-ignore
+        Object.values(
+          // @ts-ignore
+          Object.values(data.data.categories).find(
+            (cat: any) => cat.title === "Fiszki"
+          ).sets
+        ).find((set: any) => set.id === params.setID).title
+      );
+      dispatch(
+        dataActions.setAllSetsWords(
+          // @ts-ignore
+          Object.values(
+            // @ts-ignore
+            Object.values(data.data.categories).find(
+              (cat: any) => cat.title === "Fiszki"
+            ).sets
+          ).find((set: any) => set.id === params.setID).words
+        )
+      );
+    }
+  }, []);
+
+  console.log(params.setID);
 
   const submitSetHandler = () => {
     if (title === "") return setTitleError(true);
@@ -30,10 +61,20 @@ const FlashcardCreate: React.FC<Props> = () => {
         Object.values(data.data.categories).find(
           (cat: any) => cat.title === "Fiszki"
         ).id,
-        { id: uuidv4(), title: title, words: setsWords }
+        {
+          id: params.setID ? params.setID : uuidv4(),
+          title: title,
+          words: setsWords,
+        }
       )
     );
-    navigate("/dashboard/categories/flash-cards");
+    if (location.pathname.includes("/edit")) {
+      navigate(`/dashboard/categories/flash-cards/set/${params.setID}`, {
+        replace: true,
+      });
+    } else {
+      navigate("/dashboard/categories/flash-cards", { replace: true });
+    }
     dispatch(dataActions.setAllSetsWords([]));
   };
 
@@ -54,6 +95,7 @@ const FlashcardCreate: React.FC<Props> = () => {
       <SectionHeader title="Stwórz zestaw" onSubmit={submitSetHandler} />
       <Box>
         <TextField
+          value={title}
           error={titleError}
           helperText={titleError && "Wprowadź nazwę dla zestawu"}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -53,16 +53,21 @@ const ProfileStatistics = () => {
         </Typography>
         <Typography variant="body2">
           {data?.data?.words
-            .filter((word: WordType) => word.status === "well")
-            .filter((word: WordType) => word.known === true).length ||
-          data?.data?.categories
             ? data?.data?.words
                 .filter((word: WordType) => word.status === "well")
-                .filter((word: WordType) => word.known === true).length +
-              // @ts-ignore
-              Object.values(data?.data?.categories)
-                .find((cat: any) => cat.title === "1000 słów")
-                .words.filter((word: any) => word.status === "well").length
+                .filter((word: WordType) => word.known === true).length ||
+              data?.data?.categories
+              ? data?.data?.words
+                  .filter((word: WordType) => word.status === "well")
+                  .filter((word: WordType) => word.known === true).length +
+                // @ts-ignore
+                Object.values(
+                  // @ts-ignore
+                  Object.values(data?.data?.categories).find(
+                    (cat: any) => cat.title === "1000 słów"
+                  ).words
+                ).filter((word: any) => word.status === "well").length
+              : 0
             : 0}
         </Typography>
       </Box>

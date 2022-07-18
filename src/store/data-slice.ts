@@ -4,7 +4,7 @@ import {
   Dispatch,
   AnyAction,
 } from "@reduxjs/toolkit";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue, set, remove } from "firebase/database";
 import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
@@ -62,7 +62,7 @@ export const createUser = (uid: string, data: any) => {
         id: uid,
         data: data,
       });
-      dispatch(dataActions.setData(data));
+      // dispatch(dataActions.setData(data));
     };
     await sendRequest();
   };
@@ -88,6 +88,7 @@ export const getData = () => {
       const dataRef = ref(database, `data`);
       onValue(dataRef, (snapshot) => {
         const data = snapshot.val();
+
         dispatch(dataActions.setData(data));
       });
     };
@@ -208,6 +209,19 @@ export const addWordSet = (uid: string, categoryID: string, appSet: any) => {
         ),
         appSet
       );
+    };
+    await sendRequest();
+  };
+};
+
+export const removeSet = (uid: string, categoryID: string, setID: string) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      const reference = ref(
+        database,
+        `users/${uid}/data/categories/${categoryID}/sets/${setID}`
+      );
+      remove(reference);
     };
     await sendRequest();
   };

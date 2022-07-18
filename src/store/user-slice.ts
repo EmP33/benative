@@ -5,6 +5,7 @@ import {
   AnyAction,
 } from "@reduxjs/toolkit";
 import { uiActions } from "./ui-slice";
+import { dataActions } from "./data-slice";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -163,6 +164,7 @@ export const logoutUser = () => {
       if (auth.currentUser === null) throw new Error("No user found");
       signOut(auth)
         .then(() => {
+          dispatch(dataActions.setData([]))
           // Sign-out successful.
         })
         .catch((error) => {

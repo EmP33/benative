@@ -11,10 +11,10 @@ const Flashcards = () => {
     <Box
       sx={{
         margin: "0 8px 0 8px",
-        height: "100vh",
-        display: "grid",
-        gridTemplateRows: "max-content 1fr",
-        rowGap: 3,
+        // height: "100vh",
+        // display: "grid",
+        // gridTemplateRows: "max-content 1fr",
+        // rowGap: 3,
         userSelect: "none",
         overflow: "auto",
         "&::-webkit-scrollbar": { display: "none" },
@@ -24,6 +24,7 @@ const Flashcards = () => {
       <Box
         sx={{
           width: "100%",
+          height: "100vh",
           background: "var(--color-base-dark)",
           borderRadius: "30px 30px 0 0 ",
           p: { xs: "32px 4px 100px 4px", lg: "30px 16px 100px 16px" },

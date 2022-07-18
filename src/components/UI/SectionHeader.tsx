@@ -35,7 +35,8 @@ const SectionHeader: React.FC<Props> = ({ title = "", onSubmit }) => {
       >
         {title}
       </Typography>
-      {location.pathname.includes("flash-cards/create") && (
+      {location.pathname.includes("flash-cards/create") ||
+      location.pathname.includes("/edit") ? (
         <IconButton
           sx={{
             position: "absolute",
@@ -48,6 +49,8 @@ const SectionHeader: React.FC<Props> = ({ title = "", onSubmit }) => {
         >
           <CheckIcon fontSize="inherit" />
         </IconButton>
+      ) : (
+        ""
       )}
     </Box>
   );
