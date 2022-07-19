@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../../lib/hooks";
+
 import { useNavigate } from "react-router-dom";
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,7 +8,7 @@ import "swiper/css/free-mode";
 // import required modules
 import { FreeMode } from "swiper";
 // Components
-import { Box, CardContent, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // Types
 import { FlashCardWordType } from "../../../data.types";
 
@@ -52,62 +52,59 @@ const SetWordsSwiper: React.FC<Props> = ({ words }) => {
       {setsWords &&
         setsWords.map((word: any, i: number) => (
           <SwiperSlide key={i}>
-            <CardContent
-              sx={{ textAlign: "center", p: 0 }}
+            <Box
               onClick={() => rotateCardHandler(word)}
+              sx={{
+                position: "realtive",
+                cursor: "pointer",
+                width: "100%",
+                height: "250px",
+                transition: ".5s ease-in-out",
+                transformStyle: "preserve-3d",
+                background: "var(--color-base-light)",
+                borderRadius: 5,
+                mb: 3,
+                transform: word.active ? "rotateY(0.5turn)" : "",
+              }}
             >
               <Box
                 sx={{
-                  position: "realtive",
-                  cursor: "pointer",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
                   width: "100%",
-                  height: "250px",
-                  transition: ".5s ease-in-out",
-                  transformStyle: "preserve-3d",
-                  background: "var(--color-base-light)",
-                  borderRadius: 5,
-                  transform: word.active ? "rotateY(0.5turn)" : "",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backfaceVisibility: "hidden",
+                  transition: "1s ease-in-out",
+                  WebkitBoxReflect:
+                    "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
                 }}
               >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backfaceVisibility: "hidden",
-                    transition: "1s ease-in-out",
-                    WebkitBoxReflect:
-                      "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
-                  }}
-                >
-                  <Typography variant="h6">{word.concept}</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backfaceVisibility: "hidden",
-                    transition: "1s ease-in-out",
-                    WebkitBoxReflect:
-                      "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
-                    transform: "rotateY(0.5turn)",
-                  }}
-                >
-                  <Typography variant="h6">{word.definition}</Typography>
-                </Box>
+                <Typography variant="h6">{word.concept}</Typography>
               </Box>
-            </CardContent>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backfaceVisibility: "hidden",
+                  transition: "1s ease-in-out",
+                  WebkitBoxReflect:
+                    "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
+                  transform: "rotateY(0.5turn)",
+                }}
+              >
+                <Typography variant="h6">{word.definition}</Typography>
+              </Box>
+            </Box>
           </SwiperSlide>
         ))}
     </Swiper>

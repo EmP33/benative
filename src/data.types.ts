@@ -48,4 +48,11 @@ export interface AppCategoryType {
 export interface FlashCardWordType {
   concept: string;
   definition: string;
+  active?: boolean;
+}
+
+export interface FlashCardSetType {
+  title: string;
+  id: string;
+  words: FlashCardWordType[];
 }
