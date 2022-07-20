@@ -80,7 +80,7 @@ const Flashgame = () => {
           modules={[Scrollbar]}
           className="mySwiper"
         >
-          {setsWords.length ? (
+          {setsWords?.length ? (
             setsWords.map((word: any, i: number) => (
               <SwiperSlide key={i}>
                 <Box

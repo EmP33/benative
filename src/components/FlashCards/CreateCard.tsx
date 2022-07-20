@@ -24,6 +24,7 @@ const CreateCard: React.FC<Props> = ({ word }) => {
       copyOfSetsWords[
         setsWords.findIndex((word: any) => word.concept === concept)
       ] = {
+        status: "weak",
         concept: concept.current.value,
         definition: definition.current.value,
       };
@@ -31,6 +32,7 @@ const CreateCard: React.FC<Props> = ({ word }) => {
     } else {
       dispatch(
         dataActions.setSetsWords({
+          status: "weak",
           concept: concept.current.value,
           definition: definition.current.value,
         })

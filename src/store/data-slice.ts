@@ -227,5 +227,25 @@ export const removeSet = (uid: string, categoryID: string, setID: string) => {
   };
 };
 
+export const updateSetsWords = (
+  uid: string,
+  categoryID: string,
+  setID: string,
+  words: any
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/categories/${categoryID}/sets/${setID}/words`
+        ),
+        words
+      );
+    };
+    await sendRequest();
+  };
+};
+
 export const dataActions = dataSlice.actions;
 export default dataSlice;

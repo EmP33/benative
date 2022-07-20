@@ -105,7 +105,9 @@ const Welcome = () => {
         />
       </Routes>
       {location.pathname.includes("/lesson") ||
-      location.pathname.includes("/repeat-words") ? (
+      location.pathname.includes("/repeat-words") ||
+      location.pathname.includes("/flash-game") ||
+      location.pathname.includes("/learn-game") ? (
         ""
       ) : (
         <Box

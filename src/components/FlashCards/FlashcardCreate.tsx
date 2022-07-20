@@ -27,26 +27,38 @@ const FlashcardCreate: React.FC<Props> = () => {
 
   useEffect(() => {
     if (location.pathname.includes("/edit")) {
-      setTitle(
+      if (data?.data?.categories) {
+        setTitle(
+          // @ts-ignore
+          Object.values(
+            // @ts-ignore
+            Object.values(data?.data?.categories).find(
+              (cat: any) => cat.title === "Fiszki"
+            ).sets
+          ).find((set: any) => set.id === params.setID).title
+        );
+      }
+      if (
         // @ts-ignore
         Object.values(
           // @ts-ignore
           Object.values(data.data.categories).find(
             (cat: any) => cat.title === "Fiszki"
           ).sets
-        ).find((set: any) => set.id === params.setID).title
-      );
-      dispatch(
-        dataActions.setAllSetsWords(
-          // @ts-ignore
-          Object.values(
+        ).find((set: any) => set.id === params.setID).words
+      ) {
+        dispatch(
+          dataActions.setAllSetsWords(
             // @ts-ignore
-            Object.values(data.data.categories).find(
-              (cat: any) => cat.title === "Fiszki"
-            ).sets
-          ).find((set: any) => set.id === params.setID).words
-        )
-      );
+            Object.values(
+              // @ts-ignore
+              Object.values(data.data.categories).find(
+                (cat: any) => cat.title === "Fiszki"
+              ).sets
+            ).find((set: any) => set.id === params.setID).words
+          )
+        );
+      }
     }
   }, []);
 

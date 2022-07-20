@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { userActions } from "../../store/user-slice";
 // Components
@@ -19,8 +19,17 @@ interface Props {
 
 const Wrapper: React.FC<Props> = ({ children, title, status }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const params = useParams();
   const [openSettings, setOpenSettings] = useState(false);
+  console.log(params);
+  const navigateHander = () => {
+    if (location.pathname.includes("/flash-cards")) {
+      navigate(`/dashboard/categories/flash-cards/set/${params.setID}`);
+    } else {
+      navigate("/dashboard");
+    }
+  };
 
   return (
     <Box sx={{ p: 2 }}>
@@ -32,7 +41,7 @@ const Wrapper: React.FC<Props> = ({ children, title, status }) => {
           mb: 4,
         }}
       >
-        <HeaderButton onClick={() => navigate("/dashboard")}>
+        <HeaderButton onClick={navigateHander}>
           <CloseIcon />
         </HeaderButton>
         <Typography sx={{ padding: "0 16px 0 16px", textAlign: "center" }}>

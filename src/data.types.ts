@@ -49,6 +49,7 @@ export interface FlashCardWordType {
   concept: string;
   definition: string;
   active?: boolean;
+  status: string;
 }
 
 export interface FlashCardSetType {

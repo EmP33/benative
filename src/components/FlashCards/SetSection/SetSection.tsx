@@ -13,6 +13,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import SchoolIcon from "@mui/icons-material/School";
 import BoltIcon from "@mui/icons-material/Bolt";
 import DeleteIcon from "@mui/icons-material/Delete";
+import WordElement from "../../Dashboard/RepeatSection/WordElement";
+// Types
+import { FlashCardWordType } from "../../../data.types";
 
 const SetSection = () => {
   const params = useParams();
@@ -29,6 +32,8 @@ const SetSection = () => {
     setDeleteDialogOpen(true);
   };
 
+  console.log(currentSet);
+
   useEffect(() => {
     if (data?.data?.categories) {
       setCurrentSet(
@@ -44,7 +49,15 @@ const SetSection = () => {
   }, [data]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        overflow: "auto",
+        height: "92vh",
+        "&::-webkit-scrollbar ": {
+          display: "none",
+        },
+      }}
+    >
       <SectionHeader />
       <Box sx={{ pl: 1 }}>
         <SetWordsSwiper words={currentSet?.words} />
@@ -105,6 +118,7 @@ const SetSection = () => {
         <Button
           variant="contained"
           size="large"
+          disabled={!currentSet?.words}
           startIcon={<SchoolIcon />}
           onClick={() =>
             navigate(
@@ -118,6 +132,7 @@ const SetSection = () => {
           variant="contained"
           size="large"
           startIcon={<BoltIcon />}
+          disabled={!currentSet?.words}
           onClick={() =>
             navigate(
               `/dashboard/categories/flash-cards/set/${params.setID}/flash-game`
@@ -128,9 +143,18 @@ const SetSection = () => {
         </Button>
       </Box>
       <Box sx={{ mt: 1, pl: 2 }}>
-        <Typography variant="body1" sx={{ fontSize: 18 }}>
+        <Typography variant="body1" sx={{ fontSize: 18, mb: 1 }}>
           Twój postęp w nauce:
         </Typography>
+        {currentSet?.words
+          ? currentSet.words.map((word: FlashCardWordType) => (
+              <WordElement
+                status={word.status}
+                word={word.concept}
+                translation={word.definition}
+              />
+            ))
+          : ""}
       </Box>
       <DeleteSetDialog
         handleClose={closeDeleteDialogHandler}
