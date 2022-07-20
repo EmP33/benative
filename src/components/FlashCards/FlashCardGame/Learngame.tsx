@@ -13,7 +13,6 @@ import { Box } from "@mui/material";
 import FinishSection from "./FinishSection/FinishSection";
 // Types
 import { FlashCardSetType, FlashCardWordType } from "../../../data.types";
-import { findAllByDisplayValue } from "@testing-library/react";
 
 const Learngame = () => {
   const params = useParams();
@@ -49,7 +48,14 @@ const Learngame = () => {
   }, [data?.data?.categories]);
   useEffect(() => {
     if (currentSet) {
-      setWords(currentSet.words);
+      setWords(
+        currentSet.words
+          .map((value: FlashCardWordType) => ({ value, sort: Math.random() }))
+          .sort((a: any, b: any) => a.sort - b.sort)
+          // @ts-ignore
+          .map(({ value }) => value)
+          .slice(0, 10)
+      );
     }
   }, [currentSet]);
 

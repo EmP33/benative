@@ -13,6 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SchoolIcon from "@mui/icons-material/School";
 import BoltIcon from "@mui/icons-material/Bolt";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import WordElement from "../../Dashboard/RepeatSection/WordElement";
 // Types
 import { FlashCardWordType } from "../../../data.types";
@@ -112,7 +113,8 @@ const SetSection = () => {
           width: "100%",
           justifyContent: "center",
           gridTemplateColumns: "repeat(2,1fr)",
-          columnGap: 3,
+          columnGap: 1,
+          rowGap: 1,
         }}
       >
         <Button
@@ -141,14 +143,29 @@ const SetSection = () => {
         >
           Fiszki
         </Button>
+        <Button
+          sx={{ gridColumn: "1/-1" }}
+          variant="contained"
+          size="large"
+          startIcon={<DashboardIcon />}
+          disabled={!currentSet?.words}
+          onClick={() =>
+            navigate(
+              `/dashboard/categories/flash-cards/set/${params.setID}/memories`
+            )
+          }
+        >
+          Memories
+        </Button>
       </Box>
       <Box sx={{ mt: 1, pl: 2 }}>
         <Typography variant="body1" sx={{ fontSize: 18, mb: 1 }}>
           Twój postęp w nauce:
         </Typography>
         {currentSet?.words
-          ? currentSet.words.map((word: FlashCardWordType) => (
+          ? currentSet.words.map((word: FlashCardWordType, i: number) => (
               <WordElement
+                key={i}
                 status={word.status}
                 word={word.concept}
                 translation={word.definition}

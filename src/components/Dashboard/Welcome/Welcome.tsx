@@ -27,6 +27,7 @@ import FlashcardCreate from "../../FlashCards/FlashcardCreate";
 import SetSection from "../../FlashCards/SetSection/SetSection";
 import Flashgame from "../../FlashCards/FlashCardGame/Flashgame";
 import Learngame from "../../FlashCards/FlashCardGame/Learngame";
+import MemoriesGame from "../../FlashCards/FlashCardGame/MemoriesGame";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -93,6 +94,10 @@ const Welcome = () => {
           path="/categories/flash-cards/set/:setID/learn-game"
           element={<Learngame />}
         />
+        <Route
+          path="/categories/flash-cards/set/:setID/memories"
+          element={<MemoriesGame />}
+        />
         <Route path="/repeat" element={<RepeatSection />} />
         <Route path="/repeat-words" element={<RepeatWords />} />
         <Route path="/settings" element={<SettingsSection />} />
@@ -107,7 +112,8 @@ const Welcome = () => {
       {location.pathname.includes("/lesson") ||
       location.pathname.includes("/repeat-words") ||
       location.pathname.includes("/flash-game") ||
-      location.pathname.includes("/learn-game") ? (
+      location.pathname.includes("/learn-game") ||
+      location.pathname.includes("/memories") ? (
         ""
       ) : (
         <Box
