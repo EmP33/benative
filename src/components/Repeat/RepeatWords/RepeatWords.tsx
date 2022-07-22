@@ -35,6 +35,8 @@ const RepeatWords = () => {
     "https://res.cloudinary.com/dtbemnmn4/video/upload/v1656251453/BeNative/incorrect-answer_z8jqay.mp3"
   );
 
+  console.log(usedWords, secondTurn);
+
   useEffect(() => {
     // 10 - count of words in repetition
     /* Checking if the words are available and if the typeWords are available. */

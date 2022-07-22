@@ -45,7 +45,7 @@ const MemoriesGame = () => {
           .sort((a: any, b: any) => a.sort - b.sort)
           // @ts-ignore
           .map(({ value }) => value)
-          .slice(0, 4)
+          .slice(0, 9)
           .map((word) => [word.definition, word.concept])
           .flat()
           .map((word) => ({ word: word, active: false, correct: false }))
@@ -60,8 +60,9 @@ const MemoriesGame = () => {
   useEffect(() => {
     if (memoriesWords.filter((word) => word.active).length === 2) {
       let activeWords = memoriesWords.filter((word) => word.active);
-      setRoundCount((prev) => (prev += 1));
+
       if (!choosenWord) {
+        setRoundCount((prev) => (prev += 1));
         if (
           currentSet?.words.find((word) => word.concept === activeWords[0].word)
         ) {
@@ -187,8 +188,8 @@ const MemoriesGame = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          columnGap: 2,
-          rowGap: 2,
+          columnGap: 1,
+          rowGap: 1,
           mt: 2,
         }}
       >
@@ -200,20 +201,18 @@ const MemoriesGame = () => {
                 sx={{
                   position: "realtive",
                   cursor: "pointer",
-                  width: "175px",
-                  height: "175px",
+                  width: "100px",
+                  height: "100px",
                   transition: ".2s ease-in-out",
                   transformStyle: "preserve-3d",
                   background: "linear-gradient(45deg,#22222f,#232331)",
-                  borderRadius: 5,
+                  borderRadius: 3,
                   p: 1,
                   transform: word.active
                     ? ""
                     : word.correct
                     ? ""
                     : "rotateY(0.5turn)",
-                  border: word.correct ? "2px solid #1b5e20" : "",
-                  filter: "blur(200%)",
                 }}
               >
                 <Box
@@ -228,11 +227,18 @@ const MemoriesGame = () => {
                     justifyContent: "center",
                     backfaceVisibility: "hidden",
                     transition: "1s ease-in-out",
-                    WebkitBoxReflect:
-                      "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
+                    background: word.correct
+                      ? "var(--color-tertiary-light)"
+                      : "var(--color-base-light)",
+                    border: word.correct
+                      ? "2px solid var(--color-tertiary-dark)"
+                      : "2px solid var(--color-base-dark)",
+                    borderRadius: 3,
+                    userSelect: "none",
+                    p: 1,
                   }}
                 >
-                  <Typography variant="h6" sx={{ fontSize: 23 }}>
+                  <Typography variant="h6" sx={{ fontSize: 18 }}>
                     {word.word}
                   </Typography>
                 </Box>
@@ -247,16 +253,19 @@ const MemoriesGame = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     backfaceVisibility: "hidden",
-                    transition: "1s ease-in-out",
-                    background: "var(--color-base-dark)",
-                    borderRadius: 5,
-                    WebkitBoxReflect:
-                      "below 0 linear-gradient(transparent,transparent,rgba(0,0,0,.4))",
+                    transition: "rotate 1s ease-in-out",
+                    background: "var(--color-base-light)",
+                    border: "2px solid var(--color-base-dark)",
+                    borderRadius: 3,
                     transform: "rotateY(0.5turn)",
+                    "&:hover": {
+                      filter: "brightness(140%)",
+                    },
+                    userSelect: "none",
                   }}
                 >
                   <Typography
-                    variant="h2"
+                    variant="h3"
                     color="primary"
                     sx={{ fontWeight: "bold" }}
                   >
@@ -269,7 +278,7 @@ const MemoriesGame = () => {
         <FinishMessage
           open={isFinish}
           handleClose={handleCloseFinish}
-          rounds={roundCount / 2}
+          rounds={roundCount}
         />
       </Box>
     </Box>

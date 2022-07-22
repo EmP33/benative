@@ -12,6 +12,8 @@ interface IInitialState {
   errorMessage: string;
   openLessonDrawer: boolean;
   isSound: boolean;
+  badgeModalShow: boolean;
+  unlockedBadge: string | null;
 }
 
 /* Defining the initial state of the reducer. */
@@ -21,6 +23,8 @@ const initialState: IInitialState = {
   errorMessage: "",
   openLessonDrawer: false,
   isSound: true,
+  badgeModalShow: false,
+  unlockedBadge: null,
 };
 
 const uiSlice = createSlice({
@@ -43,6 +47,10 @@ const uiSlice = createSlice({
     },
     toggleSound(state) {
       state.isSound = state.isSound === false ? true : false;
+    },
+    toggleBadgeModal(state, action: PayloadAction<string | null>) {
+      state.badgeModalShow = state.badgeModalShow === false ? true : false;
+      state.unlockedBadge = action.payload;
     },
   },
 });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
-import { updatePoints } from "../../../store/data-slice";
+import { updatePoints, updateStates } from "../../../store/data-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 // Icons
@@ -38,24 +38,54 @@ const FinishMessage: React.FC<Props> = ({
   useEffect(() => {
     if (initialRender) {
       if ((correctAnswersQty / allAnswersQty) * 100 >= 90) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 25)
+        );
         dispatch(updatePoints(user.uid, (points += 25)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 80) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 15)
+        );
         dispatch(updatePoints(user.uid, (points += 15)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 75) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 12)
+        );
         dispatch(updatePoints(user.uid, (points += 12)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 70) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 10)
+        );
         dispatch(updatePoints(user.uid, (points += 10)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 65) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 7)
+        );
         dispatch(updatePoints(user.uid, (points += 7)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 60) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 5)
+        );
         dispatch(updatePoints(user.uid, (points += 5)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 50) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 3)
+        );
         dispatch(updatePoints(user.uid, (points += 3)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 45) {
+        dispatch(
+          updateStates(user.uid, "s4", data?.data?.statistics["s4"]?.value + 1)
+        );
         dispatch(updatePoints(user.uid, (points += 1)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 >= 30) {
+        dispatch(
+          updateStates(user.uid, "s5", data?.data?.statistics["s5"]?.value + 5)
+        );
         dispatch(updatePoints(user.uid, (points -= 5)));
       } else if ((correctAnswersQty / allAnswersQty) * 100 < 30) {
+        dispatch(
+          updateStates(user.uid, "s5", data?.data?.statistics["s5"]?.value + 10)
+        );
         dispatch(updatePoints(user.uid, (points -= 10)));
       } else {
         dispatch(updatePoints(user.uid, (points += 0)));

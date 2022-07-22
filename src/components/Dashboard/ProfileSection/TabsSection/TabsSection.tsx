@@ -1,8 +1,11 @@
-import * as React from "react";
-
+import React, { useState } from "react";
+import { useAppSelector } from "../../../../lib/hooks";
 // Components
 import { Tabs, Tab, Typography, Box } from "@mui/material";
 import Badge from "./Badge";
+import Statistic from "./Statistic";
+// Types
+import { BadgeType } from "../../../../data.types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -38,7 +41,8 @@ function a11yProps(index: number) {
 }
 
 export default function TabSection() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const data = useAppSelector((state) => state.data.data);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -65,9 +69,30 @@ export default function TabSection() {
         </Tabs>
       </Box>
       {value === 0 && <Box sx={{ mt: 2 }}>Szczegóły</Box>}
-      {value === 1 && <Box sx={{ mt: 2 }}>Statystyki</Box>}
+      {value === 1 && (
+        <Box sx={{ mt: 2, mb: 5 }}>
+          <Box sx={{ mt: 2 }}>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                rowGap: 3,
+                mt: 4,
+              }}
+            >
+              {Object.values(data?.data?.statistics).map((stat: any) => (
+                <Statistic
+                  title={stat.title}
+                  value={stat.value}
+                  key={stat.id}
+                />
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      )}
       {value === 2 && (
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 2, mb: 5 }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
             Odznaki
           </Typography>
@@ -78,16 +103,16 @@ export default function TabSection() {
               rowGap: 2,
             }}
           >
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
+            {Object.values(data?.data?.badges)
+              .sort((a: any, b: any) => Number(b.finished) - Number(a.finished))
+              .map((badge: any) => (
+                <Badge
+                  title={badge.title}
+                  description={badge.description}
+                  finished={badge.finished}
+                  key={badge.id}
+                />
+              ))}
           </Box>
         </Box>
       )}

@@ -57,3 +57,10 @@ export interface FlashCardSetType {
   id: string;
   words: FlashCardWordType[];
 }
+
+export interface BadgeType {
+  title: string;
+  id: string;
+  description: string;
+  finished: boolean;
+}
