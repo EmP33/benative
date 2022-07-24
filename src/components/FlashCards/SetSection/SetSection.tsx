@@ -8,7 +8,7 @@ import { Box, Typography, IconButton, Button } from "@mui/material";
 import SetWordsSwiper from "./SetWordsSwiper";
 import SectionHeader from "../../UI/SectionHeader";
 import DeleteSetDialog from "./DeleteSetDialog";
-import WordElement from "../../Dashboard/RepeatSection/WordElement";
+import WordElement from "../../Dashboard/ProfileSection/RepeatSection/WordElement";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import SchoolIcon from "@mui/icons-material/School";

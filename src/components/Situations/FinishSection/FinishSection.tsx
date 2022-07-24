@@ -7,7 +7,8 @@ import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
-import WordElement from "../../Dashboard/RepeatSection/WordElement";
+import WordElement from "../../Dashboard/ProfileSection/RepeatSection/WordElement";
+import FinishMessage from "./FinishMessage";
 // Types
 import { SituationLessonType, SituationWordType } from "../../../data.types";
 
@@ -28,6 +29,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
   const [copyOfDataWords, setCopyOfDataWords] = useState<SituationWordType[]>(
     []
   );
+  const [hideFinishMessage, setHideFinishMessage] = useState(false);
 
   useEffect(() => {
     setCurrentSet(
@@ -151,6 +153,27 @@ const FinishSection: React.FC<Props> = ({ words }) => {
                 }
               })}
         </>
+      )}
+      {!hideFinishMessage && !!words.length && (
+        <Box
+          onClick={() => setHideFinishMessage(true)}
+          sx={{
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,.5)",
+            position: "absolute",
+            left: 0,
+            top: 0,
+          }}
+        >
+          <FinishMessage
+            correctAnswersQty={
+              words.filter((word) => word.wasCorrect === true).length
+            }
+            allAnswersQty={words.length}
+            showPoints={true}
+          />
+        </Box>
       )}
     </Box>
   );

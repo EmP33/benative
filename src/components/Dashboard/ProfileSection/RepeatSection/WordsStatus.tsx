@@ -2,7 +2,7 @@ import React from "react";
 // Components
 import { Box, Typography, Chip } from "@mui/material";
 // Types
-import { WordType } from "../../../data.types";
+import { WordType } from "../../../../data.types";
 
 interface Props {
   title: string;

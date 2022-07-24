@@ -13,14 +13,14 @@ import { WordType } from "../../../data.types";
 const ProfileStatistics = () => {
   const data = useAppSelector((state) => state.data.data);
 
-  console.log(
-    // @ts-ignore
-    Object.values(data?.data?.categories)
-      .find((cat: any) => cat.title === "Sytuacje")
-      .lessons.map((lesson: any) => lesson.words)
-      .flat()
-      .filter((lesson: any) => lesson.status === "well").length
-  );
+  // console.log(
+  //   // @ts-ignore
+  //   Object.values(data?.data?.categories)
+  //     .find((cat: any) => cat.title === "Sytuacje")
+  //     .lessons.map((lesson: any) => lesson.words)
+  //     .flat()
+  //     .filter((lesson: any) => lesson.status === "well").length
+  // );
 
   return (
     <Box

@@ -182,6 +182,18 @@ const DashboardPage = () => {
         dispatch(uiActions.toggleBadgeModal("b9"));
         dispatch(updateBadge(uid, "b9"));
       }
+      ///////////////////////////
+      // Mistrz sytuacji
+      if (
+        // @ts-ignore
+        Object.values(data.data.categories)
+          .find((cat: any) => cat.title === "Sytuacje")
+          .lessons.every((lesson: any) => lesson.status === 100) &&
+        !data.data.badges["b10"].finished
+      ) {
+        dispatch(uiActions.toggleBadgeModal("b10"));
+        dispatch(updateBadge(uid, "b10"));
+      }
 
       ////////////////////////////////////////////////////////
       // STATISTICS

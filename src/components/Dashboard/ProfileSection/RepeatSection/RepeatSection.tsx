@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Redux Store
-import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
-import { dataActions } from "../../../store/data-slice";
+import { useAppSelector, useAppDispatch } from "../../../../lib/hooks";
+import { dataActions } from "../../../../store/data-slice";
 
 // Components
 import { Box, Button, Skeleton, Typography } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
-import SectionHeader from "../../UI/SectionHeader";
+import SectionHeader from "../../../UI/SectionHeader";
 // Types
-import { WordType } from "../../../data.types";
+import { WordType } from "../../../../data.types";
 
 const RepeatSection = () => {
   const dispatch = useAppDispatch();

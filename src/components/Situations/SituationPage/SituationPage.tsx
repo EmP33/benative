@@ -4,7 +4,7 @@ import { useAppSelector } from "../../../lib/hooks";
 // Components
 import { Box, Typography, Button } from "@mui/material";
 import SectionHeader from "../../UI/SectionHeader";
-import WordElement from "../../Dashboard/RepeatSection/WordElement";
+import WordElement from "../../Dashboard/ProfileSection/RepeatSection/WordElement";
 import { SituationLessonType, SituationWordType } from "../../../data.types";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";

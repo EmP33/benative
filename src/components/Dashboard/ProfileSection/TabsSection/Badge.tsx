@@ -7,6 +7,11 @@ import StrollerIcon from "@mui/icons-material/Stroller";
 import FlagIcon from "@mui/icons-material/Flag";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import PsychologyIcon from "@mui/icons-material/Psychology";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
 interface Props {
   title: string;
@@ -67,6 +72,46 @@ const Badge: React.FC<Props> = ({ title, description, finished }) => {
             />
           ) : title === "Master" ? (
             <StarRateIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "Mistrz sytuacji" ? (
+            <PsychologyIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "Uczony" ? (
+            <ImportContactsIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "Przegryw" ? (
+            <SentimentVeryDissatisfiedIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "WTF" ? (
+            <ThumbDownAltIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "Giga Chad" ? (
+            <EmojiEmotionsIcon
               sx={{
                 fontSize: 36,
                 color: finished ? "#fff" : "#aaa",

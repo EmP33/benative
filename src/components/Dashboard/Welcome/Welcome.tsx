@@ -18,7 +18,7 @@ import AccountSettings from "../SettingsSection/SettingsElements/AccountSettings
 import Security from "../SettingsSection/SettingsElements/Security";
 import Preferences from "../SettingsSection/SettingsElements/Preferences";
 import QuestionResult from "../../Lesson/QuestionResult/QuestionResult";
-import RepeatSection from "../RepeatSection/RepeatSection";
+import RepeatSection from "../ProfileSection/RepeatSection/RepeatSection";
 import RepeatWords from "../../Repeat/RepeatWords/RepeatWords";
 import LearnDrawer from "../LearnDrawer/LearnDrawer";
 import Words1000 from "../../1000-words/Words1000";

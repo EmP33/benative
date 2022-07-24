@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
-import WordElement from "../../Dashboard/RepeatSection/WordElement";
+import WordElement from "../../Dashboard/ProfileSection/RepeatSection/WordElement";
 import FinishMessage from "../../UI/CallbackMessages/FinishMessage";
 import Words1000 from "../../1000-words/Words1000";
 

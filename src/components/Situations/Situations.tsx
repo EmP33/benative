@@ -36,13 +36,22 @@ const Situations = () => {
       <Box sx={{ mb: 4 }}>
         <SectionHeader title="Sytuacje" />
       </Box>
-
-      {
-        //@ts-ignore
-        category?.lessons.map((lesson: any) => (
-          <SituationItem lesson={lesson} key={lesson.id} />
-        ))
-      }
+      <Box
+        sx={{
+          width: "100%",
+          maxHeight: "82vh",
+          p: 2,
+          overflow: "auto",
+          "&::-webkit-scrollbar": { display: "none" },
+        }}
+      >
+        {
+          //@ts-ignore
+          category?.lessons.map((lesson: any) => (
+            <SituationItem lesson={lesson} key={lesson.id} />
+          ))
+        }
+      </Box>
     </Box>
   );
 };
