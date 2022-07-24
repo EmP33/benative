@@ -9,6 +9,7 @@ import { AppCategoryType } from "../../../data.types";
 import TranslateIcon from "@mui/icons-material/Translate";
 import WorkIcon from "@mui/icons-material/Work";
 import BoltIcon from "@mui/icons-material/Bolt";
+import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 
 interface Props {
   category: AppCategoryType;
@@ -23,6 +24,8 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
       navigate("/dashboard/categories/10-hundred-words");
     } else if (category.title === "Fiszki") {
       navigate("/dashboard/categories/flash-cards");
+    } else if (category.title === "Sytuacje") {
+      navigate("/dashboard/categories/situations");
     }
   };
 
@@ -60,6 +63,8 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
           <WorkIcon sx={{ fontSize: 30 }} />
         ) : category.title === "Fiszki" ? (
           <BoltIcon sx={{ fontSize: 30 }} />
+        ) : category.title === "Sytuacje" ? (
+          <LocalCafeIcon sx={{ fontSize: 30 }} />
         ) : (
           <HeadphonesIcon sx={{ fontSize: 30 }} />
         )}

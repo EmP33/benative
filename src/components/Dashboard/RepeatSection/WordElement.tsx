@@ -24,6 +24,7 @@ const WordElement: React.FC<Props> = ({
         gridTemplateColumns: "1fr max-content max-content max-content",
         p: 1,
         alignItems: "center",
+        cursor: "pointer",
         "&:hover": {
           background: "var(--color-base-light)",
         },

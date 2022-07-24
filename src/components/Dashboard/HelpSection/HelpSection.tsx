@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import { Box, SwipeableDrawer, Button, Fab } from "@mui/material";
@@ -11,9 +12,11 @@ import { DragButton } from "./HelpSection.styles";
 
 const HelpSection = () => {
   const theme = useTheme();
+  const location = useLocation();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   // Local State
   const [state, setState] = useState(false);
+  console.log(location.pathname);
 
   // Functions
   const toggleDrawer =
@@ -76,22 +79,24 @@ tutaj:"
             justifyContent: "center",
           }}
         >
-          <Fab
-            color="primary"
-            aria-label="tips"
-            sx={{
-              position: "absolute",
-              right: "5vw",
-              bottom: "8vh",
-              opacity: 0.9,
-              display: { xs: "flex", sm: "none" },
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onClick={toggleDrawer(true)}
-          >
-            <EmojiObjectsIcon sx={{ fontSize: 30 }} />
-          </Fab>
+          {location.pathname === "/dashboard" && (
+            <Fab
+              color="primary"
+              aria-label="tips"
+              sx={{
+                position: "absolute",
+                right: "5vw",
+                bottom: "8vh",
+                opacity: 0.9,
+                display: { xs: "flex", sm: "none" },
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={toggleDrawer(true)}
+            >
+              <EmojiObjectsIcon sx={{ fontSize: 30 }} />
+            </Fab>
+          )}
           <Button
             sx={{
               transform: "rotate(90deg)",

@@ -8,13 +8,13 @@ import { Box, Typography, IconButton, Button } from "@mui/material";
 import SetWordsSwiper from "./SetWordsSwiper";
 import SectionHeader from "../../UI/SectionHeader";
 import DeleteSetDialog from "./DeleteSetDialog";
+import WordElement from "../../Dashboard/RepeatSection/WordElement";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import SchoolIcon from "@mui/icons-material/School";
 import BoltIcon from "@mui/icons-material/Bolt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import WordElement from "../../Dashboard/RepeatSection/WordElement";
 // Types
 import { FlashCardWordType } from "../../../data.types";
 

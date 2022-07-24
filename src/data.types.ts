@@ -64,3 +64,19 @@ export interface BadgeType {
   description: string;
   finished: boolean;
 }
+
+export interface SituationWordType {
+  id: number;
+  status: string;
+  translation: string;
+  word: string | string[];
+  active?: boolean;
+}
+
+export interface SituationLessonType {
+  id: number;
+  order: number;
+  status: number;
+  title: string;
+  words: SituationWordType[];
+}

@@ -92,7 +92,7 @@ export default function TabSection() {
         </Box>
       )}
       {value === 2 && (
-        <Box sx={{ mt: 2, mb: 5 }}>
+        <Box sx={{ mt: 2, mb: 10 }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
             Odznaki
           </Typography>
