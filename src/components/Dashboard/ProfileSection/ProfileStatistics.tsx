@@ -13,6 +13,15 @@ import { WordType } from "../../../data.types";
 const ProfileStatistics = () => {
   const data = useAppSelector((state) => state.data.data);
 
+  console.log(
+    // @ts-ignore
+    Object.values(data?.data?.categories)
+      .find((cat: any) => cat.title === "Sytuacje")
+      .lessons.map((lesson: any) => lesson.words)
+      .flat()
+      .filter((lesson: any) => lesson.status === "well").length
+  );
+
   return (
     <Box
       sx={{
@@ -66,7 +75,13 @@ const ProfileStatistics = () => {
                   Object.values(data?.data?.categories).find(
                     (cat: any) => cat.title === "1000 słów"
                   ).words
-                ).filter((word: any) => word.status === "well").length
+                ).filter((word: any) => word.status === "well").length +
+                // @ts-ignore
+                Object.values(data?.data?.categories)
+                  .find((cat: any) => cat.title === "Sytuacje")
+                  .lessons.map((lesson: any) => lesson.words)
+                  .flat()
+                  .filter((lesson: any) => lesson.status === "well").length
               : 0
             : 0}
         </Typography>

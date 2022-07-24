@@ -87,7 +87,13 @@ const DashboardPage = () => {
             Object.values(data?.data?.categories).find(
               (cat: any) => cat.title === "1000 słów"
             ).words
-          ).filter((word: any) => word.status === "well").length >=
+          ).filter((word: any) => word.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Sytuacje")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
+            .filter((lesson: any) => lesson.status === "well").length >=
           10 &&
         !data.data.badges["b3"].finished
       ) {
@@ -106,7 +112,13 @@ const DashboardPage = () => {
             Object.values(data?.data?.categories).find(
               (cat: any) => cat.title === "1000 słów"
             ).words
-          ).filter((word: any) => word.status === "well").length >=
+          ).filter((word: any) => word.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Sytuacje")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
+            .filter((lesson: any) => lesson.status === "well").length >=
           100 &&
         !data.data.badges["b4"].finished
       ) {
@@ -125,7 +137,13 @@ const DashboardPage = () => {
             Object.values(data?.data?.categories).find(
               (cat: any) => cat.title === "1000 słów"
             ).words
-          ).filter((word: any) => word.status === "well").length >=
+          ).filter((word: any) => word.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Sytuacje")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
+            .filter((lesson: any) => lesson.status === "well").length >=
           1000 &&
         !data.data.badges["b5"].finished
       ) {
@@ -177,7 +195,13 @@ const DashboardPage = () => {
           Object.values(data?.data?.categories).find(
             (cat: any) => cat.title === "1000 słów"
           ).words
-        ).filter((word: any) => word.status === "well").length
+        ).filter((word: any) => word.status === "well").length +
+        // @ts-ignore
+        Object.values(data?.data?.categories)
+          .find((cat: any) => cat.title === "Sytuacje")
+          .lessons.map((lesson: any) => lesson.words)
+          .flat()
+          .filter((lesson: any) => lesson.status === "well").length
       ) {
         dispatch(
           updateStates(
@@ -192,7 +216,13 @@ const DashboardPage = () => {
                 Object.values(data?.data?.categories).find(
                   (cat: any) => cat.title === "1000 słów"
                 ).words
-              ).filter((word: any) => word.status === "well").length
+              ).filter((word: any) => word.status === "well").length +
+              // @ts-ignore
+              Object.values(data?.data?.categories)
+                .find((cat: any) => cat.title === "Sytuacje")
+                .lessons.map((lesson: any) => lesson.words)
+                .flat()
+                .filter((lesson: any) => lesson.status === "well").length
           )
         );
       }
