@@ -16,7 +16,6 @@ const HelpSection = () => {
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   // Local State
   const [state, setState] = useState(false);
-  console.log(location.pathname);
 
   // Functions
   const toggleDrawer =

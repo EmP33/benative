@@ -20,7 +20,6 @@ const Flashgame = () => {
   const data = useAppSelector((state) => state.data.data);
   const [currentSet, setCurrentSet] = useState<FlashCardSetType | null>(null);
   const [setsWords, setSetsWords] = useState<FlashCardWordType[]>([]);
-  console.log(currentSet, setsWords);
 
   const rotateCardHandler = (w: FlashCardWordType) => {
     // @ts-ignore

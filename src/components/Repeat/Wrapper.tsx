@@ -22,7 +22,7 @@ const Wrapper: React.FC<Props> = ({ children, title, status }) => {
   const location = useLocation();
   const params = useParams();
   const [openSettings, setOpenSettings] = useState(false);
-  console.log(params);
+
   const navigateHander = () => {
     if (location.pathname.includes("/flash-cards")) {
       navigate(`/dashboard/categories/flash-cards/set/${params.setID}`);

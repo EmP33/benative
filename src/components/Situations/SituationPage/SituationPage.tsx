@@ -29,8 +29,6 @@ const SituationPage = () => {
     }
   }, [data?.data?.categories, params.lessonID]);
 
-  console.log(lesson);
-
   return (
     <Box>
       <SectionHeader />
@@ -63,11 +61,11 @@ const SituationPage = () => {
           size="large"
           //   disabled={!currentSet?.words}
           startIcon={<SchoolIcon />}
-          //   onClick={() =>
-          //     navigate(
-          //       `/dashboard/categories/flash-cards/set/${params.setID}/learn-game`
-          //     )
-          //   }
+          onClick={() =>
+            navigate(
+              `/dashboard/categories/situations/${params.lessonID}/learn-game`
+            )
+          }
         >
           Nauka
         </Button>
@@ -84,20 +82,6 @@ const SituationPage = () => {
         >
           Fiszki
         </Button>
-        <Button
-          sx={{ gridColumn: "1/-1" }}
-          variant="contained"
-          size="large"
-          startIcon={<DashboardIcon />}
-          //   disabled={!currentSet?.words}
-          //   onClick={() =>
-          //     navigate(
-          //       `/dashboard/categories/flash-cards/set/${params.setID}/memories`
-          //     )
-          //   }
-        >
-          Memories
-        </Button>
       </Box>
       <Box sx={{ ml: 2, mr: 2 }}>
         <Typography variant="body1" sx={{ fontSize: 22, mb: 1 }}>
@@ -105,17 +89,15 @@ const SituationPage = () => {
         </Typography>
         {lesson
           ? lesson.words.map((word: SituationWordType, i: number) => (
-              <Box>
+              <Box key={i}>
                 {typeof word.word === "string" ? (
                   <WordElement
-                    key={i}
                     status={word.status}
                     word={word.word}
                     translation={word.translation}
                   />
                 ) : (
                   <WordElement
-                    key={i}
                     status={word.status}
                     word={word.word[0]}
                     translation={word.translation}

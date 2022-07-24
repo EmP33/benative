@@ -31,6 +31,7 @@ import MemoriesGame from "../../FlashCards/FlashCardGame/MemoriesGame";
 import Situations from "../../Situations/Situations";
 import SituationPage from "../../Situations/SituationPage/SituationPage";
 import SituationFlashGame from "../../Situations/Flashgame";
+import SituationLearnGame from "../../Situations/Learngame";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -79,6 +80,10 @@ const Welcome = () => {
         <Route
           path="/categories/situations/:lessonID/flash-game"
           element={<SituationFlashGame />}
+        />
+        <Route
+          path="/categories/situations/:lessonID/learn-game"
+          element={<SituationLearnGame />}
         />
         <Route path="/categories/10-hundred-words" element={<Words1000 />} />
         <Route

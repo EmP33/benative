@@ -4,46 +4,53 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
 import { uiActions } from "../../../store/ui-slice";
 import { userActions } from "../../../store/user-slice";
-import { updateLesson } from "../../../store/data-slice";
+import { updateSituationLesson } from "../../../store/data-slice";
 // Components
 import { Box, Typography } from "@mui/material";
 import LessonProgress from "./SituationProgress";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 // Types
-import { LessonType } from "../../../data.types";
+import { SituationLessonType } from "../../../data.types";
 
 interface Props {
-  lesson: LessonType;
+  lesson: SituationLessonType;
 }
 
 const SituationItem: React.FC<Props> = ({ lesson }) => {
   const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.data.data);
+  const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // if (lesson.parts) {
-  //   //   const parts = Object.values(lesson.parts).map((part) =>
-  //   //     part.status === 100 ? true : false
-  //   //   );
-  //   //   const completedParts = parts.filter(
-  //   //     (value: boolean) => value === true
-  //   //   ).length;
+  useEffect(() => {
+    if (lesson?.words) {
+      const words = lesson.words.map((word: any) =>
+        word.status === "well" ? true : false
+      );
+      const knownWords = words.filter(
+        (value: boolean) => value === true
+      ).length;
 
-  //   //   dispatch(
-  //   //     updateLesson(user.uid, lesson.category, lesson.id, {
-  //   //       category: lesson.category,
-  //   //       date: lesson.date,
-  //   //       description: lesson.description,
-  //   //       id: lesson.id,
-  //   //       parts: lesson.parts,
-  //   //       status: (completedParts / parts.length) * 100,
-  //   //       title: lesson.title,
-  //   //       order: lesson.order,
-  //   //     })
-  //   //   );
-  //   // }
-  // }, [lesson.parts]);
+      dispatch(
+        updateSituationLesson(
+          user.uid,
+          // @ts-ignore
+          Object.values(data.data.categories).find(
+            (cat: any) => cat.title === "Sytuacje"
+          ).id,
+          lesson.id,
+          {
+            words: lesson.words,
+            id: lesson.id,
+            status: (knownWords / words.length) * 100,
+            title: lesson.title,
+            order: lesson.order,
+          }
+        )
+      );
+    }
+  }, [lesson.words]);
 
   return (
     <Box

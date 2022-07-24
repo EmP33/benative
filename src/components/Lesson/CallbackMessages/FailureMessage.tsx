@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import SadFace from "../../../assets/SadFace";
 
 interface Props {
-  answer: string;
+  answer: string | string[];
   translation: string;
   correctAnswers: string[] | string;
   answers: string[] | string;

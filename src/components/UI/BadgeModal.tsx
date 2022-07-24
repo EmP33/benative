@@ -24,8 +24,6 @@ const BadgeModal = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  console.log(badgeModalShow);
-
   return (
     <Dialog
       open={badgeModalShow}

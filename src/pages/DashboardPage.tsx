@@ -36,7 +36,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     dispatch(getData());
-    console.log(uid, isError, data);
+
     if (uid && !isError) {
       dispatch(fetchUserData(uid));
     }

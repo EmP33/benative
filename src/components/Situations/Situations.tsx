@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // Redux Store
 import { useAppSelector } from "../../lib/hooks";
 // Components
@@ -8,11 +8,19 @@ import SituationItem from "./SituationItem/SituationItem";
 
 const Situations = () => {
   const data = useAppSelector((state) => state.data.data);
+  const [category, setCategory] = useState();
 
-  const category = Object.values(data.data.categories).find(
-    (cat: any) => cat.title === "Sytuacje"
-  );
-  console.log(category);
+  useEffect(() => {
+    if (data?.data?.categories) {
+      setCategory(
+        // @ts-ignore
+        Object.values(data?.data?.categories).find(
+          (cat: any) => cat.title === "Sytuacje"
+        )
+      );
+    }
+  }, [data?.data?.categories]);
+
   return (
     <Box
       sx={{
@@ -31,7 +39,7 @@ const Situations = () => {
 
       {
         //@ts-ignore
-        category.lessons.map((lesson: any) => (
+        category?.lessons.map((lesson: any) => (
           <SituationItem lesson={lesson} key={lesson.id} />
         ))
       }

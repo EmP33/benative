@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import SmileFace from "../../../assets/SmileFace";
 
 interface Props {
-  answer: string;
+  answer: string | string[];
   translation: string;
   correctAnswer: string | string[];
   nextQuestion: () => void;

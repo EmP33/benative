@@ -33,8 +33,6 @@ const SetSection = () => {
     setDeleteDialogOpen(true);
   };
 
-  console.log(currentSet);
-
   useEffect(() => {
     if (data?.data?.categories) {
       setCurrentSet(

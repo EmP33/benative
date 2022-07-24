@@ -22,7 +22,6 @@ const Flashgame = () => {
     null
   );
   const [setsWords, setSetsWords] = useState<SituationWordType[]>([]);
-  console.log(currentSet, setsWords);
 
   const rotateCardHandler = (w: SituationWordType) => {
     //@ts-ignore

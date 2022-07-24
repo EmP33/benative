@@ -18,8 +18,6 @@ const TranslatePhraseAng: React.FC<Props> = ({ word, checkAnswers }) => {
   const location = useLocation();
   const answerRef = useRef<HTMLInputElement>(null);
 
-  console.log(word);
-
   const checkTaskHandler = () => {
     if (!answerRef.current || answerRef.current.value === "") return;
     const answer = answerRef.current.value;

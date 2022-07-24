@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAudio } from "../../../lib/hooks";
+import { useAudio } from "../../lib/hooks";
 // Redux Store
-import { useAppSelector } from "../../../lib/hooks";
+import { useAppSelector } from "../../lib/hooks";
 // Components
-import Wrapper from "../../Repeat/Wrapper";
+import Wrapper from "../Repeat/Wrapper";
 import TranslatePhrase from "./Excercices/TranslatePhrase";
 import TranslatePhraseAng from "./Excercices/TranslatePhraseAng";
-import SuccessMessage from "../../Lesson/CallbackMessages/SuccessMessage";
-import FailureMessage from "../../Lesson/CallbackMessages/FailureMessage";
+import SuccessMessage from "../Lesson/CallbackMessages/SuccessMessage";
+import FailureMessage from "../Lesson/CallbackMessages/FailureMessage";
 import { Box } from "@mui/material";
 import FinishSection from "./FinishSection/FinishSection";
 // Types
-import { FlashCardSetType, FlashCardWordType } from "../../../data.types";
+import { SituationLessonType, SituationWordType } from "../../data.types";
 
 const Learngame = () => {
   const params = useParams();
   const data = useAppSelector((state) => state.data.data);
   const [currentWord, setCurrentWord] = useState(0);
-  const [currentSet, setCurrentSet] = useState<FlashCardSetType | null>(null);
-  const [words, setWords] = useState<FlashCardWordType[]>([]);
+  const [currentSet, setCurrentSet] = useState<SituationLessonType | null>(
+    null
+  );
+  const [words, setWords] = useState<SituationWordType[]>([]);
   const [secondTurn, setSecondTurn] = useState<any[]>([]);
   const [answers, setAnswers] = useState<string[] | string>([]);
   const [checkedAnswers, setCheckedAnswers] = useState<boolean | null>(null);
@@ -34,12 +36,12 @@ const Learngame = () => {
   );
 
   useEffect(() => {
-    if (params.setID && data?.data?.categories) {
+    if (params.lessonID && data?.data?.categories) {
       setCurrentSet(
         // @ts-ignore
         Object.values(data?.data?.categories).find(
-          (cat: any) => cat.title === "Fiszki"
-        ).sets[params.setID]
+          (cat: any) => cat.title === "Sytuacje"
+        ).lessons[params.lessonID]
       );
     }
   }, [data?.data?.categories]);
@@ -47,7 +49,7 @@ const Learngame = () => {
     if (currentSet) {
       setWords(
         currentSet.words
-          .map((value: FlashCardWordType) => ({ value, sort: Math.random() }))
+          .map((value: SituationWordType) => ({ value, sort: Math.random() }))
           .sort((a: any, b: any) => a.sort - b.sort)
           // @ts-ignore
           .map(({ value }) => value)
@@ -75,19 +77,21 @@ const Learngame = () => {
         setSecondTurn((prev) => [
           ...prev,
           {
+            id: words[currentWord].id,
             status: words[currentWord].status,
-            concept: words[currentWord].concept,
+            word: words[currentWord].word,
             wasCorrect: checkedAnswers,
-            definition: words[currentWord].definition,
+            translation: words[currentWord].translation,
           },
         ]);
       } else {
         setSecondTurn((prev) => [
           {
+            id: words[currentWord].id,
             status: words[currentWord].status,
-            concept: words[currentWord].concept,
+            word: words[currentWord].word,
             wasCorrect: checkedAnswers,
-            definition: words[currentWord].definition,
+            translation: words[currentWord].translation,
           },
         ]);
       }
@@ -99,28 +103,28 @@ const Learngame = () => {
       ) {
         secondTurn.splice(
           secondTurn.findIndex(
-            (prev) =>
-              prev.concept === secondTurn[currentWord - words.length].concept
+            (prev) => prev.word === secondTurn[currentWord - words.length].word
           ),
           1,
           {
+            id: secondTurn[currentWord - words.length].id,
             status: secondTurn[currentWord - words.length].status,
-            concept: secondTurn[currentWord - words.length].concept,
-            definition: secondTurn[currentWord - words.length].definition,
+            word: secondTurn[currentWord - words.length].word,
+            translation: secondTurn[currentWord - words.length].translation,
             wasCorrect: checkedAnswers,
           }
         );
       } else {
         secondTurn.splice(
           secondTurn.findIndex(
-            (prev) =>
-              prev.concept === secondTurn[currentWord - words.length].concept
+            (prev) => prev.word === secondTurn[currentWord - words.length].word
           ),
           1,
           {
+            id: secondTurn[currentWord - words.length].id,
             status: secondTurn[currentWord - words.length].status,
-            concept: secondTurn[currentWord - words.length].concept,
-            definition: secondTurn[currentWord - words.length].definition,
+            word: secondTurn[currentWord - words.length].word,
+            translation: secondTurn[currentWord - words.length].translation,
             wasCorrect: false,
           }
         );
@@ -176,9 +180,13 @@ const Learngame = () => {
                 }}
               >
                 <SuccessMessage
-                  answer={words[currentWord].concept}
-                  translation={words[currentWord].definition}
-                  correctAnswer={words[currentWord].definition}
+                  answer={
+                    typeof words[currentWord].word === "string"
+                      ? words[currentWord].word
+                      : words[currentWord].word[0]
+                  }
+                  translation={words[currentWord].translation}
+                  correctAnswer={words[currentWord].translation}
                   nextQuestion={nextWordHandler}
                 />
               </Box>
@@ -195,9 +203,13 @@ const Learngame = () => {
                 }}
               >
                 <FailureMessage
-                  answer={words[currentWord].concept}
-                  translation={words[currentWord].definition}
-                  correctAnswers={words[currentWord].definition}
+                  answer={
+                    typeof words[currentWord].word === "string"
+                      ? words[currentWord].word
+                      : words[currentWord].word[0]
+                  }
+                  translation={words[currentWord].translation}
+                  correctAnswers={words[currentWord].translation}
                   answers={answers}
                   nextQuestion={nextWordHandler}
                 />
@@ -216,10 +228,15 @@ const Learngame = () => {
               }}
             >
               <SuccessMessage
-                answer={secondTurn[currentWord - words.length].definition}
-                translation={secondTurn[currentWord - words.length].concept}
+                answer={secondTurn[currentWord - words.length].translation}
+                translation={
+                  typeof secondTurn[currentWord - words.length].word ===
+                  "string"
+                    ? secondTurn[currentWord - words.length].word
+                    : secondTurn[currentWord - words.length].word[0]
+                }
                 correctAnswer={
-                  secondTurn[currentWord - words.length].definition
+                  secondTurn[currentWord - words.length].translation
                 }
                 nextQuestion={nextWordHandler}
               />
@@ -237,11 +254,14 @@ const Learngame = () => {
               }}
             >
               <FailureMessage
-                answer={secondTurn[currentWord - words.length].definition}
-                translation={secondTurn[currentWord - words.length].concept}
-                correctAnswers={
-                  secondTurn[currentWord - words.length].definition
+                answer={secondTurn[currentWord - words.length].translation}
+                translation={
+                  typeof secondTurn[currentWord - words.length].word ===
+                  "string"
+                    ? secondTurn[currentWord - words.length].word
+                    : secondTurn[currentWord - words.length].word[0]
                 }
+                correctAnswers={secondTurn[currentWord - words.length].word}
                 answers={answers}
                 nextQuestion={nextWordHandler}
               />

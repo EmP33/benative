@@ -23,8 +23,6 @@ const FlashcardCreate: React.FC<Props> = () => {
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
 
-  console.log(title);
-
   useEffect(() => {
     if (location.pathname.includes("/edit")) {
       if (data?.data?.categories) {
@@ -61,8 +59,6 @@ const FlashcardCreate: React.FC<Props> = () => {
       }
     }
   }, []);
-
-  console.log(params.setID);
 
   const submitSetHandler = () => {
     if (title === "") return setTitleError(true);

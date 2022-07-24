@@ -9,7 +9,12 @@ import { database } from "../firebase";
 import { uiActions } from "./ui-slice";
 import { userActions } from "./user-slice";
 // Types
-import { WordType, LessonType, BadgeType } from "../data.types";
+import {
+  WordType,
+  LessonType,
+  BadgeType,
+  SituationLessonType,
+} from "../data.types";
 
 /* Defining the shape of the initial state. */
 interface IInitialState {
@@ -262,6 +267,46 @@ export const updateStates = (uid: string, stateID: string, value: number) => {
       set(
         ref(database, `users/${uid}/data/statistics/${stateID}/value`),
         value
+      );
+    };
+    await sendRequest();
+  };
+};
+
+export const updateSituationsWords = (
+  uid: string,
+  categoryID: string,
+  lessonID: string,
+  words: any
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/categories/${categoryID}/lessons/${lessonID}/words`
+        ),
+        words
+      );
+    };
+    await sendRequest();
+  };
+};
+
+export const updateSituationLesson = (
+  uid: string,
+  categoryID: string | undefined,
+  lessonID: number,
+  data: SituationLessonType
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/categories/${categoryID}/lessons/${lessonID}`
+        ),
+        data
       );
     };
     await sendRequest();

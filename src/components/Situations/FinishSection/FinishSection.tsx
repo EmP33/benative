@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 // Redux Store
-import { updateSetsWords } from "../../../../store/data-slice";
-import { useAppSelector, useAppDispatch } from "../../../../lib/hooks";
+import { updateSituationsWords } from "../../../store/data-slice";
+import { useAppSelector, useAppDispatch } from "../../../lib/hooks";
 
 // Components
 import { Box, Typography, Button } from "@mui/material";
-import WordElement from "../../../Dashboard/RepeatSection/WordElement";
+import WordElement from "../../Dashboard/RepeatSection/WordElement";
 // Types
-import { FlashCardSetType, FlashCardWordType } from "../../../../data.types";
+import { SituationLessonType, SituationWordType } from "../../../data.types";
 
 interface Props {
   words: any[];
@@ -22,16 +22,19 @@ const FinishSection: React.FC<Props> = ({ words }) => {
   const data = useAppSelector((state) => state?.data?.data);
   const user = useAppSelector((state) => state.user.user);
   // Local State
-  const [currentSet, setCurrentSet] = useState<FlashCardSetType | null>(null);
-  const [copyOfDataWords, setCopyOfDataWords] = useState<FlashCardWordType[]>(
+  const [currentSet, setCurrentSet] = useState<SituationLessonType | null>(
+    null
+  );
+  const [copyOfDataWords, setCopyOfDataWords] = useState<SituationWordType[]>(
     []
   );
 
   useEffect(() => {
     setCurrentSet(
       // @ts-ignore
-      Object.values(data.data.categories).find((cat) => cat.title === "Fiszki")
-        .sets[params.setID]
+      Object.values(data.data.categories).find(
+        (cat: any) => cat.title === "Sytuacje"
+      ).lessons[params.lessonID]
     );
   }, [data?.data?.categories]);
 
@@ -43,23 +46,23 @@ const FinishSection: React.FC<Props> = ({ words }) => {
 
   useEffect(() => {
     words.map((w) => {
-      const wordIndex = copyOfDataWords.findIndex(
-        (word) => word.concept === w.concept
-      );
+      const wordIndex = copyOfDataWords.findIndex((word) => word.id === w.id);
 
       if (w.wasCorrect) {
         copyOfDataWords[wordIndex] = {
+          id: w.id,
           status:
             w.status === "weak"
               ? "average"
               : w.status === "average"
               ? "well"
               : "weak",
-          concept: w.concept,
-          definition: w.definition,
+          word: w.word,
+          translation: w.translation,
         };
       } else {
         copyOfDataWords[wordIndex] = {
+          id: w.id,
           status:
             w.status === "weak"
               ? "weak"
@@ -68,27 +71,27 @@ const FinishSection: React.FC<Props> = ({ words }) => {
               : w.status === "well"
               ? "average"
               : "well",
-          concept: w.concept,
-          definition: w.definition,
+          word: w.word,
+          translation: w.translation,
         };
       }
     });
   }, [copyOfDataWords]);
 
   useEffect(() => {
-    if (params.setID && copyOfDataWords.length === words.length) {
+    if (params.lessonID && copyOfDataWords.length === words.length) {
       dispatch(
-        updateSetsWords(
+        updateSituationsWords(
           user.uid, // @ts-ignore
           Object.values(data.data.categories).find(
-            (cat: any) => cat.title === "Fiszki"
+            (cat: any) => cat.title === "Sytuacje"
           ).id,
-          params.setID,
+          params.lessonID,
           copyOfDataWords
         )
       );
     }
-  }, [copyOfDataWords, params?.setID]);
+  }, [copyOfDataWords, params?.lessonID]);
 
   return (
     <Box
@@ -109,7 +112,7 @@ const FinishSection: React.FC<Props> = ({ words }) => {
       </Typography>
       <Button
         onClick={() => {
-          navigate(`/dashboard/categories/flash-cards/set/${params.setID}`, {
+          navigate(`/dashboard/categories/situations/${params.lessonID}`, {
             replace: true,
           });
         }}
@@ -123,15 +126,13 @@ const FinishSection: React.FC<Props> = ({ words }) => {
 
       {words && (
         <>
-          <Typography sx={{ mt: 3, textAlign: "center" }}>
+          <Typography sx={{ mt: 3, mb: 2, textAlign: "center" }}>
             Słówka które udało się tobie utrwalić
           </Typography>
 
           {words &&
             words
-              .map((word) =>
-                copyOfDataWords.find((w) => w.concept === word.concept)
-              )
+              .map((word) => copyOfDataWords.find((w) => w.id === word.id))
               .map((word, i) => {
                 if (word) {
                   return (
@@ -139,8 +140,10 @@ const FinishSection: React.FC<Props> = ({ words }) => {
                       key={i}
                       oldStatus={words[i]}
                       status={word.status}
-                      word={word.concept}
-                      translation={word.definition}
+                      word={
+                        typeof word.word === "string" ? word.word : word.word[0]
+                      }
+                      translation={word.translation}
                     />
                   );
                 } else {
