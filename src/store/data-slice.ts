@@ -313,5 +313,25 @@ export const updateSituationLesson = (
   };
 };
 
+export const updateWorkWords = (
+  uid: string,
+  categoryID: string,
+  lessonID: string,
+  words: any
+) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    const sendRequest = async () => {
+      set(
+        ref(
+          database,
+          `users/${uid}/data/categories/${categoryID}/lessons/${lessonID}/words`
+        ),
+        words
+      );
+    };
+    await sendRequest();
+  };
+};
+
 export const dataActions = dataSlice.actions;
 export default dataSlice;

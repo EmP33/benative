@@ -12,6 +12,7 @@ import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 
 interface Props {
   title: string;
@@ -112,6 +113,14 @@ const Badge: React.FC<Props> = ({ title, description, finished }) => {
             />
           ) : title === "Giga Chad" ? (
             <EmojiEmotionsIcon
+              sx={{
+                fontSize: 36,
+                color: finished ? "#fff" : "#aaa",
+                opacity: finished ? 1 : 0.1,
+              }}
+            />
+          ) : title === "Pracowity" ? (
+            <HomeRepairServiceIcon
               sx={{
                 fontSize: 36,
                 color: finished ? "#fff" : "#aaa",

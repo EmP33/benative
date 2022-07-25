@@ -81,6 +81,12 @@ const ProfileStatistics = () => {
                   .find((cat: any) => cat.title === "Sytuacje")
                   .lessons.map((lesson: any) => lesson.words)
                   .flat()
+                  .filter((lesson: any) => lesson.status === "well").length +
+                // @ts-ignore
+                Object.values(data?.data?.categories)
+                  .find((cat: any) => cat.title === "Praca")
+                  .lessons.map((lesson: any) => lesson.words)
+                  .flat()
                   .filter((lesson: any) => lesson.status === "well").length
               : 0
             : 0}

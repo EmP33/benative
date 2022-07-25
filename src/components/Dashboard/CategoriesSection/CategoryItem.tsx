@@ -26,6 +26,8 @@ const CategoryItem: React.FC<Props> = ({ category }) => {
       navigate("/dashboard/categories/flash-cards");
     } else if (category.title === "Sytuacje") {
       navigate("/dashboard/categories/situations");
+    } else if (category.title === "Praca") {
+      navigate("/dashboard/categories/work");
     }
   };
 

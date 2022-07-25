@@ -32,6 +32,10 @@ import Situations from "../../Situations/Situations";
 import SituationPage from "../../Situations/SituationPage/SituationPage";
 import SituationFlashGame from "../../Situations/Flashgame";
 import SituationLearnGame from "../../Situations/Learngame";
+import Work from "../../Work/Work";
+import WorkPage from "../../Work/WorkPage/WorkPage";
+import WorkFlashGame from "../../Work/Flashgame";
+import WorkLearnGame from "../../Work/Learngame";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -84,6 +88,16 @@ const Welcome = () => {
         <Route
           path="/categories/situations/:lessonID/learn-game"
           element={<SituationLearnGame />}
+        />
+        <Route path="/categories/work" element={<Work />} />
+        <Route path="/categories/work/:lessonID" element={<WorkPage />} />
+        <Route
+          path="/categories/work/:lessonID/flash-game"
+          element={<WorkFlashGame />}
+        />
+        <Route
+          path="/categories/work/:lessonID/learn-game"
+          element={<WorkLearnGame />}
         />
         <Route path="/categories/10-hundred-words" element={<Words1000 />} />
         <Route

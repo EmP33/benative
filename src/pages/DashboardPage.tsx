@@ -34,6 +34,13 @@ const DashboardPage = () => {
   /* A React Hook that is called when the component is mounted. It is used to fetch data from the
   database. */
 
+  // console.log(
+  //   // @ts-ignore
+  //   Object.values(data.data.categories)
+  //     .find((cat: any) => cat.title === "Praca")
+  //     .lessons.filter((lesson: any) => lesson.status === 100).length
+  // );
+
   useEffect(() => {
     dispatch(getData());
 
@@ -93,6 +100,12 @@ const DashboardPage = () => {
             .find((cat: any) => cat.title === "Sytuacje")
             .lessons.map((lesson: any) => lesson.words)
             .flat()
+            .filter((lesson: any) => lesson.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Praca")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
             .filter((lesson: any) => lesson.status === "well").length >=
           10 &&
         !data.data.badges["b3"].finished
@@ -118,6 +131,12 @@ const DashboardPage = () => {
             .find((cat: any) => cat.title === "Sytuacje")
             .lessons.map((lesson: any) => lesson.words)
             .flat()
+            .filter((lesson: any) => lesson.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Praca")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
             .filter((lesson: any) => lesson.status === "well").length >=
           100 &&
         !data.data.badges["b4"].finished
@@ -141,6 +160,12 @@ const DashboardPage = () => {
           // @ts-ignore
           Object.values(data?.data?.categories)
             .find((cat: any) => cat.title === "Sytuacje")
+            .lessons.map((lesson: any) => lesson.words)
+            .flat()
+            .filter((lesson: any) => lesson.status === "well").length +
+          // @ts-ignore
+          Object.values(data?.data?.categories)
+            .find((cat: any) => cat.title === "Praca")
             .lessons.map((lesson: any) => lesson.words)
             .flat()
             .filter((lesson: any) => lesson.status === "well").length >=
@@ -194,9 +219,23 @@ const DashboardPage = () => {
         dispatch(uiActions.toggleBadgeModal("b10"));
         dispatch(updateBadge(uid, "b10"));
       }
+      ///////////////////////////
+      // Pracowity
+      if (
+        // @ts-ignore
+        Object.values(data.data.categories)
+          .find((cat: any) => cat.title === "Praca")
+          .lessons.every((lesson: any) => lesson.status === 100) &&
+        !data.data.badges["b11"].finished
+      ) {
+        dispatch(uiActions.toggleBadgeModal("b11"));
+        dispatch(updateBadge(uid, "b11"));
+      }
 
       ////////////////////////////////////////////////////////
       // STATISTICS
+      /////////////////////////
+      //Poznane słówka
       if (
         data?.data?.words
           .filter((word: WordType) => word.status === "well")
@@ -211,6 +250,12 @@ const DashboardPage = () => {
         // @ts-ignore
         Object.values(data?.data?.categories)
           .find((cat: any) => cat.title === "Sytuacje")
+          .lessons.map((lesson: any) => lesson.words)
+          .flat()
+          .filter((lesson: any) => lesson.status === "well").length +
+        // @ts-ignore
+        Object.values(data?.data?.categories)
+          .find((cat: any) => cat.title === "Praca")
           .lessons.map((lesson: any) => lesson.words)
           .flat()
           .filter((lesson: any) => lesson.status === "well").length
@@ -234,11 +279,18 @@ const DashboardPage = () => {
                 .find((cat: any) => cat.title === "Sytuacje")
                 .lessons.map((lesson: any) => lesson.words)
                 .flat()
+                .filter((lesson: any) => lesson.status === "well").length +
+              // @ts-ignore
+              Object.values(data?.data?.categories)
+                .find((cat: any) => cat.title === "Praca")
+                .lessons.map((lesson: any) => lesson.words)
+                .flat()
                 .filter((lesson: any) => lesson.status === "well").length
           )
         );
       }
-      ///////////////////////////
+      /////////////////////////
+      //Ukończone lekcje
       if (
         Object.values(data?.data?.learning)
           .map((cat: any) => Object.values(cat))
@@ -256,7 +308,8 @@ const DashboardPage = () => {
           )
         );
       }
-      //////////////////////
+      /////////////////////////
+      //Ukończone poziomy nauki
       if (
         Object.values(data?.data?.learning)
           .map((cat: any) =>
@@ -275,6 +328,44 @@ const DashboardPage = () => {
               )
               .map((cat: any) => cat.every((lesson: any) => lesson === true))
               .filter((value) => value === true).length
+          )
+        );
+      }
+      /////////////////////////
+      //Ukończone lekcje w trybie Sytuacje
+      if (
+        // @ts-ignore
+        Object.values(data.data.categories)
+          .find((cat: any) => cat.title === "Sytuacje")
+          .lessons.filter((lesson: any) => lesson.status === 100)
+      ) {
+        dispatch(
+          updateStates(
+            uid,
+            "s6",
+            // @ts-ignore
+            Object.values(data.data.categories)
+              .find((cat: any) => cat.title === "Sytuacje")
+              .lessons.filter((lesson: any) => lesson.status === 100).length
+          )
+        );
+      }
+      /////////////////////////
+      //Ukończone lekcje w trybie Praca
+      if (
+        // @ts-ignore
+        Object.values(data.data.categories)
+          .find((cat: any) => cat.title === "Praca")
+          .lessons.filter((lesson: any) => lesson.status === 100)
+      ) {
+        dispatch(
+          updateStates(
+            uid,
+            "s7",
+            // @ts-ignore
+            Object.values(data.data.categories)
+              .find((cat: any) => cat.title === "Praca")
+              .lessons.filter((lesson: any) => lesson.status === 100).length
           )
         );
       }
