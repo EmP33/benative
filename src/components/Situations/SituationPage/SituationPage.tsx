@@ -30,7 +30,14 @@ const SituationPage = () => {
   }, [data?.data?.categories, params.lessonID]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: "100%",
+        maxHeight: "93vh",
+        overflow: "auto",
+        "&::-webkit-scrollbar": { display: "none" },
+      }}
+    >
       <SectionHeader />
       <Typography
         sx={{ ml: 2, mr: 2, mb: 1, textAlign: "center" }}

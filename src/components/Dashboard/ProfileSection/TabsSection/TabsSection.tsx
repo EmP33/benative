@@ -4,6 +4,7 @@ import { useAppSelector } from "../../../../lib/hooks";
 import { Tabs, Tab, Typography, Box } from "@mui/material";
 import Badge from "./Badge";
 import Statistic from "./Statistic";
+import Detail from "./Detail";
 // Types
 import { BadgeType } from "../../../../data.types";
 
@@ -41,8 +42,13 @@ function a11yProps(index: number) {
 }
 
 export default function TabSection() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const data = useAppSelector((state) => state.data.data);
+  const user = useAppSelector((state) => state.user.user);
+
+  const creationDate = new Date(Number(user.metadata.createdAt));
+  const lastLoginDate = new Date(Number(user.metadata.lastLoginAt));
+  console.log(user);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -68,9 +74,41 @@ export default function TabSection() {
           <Tab label="Odznaki" {...a11yProps(2)} sx={{ color: "#4f525d" }} />
         </Tabs>
       </Box>
-      {value === 0 && <Box sx={{ mt: 2 }}>Szczegóły</Box>}
+      {value === 0 && (
+        <Box sx={{ mt: 3, display: "grid", rowGap: 2 }}>
+          <Detail label="Email" value={user.email} />
+          <Detail label="Nazwa" value={user.displayName} />
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="body2">Data utworzenia konta:</Typography>
+            <Typography variant="body2">
+              {creationDate.getFullYear()}-
+              {creationDate.getMonth() < 10
+                ? "0" + creationDate.getMonth()
+                : creationDate.getMonth()}
+              -
+              {creationDate.getDate() < 10
+                ? "0" + creationDate.getDate()
+                : creationDate.getDate()}
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="body2">Ostatnie logowanie:</Typography>
+            <Typography variant="body2">
+              {lastLoginDate.getFullYear()}-
+              {lastLoginDate.getMonth() < 10
+                ? "0" + lastLoginDate.getMonth()
+                : lastLoginDate.getMonth()}
+              -
+              {lastLoginDate.getDate() < 10
+                ? "0" + lastLoginDate.getDate()
+                : lastLoginDate.getDate()}
+            </Typography>
+          </Box>
+          <Detail label="Zweryfikowany email" value={user.emailVerified} />
+        </Box>
+      )}
       {value === 1 && (
-        <Box sx={{ mt: 2, mb: 5 }}>
+        <Box sx={{ mt: 2, mb: 10 }}>
           <Box sx={{ mt: 2 }}>
             <Box
               sx={{
@@ -80,13 +118,14 @@ export default function TabSection() {
                 mt: 4,
               }}
             >
-              {Object.values(data?.data?.statistics).map((stat: any) => (
-                <Statistic
-                  title={stat.title}
-                  value={stat.value}
-                  key={stat.id}
-                />
-              ))}
+              {data?.data?.statistics &&
+                Object.values(data?.data?.statistics).map((stat: any) => (
+                  <Statistic
+                    title={stat.title}
+                    value={stat.value}
+                    key={stat.id}
+                  />
+                ))}
             </Box>
           </Box>
         </Box>
@@ -103,16 +142,19 @@ export default function TabSection() {
               rowGap: 2,
             }}
           >
-            {Object.values(data?.data?.badges)
-              .sort((a: any, b: any) => Number(b.finished) - Number(a.finished))
-              .map((badge: any) => (
-                <Badge
-                  title={badge.title}
-                  description={badge.description}
-                  finished={badge.finished}
-                  key={badge.id}
-                />
-              ))}
+            {data?.data?.badges &&
+              Object.values(data?.data?.badges)
+                .sort(
+                  (a: any, b: any) => Number(b.finished) - Number(a.finished)
+                )
+                .map((badge: any) => (
+                  <Badge
+                    title={badge.title}
+                    description={badge.description}
+                    finished={badge.finished}
+                    key={badge.id}
+                  />
+                ))}
           </Box>
         </Box>
       )}
