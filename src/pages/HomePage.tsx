@@ -77,7 +77,7 @@ const HomePage = () => {
         type={phone ? "ltr" : "rtl"}
         title="Szeroki wybór trybów nauki"
         subtitle="Wybierz tryb jaki tylko ci odpowiada"
-        description="BeNative oferuje ci dziesiątki trybów nauki: możesz słuchać opowiadań, czytać wiersze, uczyć się słówek i wiele wiele więcej."
+        description="BeNative oferuje ci mnóstwo trybów nauki: możesz uczyć się najbardziej przydatnych słówek, tworzyć własne zestawy, uczyć się zwrotów i wiele wiele więcej."
       />
       <BenefitSection
         type="ltr"
