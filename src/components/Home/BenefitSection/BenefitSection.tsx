@@ -1,5 +1,11 @@
 import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
+import functions from "../../../assets/functions.png";
+import interfaces from "../../../assets/interfaces.png";
+import statistics from "../../../assets/statistics.png";
+import words from "../../../assets/words.png";
+import stats from "../../../assets/stats.png";
+import translate from "../../../assets/translate.png";
 
 interface Props {
   type: "rtl" | "ltr";
@@ -31,7 +37,7 @@ const BenefitSection: React.FC<Props> = ({
             display: "grid",
             rowGap: 2,
             alignContent: "center",
-            mb: 5,
+            mb: { xs: 3, sm: 0 },
           }}
         >
           <Typography
@@ -57,17 +63,94 @@ const BenefitSection: React.FC<Props> = ({
           item
           sx={{
             display: "flex",
+            mb: { xs: 3, sm: 0 },
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              width: 300,
-              height: 400,
-              background: "var(--color-base-light)",
-            }}
-          ></Box>
+          {title === "Miły przyjemny interface" ? (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={translate}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={interfaces}
+                alt="image"
+                style={{
+                  width: "60%",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          ) : title === "Szeroki wybór trybów nauki" ? (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={words}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={functions}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(5deg)",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={stats}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={interfaces}
+                alt="image"
+                style={{
+                  width: "60%",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          )}
         </Grid>
       )}
       {type === "ltr" ? (
@@ -77,17 +160,93 @@ const BenefitSection: React.FC<Props> = ({
           item
           sx={{
             display: "flex",
+            mb: { xs: 3, sm: 0 },
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              width: 300,
-              height: 400,
-              background: "var(--color-base-light)",
-            }}
-          ></Box>
+          {title === "Miły przyjemny interface" ? (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={translate}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={interfaces}
+                alt="image"
+                style={{
+                  width: "60%",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          ) : title === "Szeroki wybór trybów nauki" ? (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={words}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={functions}
+                alt="image"
+                style={{
+                  width: "60%",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                height: 400,
+                display: "flex",
+                mb: { xs: 3, sm: 0 },
+              }}
+            >
+              <img
+                src={stats}
+                alt="image"
+                style={{
+                  width: "60%",
+                  transform: "rotate(-5deg)",
+                  zIndex: "-1",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+              <img
+                src={statistics}
+                alt="image"
+                style={{
+                  width: "60%",
+                  boxShadow: " 0px 8px 10px -5px rgba(0,0,0,1)",
+                }}
+              />
+            </Box>
+          )}
         </Grid>
       ) : (
         <Grid

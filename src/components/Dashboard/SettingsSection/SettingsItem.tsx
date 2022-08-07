@@ -32,12 +32,33 @@ const SettingsItem: React.FC<Props> = ({ title, icon, link }) => {
   const dispatch = useAppDispatch();
   return (
     <Link
-      to={link}
+      to={link === "/" ? "#" : link}
       onClick={() => (title === "Wyloguj się" ? dispatch(logoutUser()) : "")}
-      style={{ color: "var(--color-white)", textDecoration: "none" }}
+      style={{
+        color:
+          link === "/" && title !== "Wyloguj się"
+            ? "#aaa"
+            : "var(--color-white)",
+        textDecoration: "none",
+      }}
     >
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton
+          sx={{
+            background:
+              link === "/" && title !== "Wyloguj się"
+                ? "var(--color-base-dark)"
+                : "inherit",
+            "&:active,&:hover": {
+              background:
+                link === "/" && title !== "Wyloguj się"
+                  ? "var(--color-base-dark)"
+                  : "var(--color-base-light)",
+              cursor:
+                link === "/" && title !== "Wyloguj się" ? "default" : "pointer",
+            },
+          }}
+        >
           <ListItemIcon>
             {icon === "settingsIcon" ? (
               <SettingsIcon sx={{ color: "var(--color-primary)" }} />
