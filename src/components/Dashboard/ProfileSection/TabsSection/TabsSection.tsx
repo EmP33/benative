@@ -48,7 +48,6 @@ export default function TabSection() {
 
   const creationDate = new Date(Number(user.metadata.createdAt));
   const lastLoginDate = new Date(Number(user.metadata.lastLoginAt));
-  console.log(user);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

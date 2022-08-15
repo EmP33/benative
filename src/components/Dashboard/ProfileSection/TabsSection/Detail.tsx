@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Detail: React.FC<Props> = ({ label, value }) => {
-  console.log(typeof value === "boolean");
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Typography variant="body2">{label}:</Typography>

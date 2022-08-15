@@ -18,6 +18,9 @@ const RepeatWords = () => {
   const location = useLocation();
   // Redux Store
   const words = useAppSelector((state) => state.data?.data?.data?.words);
+  const words10Hundred = useAppSelector(
+    (state) => state.data?.data?.data.categories
+  );
   const typeWords = useAppSelector((state) => state.data?.words);
   const isSound = useAppSelector((state) => state.ui.isSound);
   // Local State
@@ -39,15 +42,32 @@ const RepeatWords = () => {
     // 10 - count of words in repetition
     /* Checking if the words are available and if the typeWords are available. */
     if (words) {
-      if (typeWords.length) {
-        setUsedWords(
-          typeWords
-            .map((value: WordType) => ({ value, sort: Math.random() }))
-            .sort((a: any, b: any) => a.sort - b.sort)
-            // @ts-ignore
-            .map(({ value }) => value)
-            .slice(0, 10)
-        );
+      if (location.pathname.includes("10-hundred-words")) {
+        if (typeWords.length) {
+          setUsedWords(
+            typeWords
+              .map((value: WordType) => ({ value, sort: Math.random() }))
+              .sort((a: any, b: any) => a.sort - b.sort)
+              // @ts-ignore
+              .map(({ value }) => value)
+              .slice(0, 10)
+          );
+        } else {
+          setUsedWords(
+            Object.values(
+              // @ts-ignore
+              Object.values(words10Hundred).find(
+                (category: any) => category.title === "1000 słów"
+              ).words
+            )
+              // @ts-ignore
+              .map((value: WordType) => ({ value, sort: Math.random() }))
+              .sort((a: any, b: any) => a.sort - b.sort)
+              // @ts-ignore
+              .map(({ value }) => value)
+              .slice(0, 10)
+          );
+        }
       } else {
         setUsedWords(
           words

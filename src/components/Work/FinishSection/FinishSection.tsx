@@ -81,7 +81,6 @@ const FinishSection: React.FC<Props> = ({ words }) => {
   }, [copyOfDataWords]);
 
   useEffect(() => {
-    console.log(copyOfDataWords);
     if (params.lessonID && copyOfDataWords.length === words.length) {
       dispatch(
         updateWorkWords(

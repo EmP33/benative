@@ -5,12 +5,10 @@ import { useAppSelector, useAppDispatch } from "../../lib/hooks";
 import { dataActions } from "../../store/data-slice";
 
 // Components
-import { Box, Button, Skeleton, Typography } from "@mui/material";
+import { Box, Button, Skeleton } from "@mui/material";
 import WordsStatus from "./WordsStatus";
 import WordElement from "./WordElement";
 import SectionHeader from "../UI/SectionHeader";
-// Types
-import { WordType } from "../../data.types";
 
 const Words1000 = () => {
   const dispatch = useAppDispatch();
