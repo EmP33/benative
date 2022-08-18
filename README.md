@@ -1,46 +1,46 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Logo](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805002/github/benative_gbgnby.png)
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+BeNative is a teaching website which helps you improve your english language.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Lessons Learned
 
-### `npm test`
+This was my first major project with TypeScript, and I also learned more about developing react apps, testing, and just creating big projects.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Color Reference
 
-### `npm run build`
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| --color-primary | ![#5b52d7](https://via.placeholder.com/10/5b52d7?text=+) #5b52d7 |
+| --color-secondary | ![#26272a](https://via.placeholder.com/10/26272a?text=+) #26272a |
+| --color-tertiary | ![#27ae60](https://via.placeholder.com/10/27ae60?text=+) #27ae60 |
+| --color-base | ![#1C1C27](https://via.placeholder.com/10/00b48a?text=+) #1C1C27 |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Client:** React, Redux, Typescript, MUI, Styled-Components, Framer-motion, Swiper
 
-### `npm run eject`
+**Server:** Firebase
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Screenshots
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805650/github/1_evkbms.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/2_wxfv5i.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/3_u17sko.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/4_vfxfe1.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/5_xymt2d.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/6_xw6kew.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805649/github/7_wkiu9y.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805650/github/8_gdvumc.png)
+![App Screenshot](https://res.cloudinary.com/dtbemnmn4/image/upload/v1660805650/github/9_pwqeqq.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Authors
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[@EmP33](https://github.com/EmP33)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
