@@ -133,9 +133,27 @@ const RepeatSection = () => {
             Powtórz {repeatType ? repeatType : "Wszystkie"} słówka
           </Button>
         ) : (
-          <Typography variant="h6" sx={{ textAlign: "center", mt: 5 }}>
-            Nie masz żadnych słówek
-          </Typography>
+          <>
+            <Typography variant="h6" sx={{ textAlign: "center", mt: 5 }}>
+              Nie masz żadnych słówek
+            </Typography>
+            <Typography
+              variant="body1"
+              onClick={() => navigate("/dashboard")}
+              sx={{
+                textAlign: "center",
+                color: "var(--color-primary-light)",
+                mt: 1,
+                cursor: "pointer",
+
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Ukończ lekcję w trybie Nauka, aby pojawiły się tu jakieś słówka
+            </Typography>
+          </>
         )}
 
         <Box
