@@ -88,6 +88,7 @@ const App = () => {
             path="/dashboard/*"
             element={!user ? <Navigate to="/" /> : <DashboardPage />}
           />
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
     </ThemeProvider>
